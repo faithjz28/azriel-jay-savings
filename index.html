@@ -19,13 +19,10 @@
 
 <style>
 
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 :root{
   --accent:#17191e;
-  --accent-soft:#eeeeef;
   --bg:#f5f6f8;
   --card:#ffffff;
   --text:#17191e;
@@ -39,12 +36,13 @@ body{
   color:var(--text);
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   -webkit-tap-highlight-color:transparent;
+  transition:background .2s,color .2s;
 }
 
 main{
   max-width:760px;
   margin:auto;
-  padding:28px 18px 120px;
+  padding:28px 18px 125px;
 }
 
 h1{
@@ -65,10 +63,10 @@ h1{
   border-radius:25px;
   padding:22px;
   margin:14px 0;
+  transition:background .2s;
 }
 
-.label,
-.meta{
+.label,.meta{
   color:var(--muted);
 }
 
@@ -90,13 +88,8 @@ h1{
   margin-top:9px;
 }
 
-.green{
-  color:#32825e;
-}
-
-.red{
-  color:#a6534e;
-}
+.green{color:#32825e}
+.red{color:#a6534e}
 
 input,
 select,
@@ -107,7 +100,7 @@ button{
   padding:14px;
   border:1px solid #d9dce1;
   border-radius:13px;
-  background:#fff;
+  background:var(--card);
   color:var(--text);
   margin:6px 0;
 }
@@ -117,9 +110,7 @@ textarea{
   resize:vertical;
 }
 
-button{
-  cursor:pointer;
-}
+button{cursor:pointer}
 
 button.primary{
   background:var(--accent);
@@ -133,24 +124,6 @@ button:disabled{
   cursor:not-allowed;
 }
 
-.amount-wrap{
-  position:relative;
-}
-
-.amount-wrap .dollar{
-  position:absolute;
-  left:15px;
-  top:50%;
-  transform:translateY(-50%);
-  font-weight:700;
-  color:var(--muted);
-  pointer-events:none;
-}
-
-.amount-wrap input{
-  padding-left:31px;
-}
-
 .field-label{
   display:block;
   color:var(--muted);
@@ -159,11 +132,26 @@ button:disabled{
   margin:13px 3px 2px;
 }
 
+.amount-wrap{
+  position:relative;
+}
+
+.amount-symbol{
+  position:absolute;
+  left:15px;
+  top:50%;
+  transform:translateY(-50%);
+  color:var(--muted);
+  font-weight:700;
+  pointer-events:none;
+}
+
+.amount-wrap input{
+  padding-left:34px;
+}
+
 .tx{
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  padding:15px 0;
+  padding:16px 0;
   border-bottom:1px solid var(--border);
 }
 
@@ -171,8 +159,13 @@ button:disabled{
   border-bottom:0;
 }
 
-.name,
-.amt{
+.tx-main{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.name,.amt{
   font-size:18px;
   font-weight:700;
 }
@@ -181,45 +174,82 @@ button:disabled{
   white-space:nowrap;
 }
 
+.tx-actions{
+  display:flex;
+  gap:8px;
+  margin-top:10px;
+}
+
+.tx-actions button{
+  padding:8px 11px;
+  margin:0;
+  width:auto;
+  font-size:13px;
+}
+
+.edit-btn{
+  color:var(--accent);
+}
+
+.delete-btn{
+  color:#a6534e;
+}
+
 .empty{
   text-align:center;
   color:var(--muted);
   padding:20px;
 }
 
-.view{
-  display:none;
-}
+.view{display:none}
+.view.active{display:block}
 
-.view.active{
-  display:block;
-}
+#app{display:none}
 
-#app{
-  display:none;
-}
-
-#login,
-#resetPage{
+#login,#resetPage{
   max-width:480px;
   margin:55px auto;
 }
 
-#resetPage{
-  display:none;
-}
+#resetPage{display:none}
 
 .msg{
   margin-top:10px;
   line-height:1.4;
 }
 
-.error{
-  color:#a6534e;
+.error{color:#a6534e}
+.success{color:#32825e}
+
+.filter-row{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:7px;
+  margin:8px 0 15px;
 }
 
-.success{
-  color:#32825e;
+.filter-btn{
+  padding:10px 5px;
+  font-size:13px;
+}
+
+.filter-btn.active-filter{
+  background:var(--accent);
+  color:#fff;
+  border-color:var(--accent);
+}
+
+.edit-banner{
+  display:none;
+  padding:12px;
+  border-radius:12px;
+  margin-bottom:10px;
+  background:var(--bg);
+  font-weight:700;
+}
+
+.cancel-edit{
+  display:none;
 }
 
 /* SETTINGS */
@@ -234,39 +264,50 @@ button:disabled{
   line-height:1.45;
 }
 
-.theme-grid{
+.option-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:10px;
-  margin-top:12px;
+  gap:9px;
+  margin-top:10px;
 }
 
-.theme-btn{
-  padding:12px 8px;
-  border:2px solid transparent;
-  background:#f5f6f8;
-  font-size:14px;
+.choice{
+  padding:10px 6px;
+  font-size:13px;
   font-weight:650;
 }
 
-.theme-btn.selected{
-  border-color:var(--accent);
+.choice.selected{
+  border:2px solid var(--accent);
 }
 
-.color-dot{
+.dot{
+  display:block;
   width:24px;
   height:24px;
   border-radius:50%;
-  display:block;
   margin:0 auto 7px;
+  border:1px solid #bbb;
 }
 
-.dot-black{background:#17191e}
-.dot-pink{background:#d85c8b}
-.dot-purple{background:#7957c8}
-.dot-blue{background:#3977c5}
-.dot-green{background:#388267}
-.dot-orange{background:#c76d31}
+.black{background:#17191e}
+.pink{background:#d85c8b}
+.purple{background:#7957c8}
+.blue{background:#3977c5}
+.greenDot{background:#388267}
+.orange{background:#c76d31}
+
+.bg-white{background:#ffffff}
+.bg-gray{background:#f5f6f8}
+.bg-pink{background:#fff1f5}
+.bg-lavender{background:#f4f0ff}
+.bg-blue{background:#eef7ff}
+.bg-sage{background:#eff7f1}
+
+.card-white{background:#ffffff}
+.card-pink{background:#fff7fa}
+.card-gray{background:#f0f1f3}
+.card-dark{background:#25272c}
 
 /* NAV */
 
@@ -275,29 +316,27 @@ nav{
   bottom:0;
   left:0;
   right:0;
-  background:rgba(255,255,255,.96);
-  border-top:1px solid #ddd;
+  background:var(--card);
+  border-top:1px solid var(--border);
   display:none;
   grid-template-columns:repeat(5,1fr);
   padding-bottom:env(safe-area-inset-bottom);
-  z-index:3;
-  backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
+  z-index:10;
 }
 
 nav button{
   border:0;
   color:var(--muted);
   margin:0;
-  padding:13px 3px;
   border-radius:0;
+  padding:12px 2px;
   background:transparent;
-  font-size:12px;
+  font-size:11px;
 }
 
 nav button.active{
-  font-weight:750;
   color:var(--accent);
+  font-weight:750;
 }
 
 .nav-icon{
@@ -306,8 +345,6 @@ nav button.active{
   margin-bottom:3px;
 }
 
-/* SMALL PHONE */
-
 @media(max-width:430px){
 
   main{
@@ -315,82 +352,51 @@ nav button.active{
     padding-right:14px;
   }
 
-  h1{
-    font-size:31px;
-  }
+  h1{font-size:31px}
+  .big{font-size:39px}
 
-  .big{
-    font-size:39px;
-  }
+  .card{padding:19px}
 
-  .grid{
-    gap:9px;
-  }
+  .grid{gap:9px}
 
-  .card{
-    padding:19px;
-  }
-
-  .theme-grid{
+  .option-grid{
     grid-template-columns:repeat(2,1fr);
   }
-
 }
 
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 </head>
 
 <body>
 
 <main>
 
-<!-- SIGN IN -->
+<!-- LOGIN -->
 
 <section id="login">
 
-  <h1>Savings Tracker</h1>
+  <h1 class="app-title">Savings Tracker</h1>
   <div class="profile-name">Your personal savings</div>
 
   <div class="card">
 
     <h2>Private sign in</h2>
 
-    <input
-      id="email"
-      type="email"
-      autocomplete="username"
-      placeholder="Email"
-    >
+    <input id="email" type="email" autocomplete="username" placeholder="Email">
 
-    <input
-      id="password"
-      type="password"
-      autocomplete="current-password"
-      placeholder="Password"
-    >
+    <input id="password" type="password" autocomplete="current-password" placeholder="Password">
 
-    <button
-      id="signin"
-      class="primary"
-      type="button"
-    >
+    <button id="signin" class="primary" type="button">
       Sign in
     </button>
 
-    <button
-      id="forgot"
-      type="button"
-    >
+    <button id="forgot" type="button">
       Forgot password?
     </button>
 
-    <div
-      id="loginMsg"
-      class="msg error"
-    ></div>
+    <div id="loginMsg" class="msg error"></div>
 
   </div>
 
@@ -401,7 +407,7 @@ nav button.active{
 
 <section id="resetPage">
 
-  <h1>Savings Tracker</h1>
+  <h1 class="app-title">Savings Tracker</h1>
 
   <div class="card">
 
@@ -411,32 +417,15 @@ nav button.active{
       Enter and confirm your new password.
     </p>
 
-    <input
-      id="newPassword"
-      type="password"
-      autocomplete="new-password"
-      placeholder="New password"
-    >
+    <input id="newPassword" type="password" autocomplete="new-password" placeholder="New password">
 
-    <input
-      id="confirmPassword"
-      type="password"
-      autocomplete="new-password"
-      placeholder="Confirm new password"
-    >
+    <input id="confirmPassword" type="password" autocomplete="new-password" placeholder="Confirm new password">
 
-    <button
-      id="savePassword"
-      class="primary"
-      type="button"
-    >
+    <button id="savePassword" class="primary" type="button">
       Save new password
     </button>
 
-    <div
-      id="resetMsg"
-      class="msg error"
-    ></div>
+    <div id="resetMsg" class="msg error"></div>
 
   </div>
 
@@ -450,32 +439,19 @@ nav button.active{
 
 <!-- HOME -->
 
-<section
-  id="home"
-  class="view active"
->
+<section id="home" class="view active">
 
-  <h1>Savings Tracker</h1>
+  <h1 class="app-title">Savings Tracker</h1>
 
-  <div
-    id="homeProfile"
-    class="profile-name"
-  >
+  <div id="homeProfile" class="profile-name">
     My Savings
   </div>
 
   <div class="card">
 
-    <div class="label">
-      Current savings
-    </div>
+    <div class="label">Current savings</div>
 
-    <div
-      class="big"
-      id="bal"
-    >
-      $0.00
-    </div>
+    <div class="big" id="bal">$0.00</div>
 
     <div class="label">
       Net change:
@@ -484,59 +460,27 @@ nav button.active{
 
   </div>
 
-
   <div class="grid">
 
     <div class="card">
-
-      <div class="label">
-        Money in
-      </div>
-
-      <div
-        id="mi"
-        class="value green"
-      >
-        $0.00
-      </div>
-
+      <div class="label">Money in</div>
+      <div id="mi" class="value green">$0.00</div>
     </div>
 
-
     <div class="card">
-
-      <div class="label">
-        Money out
-      </div>
-
-      <div
-        id="mo"
-        class="value red"
-      >
-        $0.00
-      </div>
-
+      <div class="label">Money out</div>
+      <div id="mo" class="value red">$0.00</div>
     </div>
 
   </div>
-
 
   <h2>Recent transactions</h2>
 
-  <div
-    class="card"
-    id="recent"
-  >
-    <div class="empty">
-      No transactions yet.
-    </div>
+  <div class="card" id="recent">
+    <div class="empty">No transactions yet.</div>
   </div>
 
-
-  <button
-    id="logout"
-    type="button"
-  >
+  <button id="logout" type="button">
     Sign out
   </button>
 
@@ -545,34 +489,29 @@ nav button.active{
 
 <!-- TRANSACTIONS -->
 
-<section
-  id="transactions"
-  class="view"
->
+<section id="transactions" class="view">
 
   <h1>Transactions</h1>
 
   <div class="card">
 
+    <div id="editBanner" class="edit-banner">
+      ✏️ Editing transaction
+    </div>
+
     <form id="form">
 
-      <label class="field-label">
-        Type
-      </label>
+      <label class="field-label">Type</label>
 
       <select id="typ">
         <option>Money In</option>
         <option>Money Out</option>
       </select>
 
-
-      <label class="field-label">
-        Amount
-      </label>
+      <label class="field-label">Amount</label>
 
       <div class="amount-wrap">
-
-        <span class="dollar">$</span>
+        <span id="amountSymbol" class="amount-symbol">$</span>
 
         <input
           id="amt"
@@ -583,16 +522,11 @@ nav button.active{
           placeholder="0.00"
           required
         >
-
       </div>
 
-
-      <label class="field-label">
-        Description
-      </label>
+      <label class="field-label">Description</label>
 
       <select id="desSelect"></select>
-
 
       <input
         id="desOther"
@@ -600,13 +534,9 @@ nav button.active{
         style="display:none"
       >
 
-
-      <label class="field-label">
-        Category
-      </label>
+      <label class="field-label">Category</label>
 
       <select id="catSelect"></select>
-
 
       <input
         id="catOther"
@@ -614,33 +544,20 @@ nav button.active{
         style="display:none"
       >
 
+      <label class="field-label">Date</label>
 
-      <label class="field-label">
-        Date
-      </label>
+      <input id="dat" type="date" required>
 
-      <input
-        id="dat"
-        type="date"
-        required
-      >
+      <label class="field-label">Notes</label>
 
+      <textarea id="notes" placeholder="Notes (optional)"></textarea>
 
-      <label class="field-label">
-        Notes
-      </label>
-
-      <textarea
-        id="notes"
-        placeholder="Notes (optional)"
-      ></textarea>
-
-
-      <button
-        class="primary"
-        type="submit"
-      >
+      <button id="submitTransaction" class="primary" type="submit">
         Add Transaction
+      </button>
+
+      <button id="cancelEdit" class="cancel-edit" type="button">
+        Cancel Edit
       </button>
 
     </form>
@@ -648,13 +565,32 @@ nav button.active{
   </div>
 
 
-  <div
-    class="card"
-    id="all"
-  >
+  <div class="card">
 
-    <div class="empty">
-      No transactions yet.
+    <input
+      id="searchTx"
+      type="search"
+      placeholder="🔎 Search transactions"
+    >
+
+    <div class="filter-row">
+
+      <button class="filter-btn active-filter" data-filter="All" type="button">
+        All
+      </button>
+
+      <button class="filter-btn" data-filter="Money In" type="button">
+        Money In
+      </button>
+
+      <button class="filter-btn" data-filter="Money Out" type="button">
+        Money Out
+      </button>
+
+    </div>
+
+    <div id="all">
+      <div class="empty">No transactions yet.</div>
     </div>
 
   </div>
@@ -664,19 +600,13 @@ nav button.active{
 
 <!-- MONTHLY -->
 
-<section
-  id="monthly"
-  class="view"
->
+<section id="monthly" class="view">
 
   <h1>Monthly</h1>
 
   <div class="card">
 
-    <input
-      id="mp"
-      type="month"
-    >
+    <input id="mp" type="month">
 
     <div id="ms"></div>
 
@@ -687,21 +617,13 @@ nav button.active{
 
 <!-- YEARLY -->
 
-<section
-  id="yearly"
-  class="view"
->
+<section id="yearly" class="view">
 
   <h1>Yearly</h1>
 
   <div class="card">
 
-    <input
-      id="yp"
-      type="number"
-      min="2000"
-      max="2100"
-    >
+    <input id="yp" type="number" min="2000" max="2100">
 
     <div id="ys"></div>
 
@@ -712,115 +634,64 @@ nav button.active{
 
 <!-- SETTINGS -->
 
-<section
-  id="settings"
-  class="view"
->
+<section id="settings" class="view">
 
   <h1>Settings</h1>
 
+
   <div class="card">
 
-    <h2 class="setting-title">
-      Profile name
-    </h2>
+    <h2 class="setting-title">Names</h2>
 
-    <p class="setting-description">
-      This appears underneath Savings Tracker.
-    </p>
+    <label class="field-label">App title</label>
 
-    <input
-      id="profileInput"
-      maxlength="50"
-      placeholder="Example: Faith & JJ Savings"
-    >
+    <input id="appTitleInput" maxlength="40" placeholder="Savings Tracker">
 
-    <button
-      id="saveProfile"
-      class="primary"
-      type="button"
-    >
-      Save profile name
+    <label class="field-label">Profile name</label>
+
+    <input id="profileInput" maxlength="50" placeholder="Faith & JJ Savings">
+
+    <button id="saveNames" class="primary" type="button">
+      Save Names
     </button>
 
-    <div
-      id="profileMsg"
-      class="msg success"
-    ></div>
+    <div id="nameMsg" class="msg success"></div>
 
   </div>
 
 
   <div class="card">
 
-    <h2 class="setting-title">
-      App color
-    </h2>
+    <h2 class="setting-title">Accent color</h2>
 
     <p class="setting-description">
-      Choose the color you want for your Savings Tracker.
+      Changes buttons and selected items.
     </p>
 
+    <div class="option-grid" id="accentChoices">
 
-    <div class="theme-grid">
-
-      <button
-        class="theme-btn"
-        type="button"
-        data-theme="black"
-      >
-        <span class="color-dot dot-black"></span>
-        Black
+      <button class="choice" data-accent="black" type="button">
+        <span class="dot black"></span>Black
       </button>
 
-
-      <button
-        class="theme-btn"
-        type="button"
-        data-theme="pink"
-      >
-        <span class="color-dot dot-pink"></span>
-        Pink
+      <button class="choice" data-accent="pink" type="button">
+        <span class="dot pink"></span>Pink
       </button>
 
-
-      <button
-        class="theme-btn"
-        type="button"
-        data-theme="purple"
-      >
-        <span class="color-dot dot-purple"></span>
-        Purple
+      <button class="choice" data-accent="purple" type="button">
+        <span class="dot purple"></span>Purple
       </button>
 
-
-      <button
-        class="theme-btn"
-        type="button"
-        data-theme="blue"
-      >
-        <span class="color-dot dot-blue"></span>
-        Blue
+      <button class="choice" data-accent="blue" type="button">
+        <span class="dot blue"></span>Blue
       </button>
 
-
-      <button
-        class="theme-btn"
-        type="button"
-        data-theme="green"
-      >
-        <span class="color-dot dot-green"></span>
-        Green
+      <button class="choice" data-accent="green" type="button">
+        <span class="dot greenDot"></span>Green
       </button>
 
-
-      <button
-        class="theme-btn"
-        type="button"
-        data-theme="orange"
-      >
-        <span class="color-dot dot-orange"></span>
-        Orange
+      <button class="choice" data-accent="orange" type="button">
+        <span class="dot orange"></span>Orange
       </button>
 
     </div>
@@ -830,19 +701,107 @@ nav button.active{
 
   <div class="card">
 
-    <h2 class="setting-title">
-      Account
-    </h2>
+    <h2 class="setting-title">Background</h2>
 
-    <p
-      id="accountEmail"
-      class="setting-description"
-    ></p>
+    <div class="option-grid" id="backgroundChoices">
 
-    <button
-      id="settingsLogout"
-      type="button"
-    >
+      <button class="choice" data-bg="white" type="button">
+        <span class="dot bg-white"></span>White
+      </button>
+
+      <button class="choice" data-bg="gray" type="button">
+        <span class="dot bg-gray"></span>Gray
+      </button>
+
+      <button class="choice" data-bg="pink" type="button">
+        <span class="dot bg-pink"></span>Soft Pink
+      </button>
+
+      <button class="choice" data-bg="lavender" type="button">
+        <span class="dot bg-lavender"></span>Lavender
+      </button>
+
+      <button class="choice" data-bg="blue" type="button">
+        <span class="dot bg-blue"></span>Soft Blue
+      </button>
+
+      <button class="choice" data-bg="sage" type="button">
+        <span class="dot bg-sage"></span>Sage
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2 class="setting-title">Card color</h2>
+
+    <div class="option-grid" id="cardChoices">
+
+      <button class="choice" data-card="white" type="button">
+        <span class="dot card-white"></span>White
+      </button>
+
+      <button class="choice" data-card="pink" type="button">
+        <span class="dot card-pink"></span>Soft Pink
+      </button>
+
+      <button class="choice" data-card="gray" type="button">
+        <span class="dot card-gray"></span>Gray
+      </button>
+
+      <button class="choice" data-card="dark" type="button">
+        <span class="dot card-dark"></span>Dark
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2 class="setting-title">Mode</h2>
+
+    <div class="grid">
+
+      <button id="lightMode" type="button">
+        ☀️ Light
+      </button>
+
+      <button id="darkMode" type="button">
+        🌙 Dark
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2 class="setting-title">Currency</h2>
+
+    <select id="currencySelect">
+
+      <option value="CAD">🇨🇦 CAD — $</option>
+      <option value="USD">🇺🇸 USD — $</option>
+      <option value="PHP">🇵🇭 PHP — ₱</option>
+
+    </select>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2 class="setting-title">Account</h2>
+
+    <p id="accountEmail" class="setting-description"></p>
+
+    <button id="settingsLogout" type="button">
       Sign out
     </button>
 
@@ -856,42 +815,31 @@ nav button.active{
 </main>
 
 
-<!-- NAVIGATION -->
+<!-- NAV -->
 
 <nav id="nav">
 
-  <button
-    class="active"
-    data-v="home"
-  >
+  <button class="active" data-v="home">
     <span class="nav-icon">⌂</span>
     Home
   </button>
 
-  <button
-    data-v="transactions"
-  >
+  <button data-v="transactions">
     <span class="nav-icon">＋</span>
     Transactions
   </button>
 
-  <button
-    data-v="monthly"
-  >
+  <button data-v="monthly">
     <span class="nav-icon">▦</span>
     Monthly
   </button>
 
-  <button
-    data-v="yearly"
-  >
+  <button data-v="yearly">
     <span class="nav-icon">▥</span>
     Yearly
   </button>
 
-  <button
-    data-v="settings"
-  >
+  <button data-v="settings">
     <span class="nav-icon">⚙︎</span>
     Settings
   </button>
@@ -901,9 +849,9 @@ nav button.active{
 
 <script>
 
-/* =========================
+/* ==============================
    SUPABASE
-========================= */
+============================== */
 
 const SUPABASE_URL =
 "https://nscgbqeyyninunvhlkas.supabase.co";
@@ -917,242 +865,443 @@ const SITE_URL =
 const RECOVERY_URL =
 SITE_URL + "?recovery=1";
 
-
 const sb =
 supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
 
-
 let T = [];
 let user = null;
-
+let editingId = null;
+let currentFilter = "All";
 
 const url =
 new URL(window.location.href);
-
 
 const recoveryMode =
 url.searchParams.get("recovery") === "1" ||
 url.hash.includes("type=recovery");
 
-
 const $ = id =>
 document.getElementById(id);
 
 
-const money = n =>
-new Intl.NumberFormat(
-  "en-CA",
-  {
-    style:"currency",
-    currency:"CAD"
-  }
-).format(n);
+/* ==============================
+   SETTINGS
+============================== */
 
+const defaults = {
+  title:"Savings Tracker",
+  profile:"My Savings",
+  accent:"black",
+  background:"gray",
+  card:"white",
+  mode:"light",
+  currency:"CAD"
+};
 
-/* =========================
-   PROFILE
-========================= */
+function settingKey(name){
 
-function profileStorageKey(){
-
-  if(!user){
-    return "savings-profile";
-  }
-
-  return "savings-profile-" + user.id;
+  return user
+  ? "savings-" + user.id + "-" + name
+  : "savings-" + name;
 }
 
-
-function getProfileName(){
+function getSetting(name){
 
   return (
-    localStorage.getItem(
-      profileStorageKey()
-    ) ||
-    "My Savings"
+    localStorage.getItem(settingKey(name)) ||
+    defaults[name]
   );
 }
 
-
-function applyProfile(){
-
-  const name =
-  getProfileName();
-
-  $("homeProfile").textContent =
-  name;
-
-  $("profileInput").value =
-  name;
-}
-
-
-$("saveProfile").onclick =
-()=>{
-
-  const name =
-  $("profileInput")
-  .value
-  .trim();
-
-
-  if(!name){
-
-    $("profileMsg").className =
-    "msg error";
-
-    $("profileMsg").textContent =
-    "Enter a profile name.";
-
-    return;
-  }
-
+function saveSetting(name,value){
 
   localStorage.setItem(
-    profileStorageKey(),
-    name
+    settingKey(name),
+    value
   );
+}
 
 
-  applyProfile();
+/* ==============================
+   CURRENCY
+============================== */
+
+function currency(){
+
+  return getSetting("currency");
+}
+
+function currencySymbol(){
+
+  const c = currency();
+
+  if(c === "PHP") return "₱";
+
+  return "$";
+}
+
+function money(n){
+
+  return new Intl.NumberFormat(
+    currency() === "PHP"
+    ? "en-PH"
+    : "en-CA",
+    {
+      style:"currency",
+      currency:currency()
+    }
+  ).format(Number(n || 0));
+}
 
 
-  $("profileMsg").className =
-  "msg success";
+/* ==============================
+   ESCAPE
+============================== */
 
-  $("profileMsg").textContent =
-  "Profile name saved ✓";
+function esc(v){
 
-
-  setTimeout(
-    ()=>{
-      $("profileMsg").textContent="";
-    },
-    1800
+  return String(v ?? "")
+  .replace(
+    /[&<>"']/g,
+    c=>({
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#39;"
+    }[c])
   );
+}
+
+
+/* ==============================
+   APPEARANCE
+============================== */
+
+const accents = {
+  black:"#17191e",
+  pink:"#d85c8b",
+  purple:"#7957c8",
+  blue:"#3977c5",
+  green:"#388267",
+  orange:"#c76d31"
 };
 
-
-/* =========================
-   THEMES
-========================= */
-
-const themes = {
-
-  black:{
-    accent:"#17191e",
-    soft:"#eeeeef"
-  },
-
-  pink:{
-    accent:"#d85c8b",
-    soft:"#fcebf2"
-  },
-
-  purple:{
-    accent:"#7957c8",
-    soft:"#f0ebfb"
-  },
-
-  blue:{
-    accent:"#3977c5",
-    soft:"#eaf2fc"
-  },
-
-  green:{
-    accent:"#388267",
-    soft:"#e9f4ef"
-  },
-
-  orange:{
-    accent:"#c76d31",
-    soft:"#faeee7"
-  }
-
+const backgrounds = {
+  white:"#ffffff",
+  gray:"#f5f6f8",
+  pink:"#fff1f5",
+  lavender:"#f4f0ff",
+  blue:"#eef7ff",
+  sage:"#eff7f1"
 };
 
+const cards = {
+  white:"#ffffff",
+  pink:"#fff7fa",
+  gray:"#f0f1f3",
+  dark:"#25272c"
+};
 
-function applyTheme(name){
+function applySettings(){
 
-  if(!themes[name]){
-    name="black";
-  }
+  const title =
+  getSetting("title");
+
+  const profile =
+  getSetting("profile");
+
+  const accent =
+  getSetting("accent");
+
+  const background =
+  getSetting("background");
+
+  const card =
+  getSetting("card");
+
+  const mode =
+  getSetting("mode");
 
 
-  const t =
-  themes[name];
+  document.title = title;
+
+  document
+  .querySelectorAll(".app-title")
+  .forEach(x=>{
+    x.textContent=title;
+  });
+
+  $("homeProfile").textContent =
+  profile;
+
+  $("appTitleInput").value =
+  title;
+
+  $("profileInput").value =
+  profile;
+
+  $("currencySelect").value =
+  currency();
+
+  $("amountSymbol").textContent =
+  currencySymbol();
 
 
   document.documentElement
   .style
   .setProperty(
     "--accent",
-    t.accent
+    accents[accent] || accents.black
   );
 
 
-  document.documentElement
-  .style
-  .setProperty(
-    "--accent-soft",
-    t.soft
-  );
+  if(mode === "dark"){
 
+    document.documentElement.style
+    .setProperty("--bg","#111318");
 
-  localStorage.setItem(
-    "savings-theme",
-    name
-  );
+    document.documentElement.style
+    .setProperty("--card","#1e2127");
 
+    document.documentElement.style
+    .setProperty("--text","#f6f7f8");
 
-  document
-  .querySelectorAll(
-    ".theme-btn"
-  )
-  .forEach(
-    b=>
-    b.classList.toggle(
-      "selected",
-      b.dataset.theme === name
-    )
-  );
+    document.documentElement.style
+    .setProperty("--muted","#a7adb7");
+
+    document.documentElement.style
+    .setProperty("--border","#343841");
+
+  }else{
+
+    document.documentElement.style
+    .setProperty(
+      "--bg",
+      backgrounds[background] ||
+      backgrounds.gray
+    );
+
+    document.documentElement.style
+    .setProperty(
+      "--card",
+      cards[card] ||
+      cards.white
+    );
+
+    const darkCard =
+    card === "dark";
+
+    document.documentElement.style
+    .setProperty(
+      "--text",
+      darkCard
+      ? "#f6f7f8"
+      : "#17191e"
+    );
+
+    document.documentElement.style
+    .setProperty(
+      "--muted",
+      darkCard
+      ? "#b2b6bf"
+      : "#7b818c"
+    );
+
+    document.documentElement.style
+    .setProperty(
+      "--border",
+      darkCard
+      ? "#3a3d44"
+      : "#e1e3e8"
+    );
+  }
 
 
   $("themeMeta")
   .setAttribute(
     "content",
-    t.accent
+    mode === "dark"
+    ? "#111318"
+    : (
+      backgrounds[background] ||
+      backgrounds.gray
+    )
   );
+
+
+  document
+  .querySelectorAll("[data-accent]")
+  .forEach(
+    b=>b.classList.toggle(
+      "selected",
+      b.dataset.accent === accent
+    )
+  );
+
+  document
+  .querySelectorAll("[data-bg]")
+  .forEach(
+    b=>b.classList.toggle(
+      "selected",
+      b.dataset.bg === background
+    )
+  );
+
+  document
+  .querySelectorAll("[data-card]")
+  .forEach(
+    b=>b.classList.toggle(
+      "selected",
+      b.dataset.card === card
+    )
+  );
+
+
+  if(T.length){
+    render();
+  }
 }
 
 
+/* ==============================
+   NAME SETTINGS
+============================== */
+
+$("saveNames").onclick =
+()=>{
+
+  const title =
+  $("appTitleInput").value.trim();
+
+  const profile =
+  $("profileInput").value.trim();
+
+
+  if(!title || !profile){
+
+    $("nameMsg").className =
+    "msg error";
+
+    $("nameMsg").textContent =
+    "Enter both names.";
+
+    return;
+  }
+
+
+  saveSetting("title",title);
+  saveSetting("profile",profile);
+
+  applySettings();
+
+
+  $("nameMsg").className =
+  "msg success";
+
+  $("nameMsg").textContent =
+  "Names saved ✓";
+
+
+  setTimeout(
+    ()=>{
+      $("nameMsg").textContent="";
+    },
+    1500
+  );
+};
+
+
+/* ==============================
+   COLOR BUTTONS
+============================== */
+
 document
-.querySelectorAll(
-  ".theme-btn"
-)
+.querySelectorAll("[data-accent]")
 .forEach(
-  b=>
-  b.onclick=
-  ()=>applyTheme(
-    b.dataset.theme
-  )
+  b=>b.onclick=()=>{
+
+    saveSetting(
+      "accent",
+      b.dataset.accent
+    );
+
+    applySettings();
+  }
 );
 
+document
+.querySelectorAll("[data-bg]")
+.forEach(
+  b=>b.onclick=()=>{
 
-applyTheme(
-  localStorage.getItem(
-    "savings-theme"
-  ) ||
-  "black"
+    saveSetting(
+      "background",
+      b.dataset.bg
+    );
+
+    saveSetting(
+      "mode",
+      "light"
+    );
+
+    applySettings();
+  }
 );
 
+document
+.querySelectorAll("[data-card]")
+.forEach(
+  b=>b.onclick=()=>{
 
-/* =========================
+    saveSetting(
+      "card",
+      b.dataset.card
+    );
+
+    saveSetting(
+      "mode",
+      "light"
+    );
+
+    applySettings();
+  }
+);
+
+$("lightMode").onclick =
+()=>{
+
+  saveSetting("mode","light");
+
+  applySettings();
+};
+
+$("darkMode").onclick =
+()=>{
+
+  saveSetting("mode","dark");
+
+  applySettings();
+};
+
+$("currencySelect").onchange =
+()=>{
+
+  saveSetting(
+    "currency",
+    $("currencySelect").value
+  );
+
+  applySettings();
+};
+
+
+/* ==============================
    DESCRIPTION OPTIONS
-========================= */
+============================== */
 
 const moneyInDescriptions = [
   "Pay Day",
@@ -1165,7 +1314,6 @@ const moneyInDescriptions = [
   "Investment Return",
   "Other"
 ];
-
 
 const moneyOutDescriptions = [
   "Groceries",
@@ -1186,7 +1334,6 @@ const moneyOutDescriptions = [
   "Other"
 ];
 
-
 const moneyInCategories = [
   "Income",
   "Savings",
@@ -1197,7 +1344,6 @@ const moneyInCategories = [
   "Investment",
   "Other"
 ];
-
 
 const moneyOutCategories = [
   "Food",
@@ -1219,27 +1365,20 @@ const moneyOutCategories = [
 ];
 
 
-function fillSelect(
-  element,
-  options
-){
+function fillSelect(element,options){
 
   element.innerHTML =
-  options
-  .map(
+  options.map(
     x=>
     `<option value="${esc(x)}">${esc(x)}</option>`
-  )
-  .join("");
+  ).join("");
 }
 
 
 function updateTransactionOptions(){
 
   const isIn =
-  $("typ").value ===
-  "Money In";
-
+  $("typ").value === "Money In";
 
   fillSelect(
     $("desSelect"),
@@ -1248,7 +1387,6 @@ function updateTransactionOptions(){
     : moneyOutDescriptions
   );
 
-
   fillSelect(
     $("catSelect"),
     isIn
@@ -1256,16 +1394,8 @@ function updateTransactionOptions(){
     : moneyOutCategories
   );
 
-
-  $("desOther")
-  .style.display =
-  "none";
-
-
-  $("catOther")
-  .style.display =
-  "none";
-
+  $("desOther").style.display="none";
+  $("catOther").style.display="none";
 
   $("desOther").value="";
   $("catOther").value="";
@@ -1279,8 +1409,7 @@ updateTransactionOptions;
 $("desSelect").onchange =
 ()=>{
 
-  $("desOther")
-  .style.display =
+  $("desOther").style.display =
   $("desSelect").value === "Other"
   ? "block"
   : "none";
@@ -1290,54 +1419,38 @@ $("desSelect").onchange =
 $("catSelect").onchange =
 ()=>{
 
-  $("catOther")
-  .style.display =
+  $("catOther").style.display =
   $("catSelect").value === "Other"
   ? "block"
   : "none";
 };
 
 
-updateTransactionOptions();
-
-
-/* =========================
+/* ==============================
    DISPLAY
-========================= */
+============================== */
 
 function showLogin(){
 
-  if(recoveryMode){
-    return;
-  }
+  if(recoveryMode) return;
 
-  $("login").style.display =
-  "block";
+  $("login").style.display="block";
+  $("resetPage").style.display="none";
+  $("app").style.display="none";
+  $("nav").style.display="none";
 
-  $("resetPage").style.display =
-  "none";
-
-  $("app").style.display =
-  "none";
-
-  $("nav").style.display =
-  "none";
+  applySettings();
 }
 
 
 function showReset(){
 
-  $("login").style.display =
-  "none";
+  $("login").style.display="none";
+  $("app").style.display="none";
+  $("nav").style.display="none";
+  $("resetPage").style.display="block";
 
-  $("app").style.display =
-  "none";
-
-  $("nav").style.display =
-  "none";
-
-  $("resetPage").style.display =
-  "block";
+  applySettings();
 }
 
 
@@ -1346,66 +1459,44 @@ function showApp(){
   if(recoveryMode){
 
     showReset();
-
     return;
   }
 
+  $("login").style.display="none";
+  $("resetPage").style.display="none";
+  $("app").style.display="block";
+  $("nav").style.display="grid";
 
-  $("login").style.display =
-  "none";
-
-  $("resetPage").style.display =
-  "none";
-
-  $("app").style.display =
-  "block";
-
-  $("nav").style.display =
-  "grid";
-
-
-  applyProfile();
-
+  applySettings();
 
   if(user){
 
-    $("accountEmail")
-    .textContent =
+    $("accountEmail").textContent =
     user.email || "";
   }
 }
 
 
-/* =========================
+/* ==============================
    TOTALS
-========================= */
+============================== */
 
 function totals(a=T){
 
   let i=0;
   let o=0;
 
-
   a.forEach(
     x=>{
 
-      if(
-        x.transaction_type ===
-        "Money In"
-      ){
-
-        i +=
-        Number(x.amount);
-
+      if(x.transaction_type==="Money In"){
+        i += Number(x.amount);
       }else{
-
-        o +=
-        Number(x.amount);
+        o += Number(x.amount);
       }
 
     }
   );
-
 
   return{
     i,
@@ -1415,66 +1506,65 @@ function totals(a=T){
 }
 
 
-function esc(v){
-
-  return String(v ?? "")
-  .replace(
-    /[&<>"']/g,
-    c=>({
-      "&":"&amp;",
-      "<":"&lt;",
-      ">":"&gt;",
-      '"':"&quot;",
-      "'":"&#39;"
-    }[c])
-  );
-}
-
-
 function txrow(x){
 
   return `
   <div class="tx">
 
-    <div>
+    <div class="tx-main">
 
-      <div class="name">
-        ${esc(x.description)}
+      <div>
+
+        <div class="name">
+          ${esc(x.description)}
+        </div>
+
+        <div class="meta">
+          ${esc(x.transaction_date)}
+          ${
+            x.category
+            ? " · " + esc(x.category)
+            : ""
+          }
+        </div>
+
       </div>
 
-      <div class="meta">
-
-        ${esc(x.transaction_date)}
+      <div class="amt ${
+        x.transaction_type==="Money In"
+        ? "green"
+        : "red"
+      }">
 
         ${
-          x.category
-          ? " · " +
-            esc(x.category)
-          : ""
+          x.transaction_type==="Money In"
+          ? "+"
+          : "−"
         }
+
+        ${money(Number(x.amount))}
 
       </div>
 
     </div>
 
+    <div class="tx-actions">
 
-    <div
-      class="amt ${
-        x.transaction_type ===
-        "Money In"
-        ? "green"
-        : "red"
-      }"
-    >
+      <button
+        class="edit-btn"
+        type="button"
+        onclick="editTransaction('${esc(x.id)}')"
+      >
+        ✏️ Edit
+      </button>
 
-      ${
-        x.transaction_type ===
-        "Money In"
-        ? "+"
-        : "−"
-      }
-
-      ${money(Number(x.amount))}
+      <button
+        class="delete-btn"
+        type="button"
+        onclick="deleteTransaction('${esc(x.id)}')"
+      >
+        🗑️ Delete
+      </button>
 
     </div>
 
@@ -1486,46 +1576,127 @@ function txrow(x){
 function summary(t){
 
   return `
-
     <h2>Summary</h2>
 
-    <div class="label">
-      Money in
-    </div>
-
+    <div class="label">Money in</div>
     <div class="value green">
       ${money(t.i)}
     </div>
 
     <br>
 
-    <div class="label">
-      Money out
-    </div>
-
+    <div class="label">Money out</div>
     <div class="value red">
       ${money(t.o)}
     </div>
 
     <br>
 
-    <div class="label">
-      Net change
-    </div>
-
+    <div class="label">Net change</div>
     <div class="value">
       ${money(t.n)}
     </div>
-
   `;
 }
 
+
+/* ==============================
+   SEARCH / FILTER
+============================== */
+
+function filteredTransactions(){
+
+  const q =
+  $("searchTx").value
+  .trim()
+  .toLowerCase();
+
+  return T.filter(
+    x=>{
+
+      const matchesFilter =
+      currentFilter === "All" ||
+      x.transaction_type === currentFilter;
+
+      const haystack =
+      [
+        x.description,
+        x.category,
+        x.notes,
+        x.transaction_date
+      ]
+      .join(" ")
+      .toLowerCase();
+
+      const matchesSearch =
+      !q ||
+      haystack.includes(q);
+
+      return (
+        matchesFilter &&
+        matchesSearch
+      );
+    }
+  );
+}
+
+
+function renderAll(){
+
+  const s =
+  filteredTransactions()
+  .sort(
+    (a,b)=>
+    b.transaction_date
+    .localeCompare(
+      a.transaction_date
+    )
+  );
+
+  $("all").innerHTML =
+  s.length
+  ? s.map(txrow).join("")
+  : '<div class="empty">No matching transactions.</div>';
+}
+
+
+$("searchTx").oninput =
+renderAll;
+
+
+document
+.querySelectorAll(".filter-btn")
+.forEach(
+  b=>b.onclick=()=>{
+
+    currentFilter =
+    b.dataset.filter;
+
+    document
+    .querySelectorAll(".filter-btn")
+    .forEach(
+      x=>x.classList.remove(
+        "active-filter"
+      )
+    );
+
+    b.classList.add(
+      "active-filter"
+    );
+
+    renderAll();
+  }
+);
+
+
+/* ==============================
+   RENDER
+============================== */
 
 function render(){
 
   const t =
   totals();
-
 
   const s =
   [...T].sort(
@@ -1536,71 +1707,46 @@ function render(){
     )
   );
 
-
   $("bal").textContent =
   money(t.n);
-
 
   $("net").textContent =
   money(t.n);
 
-
   $("mi").textContent =
   money(t.i);
-
 
   $("mo").textContent =
   money(t.o);
 
-
   $("recent").innerHTML =
   s.length
-  ? s
-    .slice(0,5)
-    .map(txrow)
-    .join("")
+  ? s.slice(0,5).map(txrow).join("")
   : '<div class="empty">No transactions yet.</div>';
 
-
-  $("all").innerHTML =
-  s.length
-  ? s
-    .map(txrow)
-    .join("")
-  : '<div class="empty">No transactions yet.</div>';
-
-
+  renderAll();
   renderMonth();
   renderYear();
 }
 
 
-/* =========================
-   LOAD TRANSACTIONS
-========================= */
+/* ==============================
+   LOAD
+============================== */
 
 async function load(){
 
-  if(!user){
-    return;
-  }
-
+  if(!user) return;
 
   const r =
   await sb
   .from("transactions")
   .select("*")
-  .eq(
-    "user_id",
-    user.id
-  )
+  .eq("user_id",user.id)
   .order(
     "transaction_date",
-    {
-      ascending:false
-    }
+    {ascending:false}
   );
-
 
   if(r.error){
 
@@ -1612,316 +1758,232 @@ async function load(){
     return;
   }
 
-
   T =
   r.data || [];
-
 
   render();
 }
 
 
-/* =========================
-   SIGN IN
-========================= */
+/* ==============================
+   EDIT TRANSACTION
+============================== */
 
-$("signin").onclick =
-async()=>{
+window.editTransaction =
+function(id){
 
-  const e =
-  $("email")
-  .value
-  .trim();
+  const x =
+  T.find(
+    t=>String(t.id)===String(id)
+  );
 
-
-  const p =
-  $("password").value;
+  if(!x) return;
 
 
-  $("loginMsg").className =
-  "msg error";
+  editingId =
+  x.id;
 
 
-  $("loginMsg").textContent =
-  "";
+  $("typ").value =
+  x.transaction_type;
 
 
-  if(!e || !p){
+  updateTransactionOptions();
 
-    $("loginMsg").textContent =
-    "Enter your email and password.";
 
-    return;
+  $("amt").value =
+  x.amount;
+
+
+  const descriptions =
+  x.transaction_type === "Money In"
+  ? moneyInDescriptions
+  : moneyOutDescriptions;
+
+
+  if(descriptions.includes(x.description)){
+
+    $("desSelect").value =
+    x.description;
+
+    $("desOther").style.display =
+    "none";
+
+  }else{
+
+    $("desSelect").value =
+    "Other";
+
+    $("desOther").style.display =
+    "block";
+
+    $("desOther").value =
+    x.description || "";
   }
 
 
-  $("signin").disabled =
-  true;
+  const categories =
+  x.transaction_type === "Money In"
+  ? moneyInCategories
+  : moneyOutCategories;
 
 
-  $("signin").textContent =
-  "Signing in…";
+  if(
+    x.category &&
+    categories.includes(x.category)
+  ){
+
+    $("catSelect").value =
+    x.category;
+
+    $("catOther").style.display =
+    "none";
+
+  }else if(x.category){
+
+    $("catSelect").value =
+    "Other";
+
+    $("catOther").style.display =
+    "block";
+
+    $("catOther").value =
+    x.category;
+
+  }
+
+
+  $("dat").value =
+  x.transaction_date;
+
+
+  $("notes").value =
+  x.notes || "";
+
+
+  $("submitTransaction")
+  .textContent =
+  "Save Changes";
+
+
+  $("editBanner")
+  .style.display =
+  "block";
+
+
+  $("cancelEdit")
+  .style.display =
+  "block";
+
+
+  openView("transactions");
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+};
+
+
+/* ==============================
+   CANCEL EDIT
+============================== */
+
+function cancelEditing(){
+
+  editingId=null;
+
+  $("form").reset();
+
+  $("typ").value =
+  "Money In";
+
+  updateTransactionOptions();
+
+  $("dat").value =
+  localDateString();
+
+  $("submitTransaction")
+  .textContent =
+  "Add Transaction";
+
+  $("editBanner")
+  .style.display =
+  "none";
+
+  $("cancelEdit")
+  .style.display =
+  "none";
+}
+
+
+$("cancelEdit").onclick =
+cancelEditing;
+
+
+/* ==============================
+   DELETE TRANSACTION
+============================== */
+
+window.deleteTransaction =
+async function(id){
+
+  const x =
+  T.find(
+    t=>String(t.id)===String(id)
+  );
+
+  if(!x) return;
+
+
+  const yes =
+  confirm(
+    "Delete \"" +
+    x.description +
+    "\" for " +
+    money(x.amount) +
+    "?\n\nThis cannot be undone."
+  );
+
+
+  if(!yes) return;
 
 
   const r =
-  await sb.auth
-  .signInWithPassword({
-    email:e,
-    password:p
-  });
-
-
-  $("signin").disabled =
-  false;
-
-
-  $("signin").textContent =
-  "Sign in";
+  await sb
+  .from("transactions")
+  .delete()
+  .eq("id",x.id)
+  .eq("user_id",user.id);
 
 
   if(r.error){
 
-    $("loginMsg").textContent =
-    "Incorrect email or password.";
+    alert(
+      "Transaction could not be deleted: " +
+      r.error.message
+    );
 
     return;
   }
 
 
-  user =
-  r.data.user;
-
-
-  showApp();
+  if(
+    String(editingId) ===
+    String(x.id)
+  ){
+    cancelEditing();
+  }
 
 
   await load();
 };
 
 
-/* =========================
-   FORGOT PASSWORD
-========================= */
-
-$("forgot").onclick =
-async()=>{
-
-  const e =
-  $("email")
-  .value
-  .trim();
-
-
-  $("loginMsg").className =
-  "msg error";
-
-
-  $("loginMsg").textContent =
-  "";
-
-
-  if(!e){
-
-    $("loginMsg").textContent =
-    "Enter your email first.";
-
-    return;
-  }
-
-
-  $("forgot").disabled =
-  true;
-
-
-  $("forgot").textContent =
-  "Sending reset email…";
-
-
-  const r =
-  await sb.auth
-  .resetPasswordForEmail(
-    e,
-    {
-      redirectTo:
-      RECOVERY_URL
-    }
-  );
-
-
-  $("forgot").disabled =
-  false;
-
-
-  $("forgot").textContent =
-  "Forgot password?";
-
-
-  if(r.error){
-
-    $("loginMsg").textContent =
-    "Could not send reset email: " +
-    r.error.message;
-
-    return;
-  }
-
-
-  $("loginMsg").className =
-  "msg success";
-
-
-  $("loginMsg").textContent =
-  "Password reset email sent. Check your inbox.";
-};
-
-
-/* =========================
-   SAVE NEW PASSWORD
-========================= */
-
-$("savePassword").onclick =
-async()=>{
-
-  const p =
-  $("newPassword").value;
-
-
-  const c =
-  $("confirmPassword").value;
-
-
-  $("resetMsg").className =
-  "msg error";
-
-
-  $("resetMsg").textContent =
-  "";
-
-
-  if(p.length < 6){
-
-    $("resetMsg").textContent =
-    "Password must be at least 6 characters.";
-
-    return;
-  }
-
-
-  if(p !== c){
-
-    $("resetMsg").textContent =
-    "Passwords do not match.";
-
-    return;
-  }
-
-
-  $("savePassword").disabled =
-  true;
-
-
-  $("savePassword").textContent =
-  "Saving…";
-
-
-  const sessionResult =
-  await sb.auth.getSession();
-
-
-  if(
-    sessionResult.error ||
-    !sessionResult.data.session
-  ){
-
-    $("savePassword").disabled =
-    false;
-
-
-    $("savePassword").textContent =
-    "Save new password";
-
-
-    $("resetMsg").textContent =
-    "This reset link is invalid or expired. Please request a new password reset email.";
-
-    return;
-  }
-
-
-  const r =
-  await sb.auth.updateUser({
-    password:p
-  });
-
-
-  if(r.error){
-
-    $("savePassword").disabled =
-    false;
-
-
-    $("savePassword").textContent =
-    "Save new password";
-
-
-    $("resetMsg").textContent =
-    "Could not change password: " +
-    r.error.message;
-
-    return;
-  }
-
-
-  $("resetMsg").className =
-  "msg success";
-
-
-  $("resetMsg").textContent =
-  "Password changed successfully! Returning to sign in…";
-
-
-  setTimeout(
-    async()=>{
-
-      await sb.auth.signOut();
-
-
-      window.location.replace(
-        SITE_URL
-      );
-
-    },
-    1500
-  );
-};
-
-
-/* =========================
-   SIGN OUT
-========================= */
-
-async function signOut(){
-
-  await sb.auth.signOut();
-
-
-  window.location.replace(
-    SITE_URL
-  );
-}
-
-
-$("logout").onclick =
-signOut;
-
-
-$("settingsLogout").onclick =
-signOut;
-
-
-/* =========================
-   ADD TRANSACTION
-========================= */
+/* ==============================
+   ADD / UPDATE TRANSACTION
+============================== */
 
 $("form").onsubmit =
 async e=>{
@@ -1940,9 +2002,7 @@ async e=>{
 
 
   const amount =
-  Number(
-    $("amt").value
-  );
+  Number($("amt").value);
 
 
   if(
@@ -1962,10 +2022,7 @@ async e=>{
   $("desSelect").value;
 
 
-  if(
-    description ===
-    "Other"
-  ){
+  if(description==="Other"){
 
     description =
     $("desOther")
@@ -1988,10 +2045,7 @@ async e=>{
   $("catSelect").value;
 
 
-  if(
-    category ===
-    "Other"
-  ){
+  if(category==="Other"){
 
     category =
     $("catOther")
@@ -2000,10 +2054,7 @@ async e=>{
   }
 
 
-  const r =
-  await sb
-  .from("transactions")
-  .insert({
+  const values = {
 
     user_id:
     user.id,
@@ -2026,44 +2077,55 @@ async e=>{
     notes:
     $("notes")
     .value
-    .trim()
-    || null
+    .trim() || null
 
-  });
+  };
+
+
+  let r;
+
+
+  if(editingId){
+
+    r =
+    await sb
+    .from("transactions")
+    .update(values)
+    .eq("id",editingId)
+    .eq("user_id",user.id);
+
+  }else{
+
+    r =
+    await sb
+    .from("transactions")
+    .insert(values);
+  }
 
 
   if(r.error){
 
     alert(
-      "Transaction could not be saved: " +
-      r.error.message
+      editingId
+      ? "Changes could not be saved: " +
+        r.error.message
+      : "Transaction could not be saved: " +
+        r.error.message
     );
 
     return;
   }
 
 
-  $("form").reset();
-
-
-  $("typ").value =
-  "Money In";
-
-
-  updateTransactionOptions();
-
-
-  $("dat").value =
-  localDateString();
-
+  cancelEditing();
 
   await load();
 };
 
 
-/* =========================
+/* ==============================
    MONTH / YEAR
-========================= */
+============================== */
 
 function renderMonth(){
 
@@ -2091,8 +2153,7 @@ function renderYear(){
         x=>
         x.transaction_date
         .startsWith(
-          $("yp").value +
-          "-"
+          $("yp").value + "-"
         )
       )
     )
@@ -2105,105 +2166,369 @@ function localDateString(){
   const d =
   new Date();
 
-
-  const year =
+  const y =
   d.getFullYear();
 
-
-  const month =
+  const m =
   String(
     d.getMonth()+1
-  ).padStart(
-    2,
-    "0"
-  );
-
+  ).padStart(2,"0");
 
   const day =
   String(
     d.getDate()
-  ).padStart(
-    2,
-    "0"
-  );
+  ).padStart(2,"0");
 
-
-  return (
-    year +
-    "-" +
-    month +
-    "-" +
-    day
-  );
+  return `${y}-${m}-${day}`;
 }
 
 
 const d =
 new Date();
 
-
 $("dat").value =
 localDateString();
-
 
 $("mp").value =
 d.getFullYear() +
 "-" +
 String(
   d.getMonth()+1
-).padStart(
-  2,
-  "0"
-);
-
+).padStart(2,"0");
 
 $("yp").value =
 d.getFullYear();
 
-
 $("mp").onchange =
 renderMonth;
-
 
 $("yp").oninput =
 renderYear;
 
 
-/* =========================
+/* ==============================
+   SIGN IN
+============================== */
+
+$("signin").onclick =
+async()=>{
+
+  const e =
+  $("email")
+  .value
+  .trim();
+
+  const p =
+  $("password").value;
+
+
+  $("loginMsg").className =
+  "msg error";
+
+  $("loginMsg").textContent =
+  "";
+
+
+  if(!e || !p){
+
+    $("loginMsg").textContent =
+    "Enter your email and password.";
+
+    return;
+  }
+
+
+  $("signin").disabled =
+  true;
+
+  $("signin").textContent =
+  "Signing in…";
+
+
+  const r =
+  await sb.auth
+  .signInWithPassword({
+    email:e,
+    password:p
+  });
+
+
+  $("signin").disabled =
+  false;
+
+  $("signin").textContent =
+  "Sign in";
+
+
+  if(r.error){
+
+    $("loginMsg").textContent =
+    "Incorrect email or password.";
+
+    return;
+  }
+
+
+  user =
+  r.data.user;
+
+
+  showApp();
+
+  await load();
+};
+
+
+/* ==============================
+   FORGOT PASSWORD
+============================== */
+
+$("forgot").onclick =
+async()=>{
+
+  const e =
+  $("email")
+  .value
+  .trim();
+
+
+  $("loginMsg").className =
+  "msg error";
+
+  $("loginMsg").textContent =
+  "";
+
+
+  if(!e){
+
+    $("loginMsg").textContent =
+    "Enter your email first.";
+
+    return;
+  }
+
+
+  $("forgot").disabled =
+  true;
+
+  $("forgot").textContent =
+  "Sending reset email…";
+
+
+  const r =
+  await sb.auth
+  .resetPasswordForEmail(
+    e,
+    {
+      redirectTo:
+      RECOVERY_URL
+    }
+  );
+
+
+  $("forgot").disabled =
+  false;
+
+  $("forgot").textContent =
+  "Forgot password?";
+
+
+  if(r.error){
+
+    $("loginMsg").textContent =
+    "Could not send reset email: " +
+    r.error.message;
+
+    return;
+  }
+
+
+  $("loginMsg").className =
+  "msg success";
+
+  $("loginMsg").textContent =
+  "Password reset email sent. Check your inbox.";
+};
+
+
+/* ==============================
+   PASSWORD RESET
+============================== */
+
+$("savePassword").onclick =
+async()=>{
+
+  const p =
+  $("newPassword").value;
+
+  const c =
+  $("confirmPassword").value;
+
+
+  $("resetMsg").className =
+  "msg error";
+
+  $("resetMsg").textContent =
+  "";
+
+
+  if(p.length < 6){
+
+    $("resetMsg").textContent =
+    "Password must be at least 6 characters.";
+
+    return;
+  }
+
+
+  if(p!==c){
+
+    $("resetMsg").textContent =
+    "Passwords do not match.";
+
+    return;
+  }
+
+
+  $("savePassword").disabled =
+  true;
+
+  $("savePassword").textContent =
+  "Saving…";
+
+
+  const sessionResult =
+  await sb.auth.getSession();
+
+
+  if(
+    sessionResult.error ||
+    !sessionResult.data.session
+  ){
+
+    $("savePassword").disabled =
+    false;
+
+    $("savePassword").textContent =
+    "Save new password";
+
+    $("resetMsg").textContent =
+    "This reset link is invalid or expired. Please request a new password reset email.";
+
+    return;
+  }
+
+
+  const r =
+  await sb.auth.updateUser({
+    password:p
+  });
+
+
+  if(r.error){
+
+    $("savePassword").disabled =
+    false;
+
+    $("savePassword").textContent =
+    "Save new password";
+
+    $("resetMsg").textContent =
+    "Could not change password: " +
+    r.error.message;
+
+    return;
+  }
+
+
+  $("resetMsg").className =
+  "msg success";
+
+  $("resetMsg").textContent =
+  "Password changed successfully! Returning to sign in…";
+
+
+  setTimeout(
+    async()=>{
+
+      await sb.auth.signOut();
+
+      window.location.replace(
+        SITE_URL
+      );
+
+    },
+    1500
+  );
+};
+
+
+/* ==============================
+   SIGN OUT
+============================== */
+
+async function signOut(){
+
+  await sb.auth.signOut();
+
+  window.location.replace(
+    SITE_URL
+  );
+}
+
+$("logout").onclick =
+signOut;
+
+$("settingsLogout").onclick =
+signOut;
+
+
+/* ==============================
    NAVIGATION
-========================= */
+============================== */
+
+function openView(id){
+
+  document
+  .querySelectorAll(
+    "nav button,.view"
+  )
+  .forEach(
+    x=>
+    x.classList.remove(
+      "active"
+    )
+  );
+
+
+  const view =
+  $(id);
+
+  if(view){
+    view.classList.add("active");
+  }
+
+
+  const button =
+  document.querySelector(
+    `nav button[data-v="${id}"]`
+  );
+
+  if(button){
+    button.classList.add("active");
+  }
+}
+
 
 document
-.querySelectorAll(
-  "nav button"
-)
+.querySelectorAll("nav button")
 .forEach(
   b=>
-  b.onclick=
-  ()=>{
+  b.onclick=()=>{
 
-    document
-    .querySelectorAll(
-      "nav button,.view"
-    )
-    .forEach(
-      x=>
-      x.classList.remove(
-        "active"
-      )
+    openView(
+      b.dataset.v
     );
-
-
-    b.classList.add(
-      "active"
-    );
-
-
-    $(b.dataset.v)
-    .classList.add(
-      "active"
-    );
-
 
     window.scrollTo(
       0,
@@ -2213,9 +2538,9 @@ document
 );
 
 
-/* =========================
+/* ==============================
    AUTH EVENTS
-========================= */
+============================== */
 
 sb.auth.onAuthStateChange(
   (event,session)=>{
@@ -2226,7 +2551,6 @@ sb.auth.onAuthStateChange(
     ){
 
       showReset();
-
       return;
     }
 
@@ -2238,7 +2562,6 @@ sb.auth.onAuthStateChange(
     ){
 
       user=null;
-
       showLogin();
     }
 
@@ -2246,16 +2569,20 @@ sb.auth.onAuthStateChange(
 );
 
 
-/* =========================
-   START APP
-========================= */
+/* ==============================
+   START
+============================== */
 
 (async()=>{
+
+  updateTransactionOptions();
+
+  applySettings();
+
 
   if(recoveryMode){
 
     showReset();
-
     return;
   }
 
@@ -2275,9 +2602,7 @@ sb.auth.onAuthStateChange(
     user =
     s.data.session.user;
 
-
     showApp();
-
 
     await load();
   }
