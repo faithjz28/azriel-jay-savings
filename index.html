@@ -2,41 +2,75 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1,viewport-fit=cover"
+>
+
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#f5f6f8">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Savings Tracker">
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta id="themeMeta" name="theme-color" content="#f5f6f8">
+
 <title>Savings Tracker</title>
 
 <style>
-*{box-sizing:border-box}
+
+*{
+  box-sizing:border-box;
+}
+
+:root{
+  --accent:#17191e;
+  --accent-soft:#eeeeef;
+  --bg:#f5f6f8;
+  --card:#ffffff;
+  --text:#17191e;
+  --muted:#7b818c;
+  --border:#e1e3e8;
+}
 
 body{
   margin:0;
-  background:#f5f6f8;
-  color:#17191e;
+  background:var(--bg);
+  color:var(--text);
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  -webkit-tap-highlight-color:transparent;
 }
 
 main{
   max-width:760px;
   margin:auto;
-  padding:28px 18px 110px;
+  padding:28px 18px 120px;
 }
 
 h1{
   font-size:34px;
-  margin:18px 0 28px;
+  margin:18px 0 5px;
+}
+
+.profile-name{
+  color:var(--muted);
+  font-size:17px;
+  margin:0 0 27px;
+  font-weight:600;
 }
 
 .card{
-  background:#fff;
-  border:1px solid #e1e3e8;
+  background:var(--card);
+  border:1px solid var(--border);
   border-radius:25px;
   padding:22px;
   margin:14px 0;
 }
 
-.label,.meta{color:#7b818c}
+.label,
+.meta{
+  color:var(--muted);
+}
 
 .big{
   font-size:45px;
@@ -56,23 +90,40 @@ h1{
   margin-top:9px;
 }
 
-.green{color:#32825e}
-.red{color:#a6534e}
+.green{
+  color:#32825e;
+}
 
-input,select,textarea,button{
+.red{
+  color:#a6534e;
+}
+
+input,
+select,
+textarea,
+button{
   font:inherit;
   width:100%;
   padding:14px;
   border:1px solid #d9dce1;
   border-radius:13px;
   background:#fff;
+  color:var(--text);
   margin:6px 0;
 }
 
-button{cursor:pointer}
+textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+button{
+  cursor:pointer;
+}
 
 button.primary{
-  background:#17191e;
+  background:var(--accent);
+  border-color:var(--accent);
   color:#fff;
   font-weight:700;
 }
@@ -82,31 +133,71 @@ button:disabled{
   cursor:not-allowed;
 }
 
+.amount-wrap{
+  position:relative;
+}
+
+.amount-wrap .dollar{
+  position:absolute;
+  left:15px;
+  top:50%;
+  transform:translateY(-50%);
+  font-weight:700;
+  color:var(--muted);
+  pointer-events:none;
+}
+
+.amount-wrap input{
+  padding-left:31px;
+}
+
+.field-label{
+  display:block;
+  color:var(--muted);
+  font-size:14px;
+  font-weight:650;
+  margin:13px 3px 2px;
+}
+
 .tx{
   display:flex;
   justify-content:space-between;
   gap:12px;
   padding:15px 0;
-  border-bottom:1px solid #e1e3e8;
+  border-bottom:1px solid var(--border);
 }
 
-.tx:last-child{border-bottom:0}
+.tx:last-child{
+  border-bottom:0;
+}
 
-.name,.amt{
+.name,
+.amt{
   font-size:18px;
   font-weight:700;
 }
 
+.amt{
+  white-space:nowrap;
+}
+
 .empty{
   text-align:center;
-  color:#7b818c;
+  color:var(--muted);
   padding:20px;
 }
 
-.view{display:none}
-.view.active{display:block}
+.view{
+  display:none;
+}
 
-#app{display:none}
+.view.active{
+  display:block;
+}
+
+#app{
+  display:none;
+}
 
 #login,
 #resetPage{
@@ -114,43 +205,142 @@ button:disabled{
   margin:55px auto;
 }
 
-#resetPage{display:none}
+#resetPage{
+  display:none;
+}
 
 .msg{
   margin-top:10px;
   line-height:1.4;
 }
 
-.error{color:#a6534e}
-.success{color:#32825e}
+.error{
+  color:#a6534e;
+}
+
+.success{
+  color:#32825e;
+}
+
+/* SETTINGS */
+
+.setting-title{
+  margin:0 0 5px;
+}
+
+.setting-description{
+  color:var(--muted);
+  margin:0 0 14px;
+  line-height:1.45;
+}
+
+.theme-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:12px;
+}
+
+.theme-btn{
+  padding:12px 8px;
+  border:2px solid transparent;
+  background:#f5f6f8;
+  font-size:14px;
+  font-weight:650;
+}
+
+.theme-btn.selected{
+  border-color:var(--accent);
+}
+
+.color-dot{
+  width:24px;
+  height:24px;
+  border-radius:50%;
+  display:block;
+  margin:0 auto 7px;
+}
+
+.dot-black{background:#17191e}
+.dot-pink{background:#d85c8b}
+.dot-purple{background:#7957c8}
+.dot-blue{background:#3977c5}
+.dot-green{background:#388267}
+.dot-orange{background:#c76d31}
+
+/* NAV */
 
 nav{
   position:fixed;
   bottom:0;
   left:0;
   right:0;
-  background:#fff;
+  background:rgba(255,255,255,.96);
   border-top:1px solid #ddd;
   display:none;
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns:repeat(5,1fr);
   padding-bottom:env(safe-area-inset-bottom);
   z-index:3;
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
 }
 
 nav button{
   border:0;
-  color:#7b818c;
+  color:var(--muted);
   margin:0;
+  padding:13px 3px;
   border-radius:0;
+  background:transparent;
+  font-size:12px;
 }
 
 nav button.active{
   font-weight:750;
-  color:#17191e;
+  color:var(--accent);
 }
+
+.nav-icon{
+  display:block;
+  font-size:20px;
+  margin-bottom:3px;
+}
+
+/* SMALL PHONE */
+
+@media(max-width:430px){
+
+  main{
+    padding-left:14px;
+    padding-right:14px;
+  }
+
+  h1{
+    font-size:31px;
+  }
+
+  .big{
+    font-size:39px;
+  }
+
+  .grid{
+    gap:9px;
+  }
+
+  .card{
+    padding:19px;
+  }
+
+  .theme-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 </head>
 
 <body>
@@ -158,10 +348,14 @@ nav button.active{
 <main>
 
 <!-- SIGN IN -->
+
 <section id="login">
+
   <h1>Savings Tracker</h1>
+  <div class="profile-name">Your personal savings</div>
 
   <div class="card">
+
     <h2>Private sign in</h2>
 
     <input
@@ -178,24 +372,39 @@ nav button.active{
       placeholder="Password"
     >
 
-    <button id="signin" class="primary" type="button">
+    <button
+      id="signin"
+      class="primary"
+      type="button"
+    >
       Sign in
     </button>
 
-    <button id="forgot" type="button">
+    <button
+      id="forgot"
+      type="button"
+    >
       Forgot password?
     </button>
 
-    <div id="loginMsg" class="msg error"></div>
+    <div
+      id="loginMsg"
+      class="msg error"
+    ></div>
+
   </div>
+
 </section>
 
 
-<!-- PASSWORD RECOVERY PAGE -->
+<!-- PASSWORD RESET -->
+
 <section id="resetPage">
+
   <h1>Savings Tracker</h1>
 
   <div class="card">
+
     <h2>Create new password</h2>
 
     <p class="label">
@@ -224,161 +433,477 @@ nav button.active{
       Save new password
     </button>
 
-    <div id="resetMsg" class="msg error"></div>
+    <div
+      id="resetMsg"
+      class="msg error"
+    ></div>
+
   </div>
+
 </section>
 
 
 <!-- APP -->
+
 <div id="app">
 
-  <!-- HOME -->
-  <section id="home" class="view active">
 
-    <h1>Savings Tracker</h1>
+<!-- HOME -->
+
+<section
+  id="home"
+  class="view active"
+>
+
+  <h1>Savings Tracker</h1>
+
+  <div
+    id="homeProfile"
+    class="profile-name"
+  >
+    My Savings
+  </div>
+
+  <div class="card">
+
+    <div class="label">
+      Current savings
+    </div>
+
+    <div
+      class="big"
+      id="bal"
+    >
+      $0.00
+    </div>
+
+    <div class="label">
+      Net change:
+      <span id="net">$0.00</span>
+    </div>
+
+  </div>
+
+
+  <div class="grid">
 
     <div class="card">
-      <div class="label">Current savings</div>
-      <div class="big" id="bal">$0.00</div>
 
       <div class="label">
-        Net change:
-        <span id="net">$0.00</span>
-      </div>
-    </div>
-
-    <div class="grid">
-
-      <div class="card">
-        <div class="label">Money in</div>
-        <div id="mi" class="value green">$0.00</div>
+        Money in
       </div>
 
-      <div class="card">
-        <div class="label">Money out</div>
-        <div id="mo" class="value red">$0.00</div>
+      <div
+        id="mi"
+        class="value green"
+      >
+        $0.00
       </div>
 
     </div>
 
-    <h2>Recent transactions</h2>
-
-    <div class="card" id="recent">
-      <div class="empty">No transactions yet.</div>
-    </div>
-
-    <button id="logout" type="button">
-      Sign out
-    </button>
-
-  </section>
-
-
-  <!-- TRANSACTIONS -->
-  <section id="transactions" class="view">
-
-    <h1>Transactions</h1>
 
     <div class="card">
 
-      <form id="form">
+      <div class="label">
+        Money out
+      </div>
 
-        <select id="typ">
-          <option>Money In</option>
-          <option>Money Out</option>
-        </select>
+      <div
+        id="mo"
+        class="value red"
+      >
+        $0.00
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <h2>Recent transactions</h2>
+
+  <div
+    class="card"
+    id="recent"
+  >
+    <div class="empty">
+      No transactions yet.
+    </div>
+  </div>
+
+
+  <button
+    id="logout"
+    type="button"
+  >
+    Sign out
+  </button>
+
+</section>
+
+
+<!-- TRANSACTIONS -->
+
+<section
+  id="transactions"
+  class="view"
+>
+
+  <h1>Transactions</h1>
+
+  <div class="card">
+
+    <form id="form">
+
+      <label class="field-label">
+        Type
+      </label>
+
+      <select id="typ">
+        <option>Money In</option>
+        <option>Money Out</option>
+      </select>
+
+
+      <label class="field-label">
+        Amount
+      </label>
+
+      <div class="amount-wrap">
+
+        <span class="dollar">$</span>
 
         <input
           id="amt"
           type="number"
+          inputmode="decimal"
           min="0"
           step=".01"
-          placeholder="Amount"
+          placeholder="0.00"
           required
         >
 
-        <input
-          id="des"
-          placeholder="Description"
-          required
-        >
-
-        <input
-          id="cat"
-          placeholder="Category (optional)"
-        >
-
-        <input
-          id="dat"
-          type="date"
-          required
-        >
-
-        <textarea
-          id="notes"
-          placeholder="Notes (optional)"
-        ></textarea>
-
-        <button class="primary" type="submit">
-          Add Transaction
-        </button>
-
-      </form>
-
-    </div>
-
-    <div class="card" id="all">
-      <div class="empty">No transactions yet.</div>
-    </div>
-
-  </section>
+      </div>
 
 
-  <!-- MONTHLY -->
-  <section id="monthly" class="view">
+      <label class="field-label">
+        Description
+      </label>
 
-    <h1>Monthly</h1>
-
-    <div class="card">
-      <input id="mp" type="month">
-      <div id="ms"></div>
-    </div>
-
-  </section>
+      <select id="desSelect"></select>
 
 
-  <!-- YEARLY -->
-  <section id="yearly" class="view">
-
-    <h1>Yearly</h1>
-
-    <div class="card">
       <input
-        id="yp"
-        type="number"
-        min="2000"
-        max="2100"
+        id="desOther"
+        placeholder="Type your description"
+        style="display:none"
       >
 
-      <div id="ys"></div>
+
+      <label class="field-label">
+        Category
+      </label>
+
+      <select id="catSelect"></select>
+
+
+      <input
+        id="catOther"
+        placeholder="Type your category"
+        style="display:none"
+      >
+
+
+      <label class="field-label">
+        Date
+      </label>
+
+      <input
+        id="dat"
+        type="date"
+        required
+      >
+
+
+      <label class="field-label">
+        Notes
+      </label>
+
+      <textarea
+        id="notes"
+        placeholder="Notes (optional)"
+      ></textarea>
+
+
+      <button
+        class="primary"
+        type="submit"
+      >
+        Add Transaction
+      </button>
+
+    </form>
+
+  </div>
+
+
+  <div
+    class="card"
+    id="all"
+  >
+
+    <div class="empty">
+      No transactions yet.
     </div>
 
-  </section>
+  </div>
+
+</section>
+
+
+<!-- MONTHLY -->
+
+<section
+  id="monthly"
+  class="view"
+>
+
+  <h1>Monthly</h1>
+
+  <div class="card">
+
+    <input
+      id="mp"
+      type="month"
+    >
+
+    <div id="ms"></div>
+
+  </div>
+
+</section>
+
+
+<!-- YEARLY -->
+
+<section
+  id="yearly"
+  class="view"
+>
+
+  <h1>Yearly</h1>
+
+  <div class="card">
+
+    <input
+      id="yp"
+      type="number"
+      min="2000"
+      max="2100"
+    >
+
+    <div id="ys"></div>
+
+  </div>
+
+</section>
+
+
+<!-- SETTINGS -->
+
+<section
+  id="settings"
+  class="view"
+>
+
+  <h1>Settings</h1>
+
+  <div class="card">
+
+    <h2 class="setting-title">
+      Profile name
+    </h2>
+
+    <p class="setting-description">
+      This appears underneath Savings Tracker.
+    </p>
+
+    <input
+      id="profileInput"
+      maxlength="50"
+      placeholder="Example: Faith & JJ Savings"
+    >
+
+    <button
+      id="saveProfile"
+      class="primary"
+      type="button"
+    >
+      Save profile name
+    </button>
+
+    <div
+      id="profileMsg"
+      class="msg success"
+    ></div>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2 class="setting-title">
+      App color
+    </h2>
+
+    <p class="setting-description">
+      Choose the color you want for your Savings Tracker.
+    </p>
+
+
+    <div class="theme-grid">
+
+      <button
+        class="theme-btn"
+        type="button"
+        data-theme="black"
+      >
+        <span class="color-dot dot-black"></span>
+        Black
+      </button>
+
+
+      <button
+        class="theme-btn"
+        type="button"
+        data-theme="pink"
+      >
+        <span class="color-dot dot-pink"></span>
+        Pink
+      </button>
+
+
+      <button
+        class="theme-btn"
+        type="button"
+        data-theme="purple"
+      >
+        <span class="color-dot dot-purple"></span>
+        Purple
+      </button>
+
+
+      <button
+        class="theme-btn"
+        type="button"
+        data-theme="blue"
+      >
+        <span class="color-dot dot-blue"></span>
+        Blue
+      </button>
+
+
+      <button
+        class="theme-btn"
+        type="button"
+        data-theme="green"
+      >
+        <span class="color-dot dot-green"></span>
+        Green
+      </button>
+
+
+      <button
+        class="theme-btn"
+        type="button"
+        data-theme="orange"
+      >
+        <span class="color-dot dot-orange"></span>
+        Orange
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2 class="setting-title">
+      Account
+    </h2>
+
+    <p
+      id="accountEmail"
+      class="setting-description"
+    ></p>
+
+    <button
+      id="settingsLogout"
+      type="button"
+    >
+      Sign out
+    </button>
+
+  </div>
+
+</section>
+
 
 </div>
 
 </main>
 
 
+<!-- NAVIGATION -->
+
 <nav id="nav">
-  <button class="active" data-v="home">Home</button>
-  <button data-v="transactions">Transactions</button>
-  <button data-v="monthly">Monthly</button>
-  <button data-v="yearly">Yearly</button>
+
+  <button
+    class="active"
+    data-v="home"
+  >
+    <span class="nav-icon">⌂</span>
+    Home
+  </button>
+
+  <button
+    data-v="transactions"
+  >
+    <span class="nav-icon">＋</span>
+    Transactions
+  </button>
+
+  <button
+    data-v="monthly"
+  >
+    <span class="nav-icon">▦</span>
+    Monthly
+  </button>
+
+  <button
+    data-v="yearly"
+  >
+    <span class="nav-icon">▥</span>
+    Yearly
+  </button>
+
+  <button
+    data-v="settings"
+  >
+    <span class="nav-icon">⚙︎</span>
+    Settings
+  </button>
+
 </nav>
 
 
 <script>
+
+/* =========================
+   SUPABASE
+========================= */
 
 const SUPABASE_URL =
 "https://nscgbqeyyninunvhlkas.supabase.co";
@@ -393,7 +918,8 @@ const RECOVERY_URL =
 SITE_URL + "?recovery=1";
 
 
-const sb = supabase.createClient(
+const sb =
+supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
@@ -403,13 +929,9 @@ let T = [];
 let user = null;
 
 
-/*
-IMPORTANT:
-If URL contains ?recovery=1,
-the dashboard is NEVER allowed to appear.
-*/
 const url =
 new URL(window.location.href);
+
 
 const recoveryMode =
 url.searchParams.get("recovery") === "1" ||
@@ -430,60 +952,462 @@ new Intl.NumberFormat(
 ).format(n);
 
 
-/* ---------- DISPLAY ---------- */
+/* =========================
+   PROFILE
+========================= */
+
+function profileStorageKey(){
+
+  if(!user){
+    return "savings-profile";
+  }
+
+  return "savings-profile-" + user.id;
+}
+
+
+function getProfileName(){
+
+  return (
+    localStorage.getItem(
+      profileStorageKey()
+    ) ||
+    "My Savings"
+  );
+}
+
+
+function applyProfile(){
+
+  const name =
+  getProfileName();
+
+  $("homeProfile").textContent =
+  name;
+
+  $("profileInput").value =
+  name;
+}
+
+
+$("saveProfile").onclick =
+()=>{
+
+  const name =
+  $("profileInput")
+  .value
+  .trim();
+
+
+  if(!name){
+
+    $("profileMsg").className =
+    "msg error";
+
+    $("profileMsg").textContent =
+    "Enter a profile name.";
+
+    return;
+  }
+
+
+  localStorage.setItem(
+    profileStorageKey(),
+    name
+  );
+
+
+  applyProfile();
+
+
+  $("profileMsg").className =
+  "msg success";
+
+  $("profileMsg").textContent =
+  "Profile name saved ✓";
+
+
+  setTimeout(
+    ()=>{
+      $("profileMsg").textContent="";
+    },
+    1800
+  );
+};
+
+
+/* =========================
+   THEMES
+========================= */
+
+const themes = {
+
+  black:{
+    accent:"#17191e",
+    soft:"#eeeeef"
+  },
+
+  pink:{
+    accent:"#d85c8b",
+    soft:"#fcebf2"
+  },
+
+  purple:{
+    accent:"#7957c8",
+    soft:"#f0ebfb"
+  },
+
+  blue:{
+    accent:"#3977c5",
+    soft:"#eaf2fc"
+  },
+
+  green:{
+    accent:"#388267",
+    soft:"#e9f4ef"
+  },
+
+  orange:{
+    accent:"#c76d31",
+    soft:"#faeee7"
+  }
+
+};
+
+
+function applyTheme(name){
+
+  if(!themes[name]){
+    name="black";
+  }
+
+
+  const t =
+  themes[name];
+
+
+  document.documentElement
+  .style
+  .setProperty(
+    "--accent",
+    t.accent
+  );
+
+
+  document.documentElement
+  .style
+  .setProperty(
+    "--accent-soft",
+    t.soft
+  );
+
+
+  localStorage.setItem(
+    "savings-theme",
+    name
+  );
+
+
+  document
+  .querySelectorAll(
+    ".theme-btn"
+  )
+  .forEach(
+    b=>
+    b.classList.toggle(
+      "selected",
+      b.dataset.theme === name
+    )
+  );
+
+
+  $("themeMeta")
+  .setAttribute(
+    "content",
+    t.accent
+  );
+}
+
+
+document
+.querySelectorAll(
+  ".theme-btn"
+)
+.forEach(
+  b=>
+  b.onclick=
+  ()=>applyTheme(
+    b.dataset.theme
+  )
+);
+
+
+applyTheme(
+  localStorage.getItem(
+    "savings-theme"
+  ) ||
+  "black"
+);
+
+
+/* =========================
+   DESCRIPTION OPTIONS
+========================= */
+
+const moneyInDescriptions = [
+  "Pay Day",
+  "Savings Deposit",
+  "Transfer In",
+  "Bonus",
+  "Refund",
+  "Gift",
+  "Cash Deposit",
+  "Investment Return",
+  "Other"
+];
+
+
+const moneyOutDescriptions = [
+  "Groceries",
+  "Dining Out",
+  "Shopping",
+  "Bills",
+  "Rent / Mortgage",
+  "Gas",
+  "Transportation",
+  "Travel",
+  "Entertainment",
+  "Poker / Casino",
+  "Baby",
+  "Health",
+  "Beauty",
+  "Subscription",
+  "Transfer Out",
+  "Other"
+];
+
+
+const moneyInCategories = [
+  "Income",
+  "Savings",
+  "Transfer",
+  "Bonus",
+  "Refund",
+  "Gift",
+  "Investment",
+  "Other"
+];
+
+
+const moneyOutCategories = [
+  "Food",
+  "Groceries",
+  "Dining",
+  "Shopping",
+  "Housing",
+  "Utilities",
+  "Transportation",
+  "Travel",
+  "Entertainment",
+  "Poker / Casino",
+  "Baby",
+  "Health",
+  "Beauty",
+  "Subscriptions",
+  "Transfer",
+  "Other"
+];
+
+
+function fillSelect(
+  element,
+  options
+){
+
+  element.innerHTML =
+  options
+  .map(
+    x=>
+    `<option value="${esc(x)}">${esc(x)}</option>`
+  )
+  .join("");
+}
+
+
+function updateTransactionOptions(){
+
+  const isIn =
+  $("typ").value ===
+  "Money In";
+
+
+  fillSelect(
+    $("desSelect"),
+    isIn
+    ? moneyInDescriptions
+    : moneyOutDescriptions
+  );
+
+
+  fillSelect(
+    $("catSelect"),
+    isIn
+    ? moneyInCategories
+    : moneyOutCategories
+  );
+
+
+  $("desOther")
+  .style.display =
+  "none";
+
+
+  $("catOther")
+  .style.display =
+  "none";
+
+
+  $("desOther").value="";
+  $("catOther").value="";
+}
+
+
+$("typ").onchange =
+updateTransactionOptions;
+
+
+$("desSelect").onchange =
+()=>{
+
+  $("desOther")
+  .style.display =
+  $("desSelect").value === "Other"
+  ? "block"
+  : "none";
+};
+
+
+$("catSelect").onchange =
+()=>{
+
+  $("catOther")
+  .style.display =
+  $("catSelect").value === "Other"
+  ? "block"
+  : "none";
+};
+
+
+updateTransactionOptions();
+
+
+/* =========================
+   DISPLAY
+========================= */
 
 function showLogin(){
 
-  if(recoveryMode) return;
+  if(recoveryMode){
+    return;
+  }
 
-  $("login").style.display = "block";
-  $("resetPage").style.display = "none";
-  $("app").style.display = "none";
-  $("nav").style.display = "none";
+  $("login").style.display =
+  "block";
+
+  $("resetPage").style.display =
+  "none";
+
+  $("app").style.display =
+  "none";
+
+  $("nav").style.display =
+  "none";
 }
 
 
 function showReset(){
 
-  $("login").style.display = "none";
-  $("app").style.display = "none";
-  $("nav").style.display = "none";
-  $("resetPage").style.display = "block";
+  $("login").style.display =
+  "none";
+
+  $("app").style.display =
+  "none";
+
+  $("nav").style.display =
+  "none";
+
+  $("resetPage").style.display =
+  "block";
 }
 
 
 function showApp(){
 
   if(recoveryMode){
+
     showReset();
+
     return;
   }
 
-  $("login").style.display = "none";
-  $("resetPage").style.display = "none";
-  $("app").style.display = "block";
-  $("nav").style.display = "grid";
+
+  $("login").style.display =
+  "none";
+
+  $("resetPage").style.display =
+  "none";
+
+  $("app").style.display =
+  "block";
+
+  $("nav").style.display =
+  "grid";
+
+
+  applyProfile();
+
+
+  if(user){
+
+    $("accountEmail")
+    .textContent =
+    user.email || "";
+  }
 }
 
 
-/* ---------- TOTALS ---------- */
+/* =========================
+   TOTALS
+========================= */
 
 function totals(a=T){
 
   let i=0;
   let o=0;
 
-  a.forEach(x=>{
 
-    if(x.transaction_type==="Money In"){
-      i += Number(x.amount);
-    }else{
-      o += Number(x.amount);
+  a.forEach(
+    x=>{
+
+      if(
+        x.transaction_type ===
+        "Money In"
+      ){
+
+        i +=
+        Number(x.amount);
+
+      }else{
+
+        o +=
+        Number(x.amount);
+      }
+
     }
+  );
 
-  });
 
-  return {
+  return{
     i,
     o,
     n:i-o
@@ -513,26 +1437,39 @@ function txrow(x){
   <div class="tx">
 
     <div>
+
       <div class="name">
         ${esc(x.description)}
       </div>
 
       <div class="meta">
+
         ${esc(x.transaction_date)}
-        ${x.category
-          ? " · " + esc(x.category)
-          : ""}
+
+        ${
+          x.category
+          ? " · " +
+            esc(x.category)
+          : ""
+        }
+
       </div>
+
     </div>
 
-    <div class="amt ${
-      x.transaction_type==="Money In"
-      ? "green"
-      : "red"
-    }">
+
+    <div
+      class="amt ${
+        x.transaction_type ===
+        "Money In"
+        ? "green"
+        : "red"
+      }"
+    >
 
       ${
-        x.transaction_type==="Money In"
+        x.transaction_type ===
+        "Money In"
         ? "+"
         : "−"
       }
@@ -549,50 +1486,68 @@ function txrow(x){
 function summary(t){
 
   return `
+
     <h2>Summary</h2>
 
-    <div class="label">Money in</div>
+    <div class="label">
+      Money in
+    </div>
+
     <div class="value green">
       ${money(t.i)}
     </div>
 
     <br>
 
-    <div class="label">Money out</div>
+    <div class="label">
+      Money out
+    </div>
+
     <div class="value red">
       ${money(t.o)}
     </div>
 
     <br>
 
-    <div class="label">Net change</div>
+    <div class="label">
+      Net change
+    </div>
+
     <div class="value">
       ${money(t.n)}
     </div>
+
   `;
 }
 
 
 function render(){
 
-  const t = totals();
+  const t =
+  totals();
+
 
   const s =
   [...T].sort(
     (a,b)=>
-    b.transaction_date.localeCompare(
+    b.transaction_date
+    .localeCompare(
       a.transaction_date
     )
   );
 
+
   $("bal").textContent =
   money(t.n);
+
 
   $("net").textContent =
   money(t.n);
 
+
   $("mi").textContent =
   money(t.i);
+
 
   $("mo").textContent =
   money(t.o);
@@ -600,13 +1555,18 @@ function render(){
 
   $("recent").innerHTML =
   s.length
-  ? s.slice(0,5).map(txrow).join("")
+  ? s
+    .slice(0,5)
+    .map(txrow)
+    .join("")
   : '<div class="empty">No transactions yet.</div>';
 
 
   $("all").innerHTML =
   s.length
-  ? s.map(txrow).join("")
+  ? s
+    .map(txrow)
+    .join("")
   : '<div class="empty">No transactions yet.</div>';
 
 
@@ -615,19 +1575,30 @@ function render(){
 }
 
 
-/* ---------- LOAD TRANSACTIONS ---------- */
+/* =========================
+   LOAD TRANSACTIONS
+========================= */
 
 async function load(){
 
-  if(!user) return;
+  if(!user){
+    return;
+  }
+
 
   const r =
   await sb
   .from("transactions")
   .select("*")
+  .eq(
+    "user_id",
+    user.id
+  )
   .order(
     "transaction_date",
-    {ascending:false}
+    {
+      ascending:false
+    }
   );
 
 
@@ -642,19 +1613,26 @@ async function load(){
   }
 
 
-  T = r.data || [];
+  T =
+  r.data || [];
+
 
   render();
 }
 
 
-/* ---------- SIGN IN ---------- */
+/* =========================
+   SIGN IN
+========================= */
 
 $("signin").onclick =
 async()=>{
 
   const e =
-  $("email").value.trim();
+  $("email")
+  .value
+  .trim();
+
 
   const p =
   $("password").value;
@@ -662,6 +1640,7 @@ async()=>{
 
   $("loginMsg").className =
   "msg error";
+
 
   $("loginMsg").textContent =
   "";
@@ -676,20 +1655,25 @@ async()=>{
   }
 
 
-  $("signin").disabled = true;
+  $("signin").disabled =
+  true;
+
 
   $("signin").textContent =
   "Signing in…";
 
 
   const r =
-  await sb.auth.signInWithPassword({
+  await sb.auth
+  .signInWithPassword({
     email:e,
     password:p
   });
 
 
-  $("signin").disabled = false;
+  $("signin").disabled =
+  false;
+
 
   $("signin").textContent =
   "Sign in";
@@ -704,25 +1688,33 @@ async()=>{
   }
 
 
-  user = r.data.user;
+  user =
+  r.data.user;
+
 
   showApp();
+
 
   await load();
 };
 
 
-/* ---------- FORGOT PASSWORD ---------- */
+/* =========================
+   FORGOT PASSWORD
+========================= */
 
 $("forgot").onclick =
 async()=>{
 
   const e =
-  $("email").value.trim();
+  $("email")
+  .value
+  .trim();
 
 
   $("loginMsg").className =
   "msg error";
+
 
   $("loginMsg").textContent =
   "";
@@ -737,22 +1729,28 @@ async()=>{
   }
 
 
-  $("forgot").disabled = true;
+  $("forgot").disabled =
+  true;
+
 
   $("forgot").textContent =
   "Sending reset email…";
 
 
   const r =
-  await sb.auth.resetPasswordForEmail(
+  await sb.auth
+  .resetPasswordForEmail(
     e,
     {
-      redirectTo:RECOVERY_URL
+      redirectTo:
+      RECOVERY_URL
     }
   );
 
 
-  $("forgot").disabled = false;
+  $("forgot").disabled =
+  false;
+
 
   $("forgot").textContent =
   "Forgot password?";
@@ -771,12 +1769,15 @@ async()=>{
   $("loginMsg").className =
   "msg success";
 
+
   $("loginMsg").textContent =
   "Password reset email sent. Check your inbox.";
 };
 
 
-/* ---------- SAVE NEW PASSWORD ---------- */
+/* =========================
+   SAVE NEW PASSWORD
+========================= */
 
 $("savePassword").onclick =
 async()=>{
@@ -784,12 +1785,14 @@ async()=>{
   const p =
   $("newPassword").value;
 
+
   const c =
   $("confirmPassword").value;
 
 
   $("resetMsg").className =
   "msg error";
+
 
   $("resetMsg").textContent =
   "";
@@ -816,14 +1819,10 @@ async()=>{
   $("savePassword").disabled =
   true;
 
+
   $("savePassword").textContent =
   "Saving…";
 
-
-  /*
-  Supabase should have created the
-  recovery session from the email link.
-  */
 
   const sessionResult =
   await sb.auth.getSession();
@@ -837,8 +1836,10 @@ async()=>{
     $("savePassword").disabled =
     false;
 
+
     $("savePassword").textContent =
     "Save new password";
+
 
     $("resetMsg").textContent =
     "This reset link is invalid or expired. Please request a new password reset email.";
@@ -858,8 +1859,10 @@ async()=>{
     $("savePassword").disabled =
     false;
 
+
     $("savePassword").textContent =
     "Save new password";
+
 
     $("resetMsg").textContent =
     "Could not change password: " +
@@ -872,6 +1875,7 @@ async()=>{
   $("resetMsg").className =
   "msg success";
 
+
   $("resetMsg").textContent =
   "Password changed successfully! Returning to sign in…";
 
@@ -880,6 +1884,7 @@ async()=>{
     async()=>{
 
       await sb.auth.signOut();
+
 
       window.location.replace(
         SITE_URL
@@ -891,20 +1896,32 @@ async()=>{
 };
 
 
-/* ---------- SIGN OUT ---------- */
+/* =========================
+   SIGN OUT
+========================= */
 
-$("logout").onclick =
-async()=>{
+async function signOut(){
 
   await sb.auth.signOut();
+
 
   window.location.replace(
     SITE_URL
   );
-};
+}
 
 
-/* ---------- ADD TRANSACTION ---------- */
+$("logout").onclick =
+signOut;
+
+
+$("settingsLogout").onclick =
+signOut;
+
+
+/* =========================
+   ADD TRANSACTION
+========================= */
 
 $("form").onsubmit =
 async e=>{
@@ -941,30 +1958,75 @@ async e=>{
   }
 
 
+  let description =
+  $("desSelect").value;
+
+
+  if(
+    description ===
+    "Other"
+  ){
+
+    description =
+    $("desOther")
+    .value
+    .trim();
+  }
+
+
+  if(!description){
+
+    alert(
+      "Enter a description."
+    );
+
+    return;
+  }
+
+
+  let category =
+  $("catSelect").value;
+
+
+  if(
+    category ===
+    "Other"
+  ){
+
+    category =
+    $("catOther")
+    .value
+    .trim();
+  }
+
+
   const r =
   await sb
   .from("transactions")
   .insert({
 
-    user_id:user.id,
+    user_id:
+    user.id,
 
     transaction_date:
     $("dat").value,
 
     description:
-    $("des").value.trim(),
+    description,
 
     transaction_type:
     $("typ").value,
 
-    amount:amount,
+    amount:
+    amount,
 
     category:
-    $("cat").value.trim()
-    || null,
+    category || null,
 
     notes:
-    $("notes").value.trim()
+    $("notes")
+    .value
+    .trim()
     || null
 
   });
@@ -983,17 +2045,25 @@ async e=>{
 
   $("form").reset();
 
+
+  $("typ").value =
+  "Money In";
+
+
+  updateTransactionOptions();
+
+
   $("dat").value =
-  new Date()
-  .toISOString()
-  .slice(0,10);
+  localDateString();
 
 
   await load();
 };
 
 
-/* ---------- MONTH / YEAR ---------- */
+/* =========================
+   MONTH / YEAR
+========================= */
 
 function renderMonth(){
 
@@ -1021,10 +2091,49 @@ function renderYear(){
         x=>
         x.transaction_date
         .startsWith(
-          $("yp").value + "-"
+          $("yp").value +
+          "-"
         )
       )
     )
+  );
+}
+
+
+function localDateString(){
+
+  const d =
+  new Date();
+
+
+  const year =
+  d.getFullYear();
+
+
+  const month =
+  String(
+    d.getMonth()+1
+  ).padStart(
+    2,
+    "0"
+  );
+
+
+  const day =
+  String(
+    d.getDate()
+  ).padStart(
+    2,
+    "0"
+  );
+
+
+  return (
+    year +
+    "-" +
+    month +
+    "-" +
+    day
   );
 }
 
@@ -1034,11 +2143,18 @@ new Date();
 
 
 $("dat").value =
-d.toISOString().slice(0,10);
+localDateString();
 
 
 $("mp").value =
-d.toISOString().slice(0,7);
+d.getFullYear() +
+"-" +
+String(
+  d.getMonth()+1
+).padStart(
+  2,
+  "0"
+);
 
 
 $("yp").value =
@@ -1053,13 +2169,18 @@ $("yp").oninput =
 renderYear;
 
 
-/* ---------- NAVIGATION ---------- */
+/* =========================
+   NAVIGATION
+========================= */
 
 document
-.querySelectorAll("nav button")
+.querySelectorAll(
+  "nav button"
+)
 .forEach(
   b=>
-  b.onclick=()=>{
+  b.onclick=
+  ()=>{
 
     document
     .querySelectorAll(
@@ -1082,11 +2203,19 @@ document
     .classList.add(
       "active"
     );
+
+
+    window.scrollTo(
+      0,
+      0
+    );
   }
 );
 
 
-/* ---------- AUTH EVENTS ---------- */
+/* =========================
+   AUTH EVENTS
+========================= */
 
 sb.auth.onAuthStateChange(
   (event,session)=>{
@@ -1108,7 +2237,7 @@ sb.auth.onAuthStateChange(
       !recoveryMode
     ){
 
-      user = null;
+      user=null;
 
       showLogin();
     }
@@ -1117,18 +2246,11 @@ sb.auth.onAuthStateChange(
 );
 
 
-/* ---------- START APP ---------- */
+/* =========================
+   START APP
+========================= */
 
 (async()=>{
-
-  /*
-  CRITICAL:
-  Recovery URL is checked FIRST.
-
-  This prevents an active Supabase
-  recovery session from displaying
-  the savings dashboard.
-  */
 
   if(recoveryMode){
 
@@ -1153,7 +2275,9 @@ sb.auth.onAuthStateChange(
     user =
     s.data.session.user;
 
+
     showApp();
+
 
     await load();
   }
