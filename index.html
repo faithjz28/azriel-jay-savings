@@ -6,48 +6,1161 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#f5f6f8">
 <title>Azriel Jay Savings</title>
+
 <style>
-*{box-sizing:border-box} body{margin:0;background:#f5f6f8;color:#17191e;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-main{max-width:760px;margin:auto;padding:28px 18px 110px} h1{font-size:34px;margin:18px 0 28px}
-.card{background:#fff;border:1px solid #e1e3e8;border-radius:25px;padding:22px;margin:14px 0}
-.label,.meta{color:#7b818c}.big{font-size:45px;font-weight:800;margin:8px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.value{font-size:25px;font-weight:750;margin-top:9px}.green{color:#32825e}.red{color:#a6534e}
-input,select,textarea,button{font:inherit;width:100%;padding:14px;border:1px solid #d9dce1;border-radius:13px;background:#fff;margin:6px 0}
-button.primary{background:#17191e;color:#fff;font-weight:700}.tx{display:flex;justify-content:space-between;gap:12px;padding:15px 0;border-bottom:1px solid #e1e3e8}
-.tx:last-child{border-bottom:0}.name,.amt{font-size:18px;font-weight:700}.empty{text-align:center;color:#7b818c;padding:20px}
-.view{display:none}.view.active{display:block} #app{display:none} #login{max-width:480px;margin:55px auto}.error{color:#a6534e;margin-top:8px}
-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #ddd;display:none;grid-template-columns:repeat(4,1fr);padding-bottom:env(safe-area-inset-bottom);z-index:3}
-nav button{border:0;color:#7b818c;margin:0;border-radius:0}nav button.active{font-weight:750;color:#17191e}
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:#f5f6f8;
+  color:#17191e;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+main{
+  max-width:760px;
+  margin:auto;
+  padding:28px 18px 110px;
+}
+
+h1{
+  font-size:34px;
+  margin:18px 0 28px;
+}
+
+.card{
+  background:#fff;
+  border:1px solid #e1e3e8;
+  border-radius:25px;
+  padding:22px;
+  margin:14px 0;
+}
+
+.label,.meta{color:#7b818c}
+
+.big{
+  font-size:45px;
+  font-weight:800;
+  margin:8px 0;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.value{
+  font-size:25px;
+  font-weight:750;
+  margin-top:9px;
+}
+
+.green{color:#32825e}
+.red{color:#a6534e}
+
+input,select,textarea,button{
+  font:inherit;
+  width:100%;
+  padding:14px;
+  border:1px solid #d9dce1;
+  border-radius:13px;
+  background:#fff;
+  margin:6px 0;
+}
+
+button{cursor:pointer}
+
+button.primary{
+  background:#17191e;
+  color:#fff;
+  font-weight:700;
+}
+
+button:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+}
+
+.tx{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:15px 0;
+  border-bottom:1px solid #e1e3e8;
+}
+
+.tx:last-child{border-bottom:0}
+
+.name,.amt{
+  font-size:18px;
+  font-weight:700;
+}
+
+.empty{
+  text-align:center;
+  color:#7b818c;
+  padding:20px;
+}
+
+.view{display:none}
+.view.active{display:block}
+
+#app{display:none}
+
+#login,
+#resetPage{
+  max-width:480px;
+  margin:55px auto;
+}
+
+#resetPage{display:none}
+
+.msg{
+  margin-top:10px;
+  line-height:1.4;
+}
+
+.error{color:#a6534e}
+.success{color:#32825e}
+
+nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:#fff;
+  border-top:1px solid #ddd;
+  display:none;
+  grid-template-columns:repeat(4,1fr);
+  padding-bottom:env(safe-area-inset-bottom);
+  z-index:3;
+}
+
+nav button{
+  border:0;
+  color:#7b818c;
+  margin:0;
+  border-radius:0;
+}
+
+nav button.active{
+  font-weight:750;
+  color:#17191e;
+}
 </style>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body><main>
-<section id="login"><h1>Azriel Jay Savings</h1><div class="card"><h2>Private sign in</h2><input id="email" type="email" autocomplete="username" placeholder="Email"><input id="password" type="password" autocomplete="current-password" placeholder="Password"><button id="signin" class="primary">Sign in</button><button id="forgot" type="button">Forgot password?</button><div id="loginMsg" class="error"></div><div id="resetCard" style="display:none"><h2>Create new password</h2><input id="newPassword" type="password" placeholder="New password"><input id="confirmPassword" type="password" placeholder="Confirm new password"><button id="savePassword" class="primary" type="button">Save new password</button><div id="resetMsg" class="error"></div></div></div></section>
+
+<body>
+
+<main>
+
+<!-- SIGN IN -->
+<section id="login">
+  <h1>Azriel Jay Savings</h1>
+
+  <div class="card">
+    <h2>Private sign in</h2>
+
+    <input
+      id="email"
+      type="email"
+      autocomplete="username"
+      placeholder="Email"
+    >
+
+    <input
+      id="password"
+      type="password"
+      autocomplete="current-password"
+      placeholder="Password"
+    >
+
+    <button id="signin" class="primary" type="button">
+      Sign in
+    </button>
+
+    <button id="forgot" type="button">
+      Forgot password?
+    </button>
+
+    <div id="loginMsg" class="msg error"></div>
+  </div>
+</section>
+
+
+<!-- PASSWORD RECOVERY PAGE -->
+<section id="resetPage">
+  <h1>Azriel Jay Savings</h1>
+
+  <div class="card">
+    <h2>Create new password</h2>
+
+    <p class="label">
+      Enter and confirm your new password.
+    </p>
+
+    <input
+      id="newPassword"
+      type="password"
+      autocomplete="new-password"
+      placeholder="New password"
+    >
+
+    <input
+      id="confirmPassword"
+      type="password"
+      autocomplete="new-password"
+      placeholder="Confirm new password"
+    >
+
+    <button
+      id="savePassword"
+      class="primary"
+      type="button"
+    >
+      Save new password
+    </button>
+
+    <div id="resetMsg" class="msg error"></div>
+  </div>
+</section>
+
+
+<!-- APP -->
 <div id="app">
-<section id="home" class="view active"><h1>Azriel Jay Savings</h1><div class="card"><div class="label">Current savings</div><div class="big" id="bal">$0.00</div><div class="label">Net change: <span id="net">$0.00</span></div></div><div class="grid"><div class="card"><div class="label">Money in</div><div id="mi" class="value green">$0.00</div></div><div class="card"><div class="label">Money out</div><div id="mo" class="value red">$0.00</div></div></div><h2>Recent transactions</h2><div class="card" id="recent"><div class="empty">No transactions yet.</div></div><button id="logout">Sign out</button></section>
-<section id="transactions" class="view"><h1>Transactions</h1><div class="card"><form id="form"><select id="typ"><option>Money In</option><option>Money Out</option></select><input id="amt" type="number" min="0" step=".01" placeholder="Amount" required><input id="des" placeholder="Description" required><input id="cat" placeholder="Category (optional)"><input id="dat" type="date" required><textarea id="notes" placeholder="Notes (optional)"></textarea><button class="primary">Add Transaction</button></form></div><div class="card" id="all"><div class="empty">No transactions yet.</div></div></section>
-<section id="monthly" class="view"><h1>Monthly</h1><div class="card"><input id="mp" type="month"><div id="ms"></div></div></section>
-<section id="yearly" class="view"><h1>Yearly</h1><div class="card"><input id="yp" type="number" min="2000" max="2100"><div id="ys"></div></div></section>
-</div></main>
-<nav id="nav"><button class="active" data-v="home">Home</button><button data-v="transactions">Transactions</button><button data-v="monthly">Monthly</button><button data-v="yearly">Yearly</button></nav>
+
+  <!-- HOME -->
+  <section id="home" class="view active">
+
+    <h1>Azriel Jay Savings</h1>
+
+    <div class="card">
+      <div class="label">Current savings</div>
+      <div class="big" id="bal">$0.00</div>
+
+      <div class="label">
+        Net change:
+        <span id="net">$0.00</span>
+      </div>
+    </div>
+
+    <div class="grid">
+
+      <div class="card">
+        <div class="label">Money in</div>
+        <div id="mi" class="value green">$0.00</div>
+      </div>
+
+      <div class="card">
+        <div class="label">Money out</div>
+        <div id="mo" class="value red">$0.00</div>
+      </div>
+
+    </div>
+
+    <h2>Recent transactions</h2>
+
+    <div class="card" id="recent">
+      <div class="empty">No transactions yet.</div>
+    </div>
+
+    <button id="logout" type="button">
+      Sign out
+    </button>
+
+  </section>
+
+
+  <!-- TRANSACTIONS -->
+  <section id="transactions" class="view">
+
+    <h1>Transactions</h1>
+
+    <div class="card">
+
+      <form id="form">
+
+        <select id="typ">
+          <option>Money In</option>
+          <option>Money Out</option>
+        </select>
+
+        <input
+          id="amt"
+          type="number"
+          min="0"
+          step=".01"
+          placeholder="Amount"
+          required
+        >
+
+        <input
+          id="des"
+          placeholder="Description"
+          required
+        >
+
+        <input
+          id="cat"
+          placeholder="Category (optional)"
+        >
+
+        <input
+          id="dat"
+          type="date"
+          required
+        >
+
+        <textarea
+          id="notes"
+          placeholder="Notes (optional)"
+        ></textarea>
+
+        <button class="primary" type="submit">
+          Add Transaction
+        </button>
+
+      </form>
+
+    </div>
+
+    <div class="card" id="all">
+      <div class="empty">No transactions yet.</div>
+    </div>
+
+  </section>
+
+
+  <!-- MONTHLY -->
+  <section id="monthly" class="view">
+
+    <h1>Monthly</h1>
+
+    <div class="card">
+      <input id="mp" type="month">
+      <div id="ms"></div>
+    </div>
+
+  </section>
+
+
+  <!-- YEARLY -->
+  <section id="yearly" class="view">
+
+    <h1>Yearly</h1>
+
+    <div class="card">
+      <input
+        id="yp"
+        type="number"
+        min="2000"
+        max="2100"
+      >
+
+      <div id="ys"></div>
+    </div>
+
+  </section>
+
+</div>
+
+</main>
+
+
+<nav id="nav">
+  <button class="active" data-v="home">Home</button>
+  <button data-v="transactions">Transactions</button>
+  <button data-v="monthly">Monthly</button>
+  <button data-v="yearly">Yearly</button>
+</nav>
+
+
 <script>
-const sb=supabase.createClient("https://nscgbqeyyninunvhlkas.supabase.co","sb_publishable_noeKmKCYmGqETcdSSlPxRw_T9NdIAD_");let T=[],user=null;
-const $=id=>document.getElementById(id), money=n=>new Intl.NumberFormat("en-CA",{style:"currency",currency:"CAD"}).format(n);
-function totals(a=T){let i=0,o=0;a.forEach(x=>x.transaction_type==="Money In"?i+=Number(x.amount):o+=Number(x.amount));return{i,o,n:i-o}}
-function txrow(x){return `<div class="tx"><div><div class="name">${x.description}</div><div class="meta">${x.transaction_date}${x.category?" · "+x.category:""}</div></div><div class="amt ${x.transaction_type==="Money In"?"green":"red"}">${x.transaction_type==="Money In"?"+":"−"}${money(Number(x.amount))}</div></div>`}
-function summary(t){return `<h2>Summary</h2><div class="label">Money in</div><div class="value green">${money(t.i)}</div><br><div class="label">Money out</div><div class="value red">${money(t.o)}</div><br><div class="label">Net change</div><div class="value">${money(t.n)}</div>`}
-function render(){let t=totals(),s=[...T].sort((a,b)=>b.transaction_date.localeCompare(a.transaction_date));$("bal").textContent=money(t.n);$("net").textContent=money(t.n);$("mi").textContent=money(t.i);$("mo").textContent=money(t.o);$("recent").innerHTML=s.length?s.slice(0,5).map(txrow).join(""):'<div class="empty">No transactions yet.</div>';$("all").innerHTML=s.length?s.map(txrow).join(""):'<div class="empty">No transactions yet.</div>';renderMonth();renderYear()}
-async function load(){let r=await sb.from("transactions").select("*").order("transaction_date",{ascending:false});if(r.error){alert(r.error.message);return}T=r.data||[];render()}
-$("signin").onclick=async()=>{$("loginMsg").textContent="";let r=await sb.auth.signInWithPassword({email:$("email").value,password:$("password").value});if(r.error){$("loginMsg").textContent=r.error.message;return}user=r.data.user;$("login").style.display="none";$("app").style.display="block";$("nav").style.display="grid";await load()}
-$("forgot").onclick=async()=>{let e=$("email").value.trim();$("loginMsg").textContent="";if(!e){$("loginMsg").textContent="Enter your email first.";return}let r=await sb.auth.resetPasswordForEmail(e,{redirectTo:"https://faithjz28.github.io/azriel-jay-savings/"});$("loginMsg").textContent=r.error?r.error.message:"Password reset email sent. Check your inbox."}
-function showReset(){$("resetCard").style.display="block"}
-sb.auth.onAuthStateChange((event)=>{if(event==="PASSWORD_RECOVERY")showReset()});
-$("savePassword").onclick=async()=>{let p=$("newPassword").value,c=$("confirmPassword").value;$("resetMsg").textContent="";if(p.length<6){$("resetMsg").textContent="Password must be at least 6 characters.";return}if(p!==c){$("resetMsg").textContent="Passwords do not match.";return}let r=await sb.auth.updateUser({password:p});if(r.error){$("resetMsg").textContent=r.error.message;return}$("resetMsg").style.color="#32825e";$("resetMsg").textContent="Password changed. Sign in with your new password.";setTimeout(async()=>{await sb.auth.signOut();location.href="https://faithjz28.github.io/azriel-jay-savings/"},1500)}
-$("logout").onclick=async()=>{await sb.auth.signOut();location.reload()}
-$("form").onsubmit=async e=>{e.preventDefault();let r=await sb.from("transactions").insert({user_id:user.id,transaction_date:$("dat").value,description:$("des").value,transaction_type:$("typ").value,amount:Number($("amt").value),category:$("cat").value||null,notes:$("notes").value||null});if(r.error){alert(r.error.message);return}$("form").reset();$("dat").value=new Date().toISOString().slice(0,10);await load()}
-function renderMonth(){$("ms").innerHTML=summary(totals(T.filter(x=>x.transaction_date.startsWith($("mp").value))))}
-function renderYear(){$("ys").innerHTML=summary(totals(T.filter(x=>x.transaction_date.startsWith($("yp").value+"-"))))}
-let d=new Date();$("dat").value=d.toISOString().slice(0,10);$("mp").value=d.toISOString().slice(0,7);$("yp").value=d.getFullYear();$("mp").onchange=renderMonth;$("yp").oninput=renderYear;
-document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{document.querySelectorAll("nav button,.view").forEach(x=>x.classList.remove("active"));b.classList.add("active");$(b.dataset.v).classList.add("active")});
-(async()=>{let s=await sb.auth.getSession();if(s.data.session){user=s.data.session.user;$("login").style.display="none";$("app").style.display="block";$("nav").style.display="grid";await load()}})();
-</script></body></html>
+
+const SUPABASE_URL =
+"https://nscgbqeyyninunvhlkas.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_noeKmKCYmGqETcdSSlPxRw_T9NdIAD_";
+
+const SITE_URL =
+"https://faithjz28.github.io/azriel-jay-savings/";
+
+const RECOVERY_URL =
+SITE_URL + "?recovery=1";
+
+
+const sb = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+
+let T = [];
+let user = null;
+
+
+/*
+IMPORTANT:
+If URL contains ?recovery=1,
+the dashboard is NEVER allowed to appear.
+*/
+const url =
+new URL(window.location.href);
+
+const recoveryMode =
+url.searchParams.get("recovery") === "1" ||
+url.hash.includes("type=recovery");
+
+
+const $ = id =>
+document.getElementById(id);
+
+
+const money = n =>
+new Intl.NumberFormat(
+  "en-CA",
+  {
+    style:"currency",
+    currency:"CAD"
+  }
+).format(n);
+
+
+/* ---------- DISPLAY ---------- */
+
+function showLogin(){
+
+  if(recoveryMode) return;
+
+  $("login").style.display = "block";
+  $("resetPage").style.display = "none";
+  $("app").style.display = "none";
+  $("nav").style.display = "none";
+}
+
+
+function showReset(){
+
+  $("login").style.display = "none";
+  $("app").style.display = "none";
+  $("nav").style.display = "none";
+  $("resetPage").style.display = "block";
+}
+
+
+function showApp(){
+
+  if(recoveryMode){
+    showReset();
+    return;
+  }
+
+  $("login").style.display = "none";
+  $("resetPage").style.display = "none";
+  $("app").style.display = "block";
+  $("nav").style.display = "grid";
+}
+
+
+/* ---------- TOTALS ---------- */
+
+function totals(a=T){
+
+  let i=0;
+  let o=0;
+
+  a.forEach(x=>{
+
+    if(x.transaction_type==="Money In"){
+      i += Number(x.amount);
+    }else{
+      o += Number(x.amount);
+    }
+
+  });
+
+  return {
+    i,
+    o,
+    n:i-o
+  };
+}
+
+
+function esc(v){
+
+  return String(v ?? "")
+  .replace(
+    /[&<>"']/g,
+    c=>({
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#39;"
+    }[c])
+  );
+}
+
+
+function txrow(x){
+
+  return `
+  <div class="tx">
+
+    <div>
+      <div class="name">
+        ${esc(x.description)}
+      </div>
+
+      <div class="meta">
+        ${esc(x.transaction_date)}
+        ${x.category
+          ? " · " + esc(x.category)
+          : ""}
+      </div>
+    </div>
+
+    <div class="amt ${
+      x.transaction_type==="Money In"
+      ? "green"
+      : "red"
+    }">
+
+      ${
+        x.transaction_type==="Money In"
+        ? "+"
+        : "−"
+      }
+
+      ${money(Number(x.amount))}
+
+    </div>
+
+  </div>
+  `;
+}
+
+
+function summary(t){
+
+  return `
+    <h2>Summary</h2>
+
+    <div class="label">Money in</div>
+    <div class="value green">
+      ${money(t.i)}
+    </div>
+
+    <br>
+
+    <div class="label">Money out</div>
+    <div class="value red">
+      ${money(t.o)}
+    </div>
+
+    <br>
+
+    <div class="label">Net change</div>
+    <div class="value">
+      ${money(t.n)}
+    </div>
+  `;
+}
+
+
+function render(){
+
+  const t = totals();
+
+  const s =
+  [...T].sort(
+    (a,b)=>
+    b.transaction_date.localeCompare(
+      a.transaction_date
+    )
+  );
+
+  $("bal").textContent =
+  money(t.n);
+
+  $("net").textContent =
+  money(t.n);
+
+  $("mi").textContent =
+  money(t.i);
+
+  $("mo").textContent =
+  money(t.o);
+
+
+  $("recent").innerHTML =
+  s.length
+  ? s.slice(0,5).map(txrow).join("")
+  : '<div class="empty">No transactions yet.</div>';
+
+
+  $("all").innerHTML =
+  s.length
+  ? s.map(txrow).join("")
+  : '<div class="empty">No transactions yet.</div>';
+
+
+  renderMonth();
+  renderYear();
+}
+
+
+/* ---------- LOAD TRANSACTIONS ---------- */
+
+async function load(){
+
+  if(!user) return;
+
+  const r =
+  await sb
+  .from("transactions")
+  .select("*")
+  .order(
+    "transaction_date",
+    {ascending:false}
+  );
+
+
+  if(r.error){
+
+    alert(
+      "Transactions could not load: " +
+      r.error.message
+    );
+
+    return;
+  }
+
+
+  T = r.data || [];
+
+  render();
+}
+
+
+/* ---------- SIGN IN ---------- */
+
+$("signin").onclick =
+async()=>{
+
+  const e =
+  $("email").value.trim();
+
+  const p =
+  $("password").value;
+
+
+  $("loginMsg").className =
+  "msg error";
+
+  $("loginMsg").textContent =
+  "";
+
+
+  if(!e || !p){
+
+    $("loginMsg").textContent =
+    "Enter your email and password.";
+
+    return;
+  }
+
+
+  $("signin").disabled = true;
+
+  $("signin").textContent =
+  "Signing in…";
+
+
+  const r =
+  await sb.auth.signInWithPassword({
+    email:e,
+    password:p
+  });
+
+
+  $("signin").disabled = false;
+
+  $("signin").textContent =
+  "Sign in";
+
+
+  if(r.error){
+
+    $("loginMsg").textContent =
+    "Incorrect email or password.";
+
+    return;
+  }
+
+
+  user = r.data.user;
+
+  showApp();
+
+  await load();
+};
+
+
+/* ---------- FORGOT PASSWORD ---------- */
+
+$("forgot").onclick =
+async()=>{
+
+  const e =
+  $("email").value.trim();
+
+
+  $("loginMsg").className =
+  "msg error";
+
+  $("loginMsg").textContent =
+  "";
+
+
+  if(!e){
+
+    $("loginMsg").textContent =
+    "Enter your email first.";
+
+    return;
+  }
+
+
+  $("forgot").disabled = true;
+
+  $("forgot").textContent =
+  "Sending reset email…";
+
+
+  const r =
+  await sb.auth.resetPasswordForEmail(
+    e,
+    {
+      redirectTo:RECOVERY_URL
+    }
+  );
+
+
+  $("forgot").disabled = false;
+
+  $("forgot").textContent =
+  "Forgot password?";
+
+
+  if(r.error){
+
+    $("loginMsg").textContent =
+    "Could not send reset email: " +
+    r.error.message;
+
+    return;
+  }
+
+
+  $("loginMsg").className =
+  "msg success";
+
+  $("loginMsg").textContent =
+  "Password reset email sent. Check your inbox.";
+};
+
+
+/* ---------- SAVE NEW PASSWORD ---------- */
+
+$("savePassword").onclick =
+async()=>{
+
+  const p =
+  $("newPassword").value;
+
+  const c =
+  $("confirmPassword").value;
+
+
+  $("resetMsg").className =
+  "msg error";
+
+  $("resetMsg").textContent =
+  "";
+
+
+  if(p.length < 6){
+
+    $("resetMsg").textContent =
+    "Password must be at least 6 characters.";
+
+    return;
+  }
+
+
+  if(p !== c){
+
+    $("resetMsg").textContent =
+    "Passwords do not match.";
+
+    return;
+  }
+
+
+  $("savePassword").disabled =
+  true;
+
+  $("savePassword").textContent =
+  "Saving…";
+
+
+  /*
+  Supabase should have created the
+  recovery session from the email link.
+  */
+
+  const sessionResult =
+  await sb.auth.getSession();
+
+
+  if(
+    sessionResult.error ||
+    !sessionResult.data.session
+  ){
+
+    $("savePassword").disabled =
+    false;
+
+    $("savePassword").textContent =
+    "Save new password";
+
+    $("resetMsg").textContent =
+    "This reset link is invalid or expired. Please request a new password reset email.";
+
+    return;
+  }
+
+
+  const r =
+  await sb.auth.updateUser({
+    password:p
+  });
+
+
+  if(r.error){
+
+    $("savePassword").disabled =
+    false;
+
+    $("savePassword").textContent =
+    "Save new password";
+
+    $("resetMsg").textContent =
+    "Could not change password: " +
+    r.error.message;
+
+    return;
+  }
+
+
+  $("resetMsg").className =
+  "msg success";
+
+  $("resetMsg").textContent =
+  "Password changed successfully! Returning to sign in…";
+
+
+  setTimeout(
+    async()=>{
+
+      await sb.auth.signOut();
+
+      window.location.replace(
+        SITE_URL
+      );
+
+    },
+    1500
+  );
+};
+
+
+/* ---------- SIGN OUT ---------- */
+
+$("logout").onclick =
+async()=>{
+
+  await sb.auth.signOut();
+
+  window.location.replace(
+    SITE_URL
+  );
+};
+
+
+/* ---------- ADD TRANSACTION ---------- */
+
+$("form").onsubmit =
+async e=>{
+
+  e.preventDefault();
+
+
+  if(!user){
+
+    alert(
+      "Please sign in again."
+    );
+
+    return;
+  }
+
+
+  const amount =
+  Number(
+    $("amt").value
+  );
+
+
+  if(
+    !Number.isFinite(amount) ||
+    amount <= 0
+  ){
+
+    alert(
+      "Enter a valid amount."
+    );
+
+    return;
+  }
+
+
+  const r =
+  await sb
+  .from("transactions")
+  .insert({
+
+    user_id:user.id,
+
+    transaction_date:
+    $("dat").value,
+
+    description:
+    $("des").value.trim(),
+
+    transaction_type:
+    $("typ").value,
+
+    amount:amount,
+
+    category:
+    $("cat").value.trim()
+    || null,
+
+    notes:
+    $("notes").value.trim()
+    || null
+
+  });
+
+
+  if(r.error){
+
+    alert(
+      "Transaction could not be saved: " +
+      r.error.message
+    );
+
+    return;
+  }
+
+
+  $("form").reset();
+
+  $("dat").value =
+  new Date()
+  .toISOString()
+  .slice(0,10);
+
+
+  await load();
+};
+
+
+/* ---------- MONTH / YEAR ---------- */
+
+function renderMonth(){
+
+  $("ms").innerHTML =
+  summary(
+    totals(
+      T.filter(
+        x=>
+        x.transaction_date
+        .startsWith(
+          $("mp").value
+        )
+      )
+    )
+  );
+}
+
+
+function renderYear(){
+
+  $("ys").innerHTML =
+  summary(
+    totals(
+      T.filter(
+        x=>
+        x.transaction_date
+        .startsWith(
+          $("yp").value + "-"
+        )
+      )
+    )
+  );
+}
+
+
+const d =
+new Date();
+
+
+$("dat").value =
+d.toISOString().slice(0,10);
+
+
+$("mp").value =
+d.toISOString().slice(0,7);
+
+
+$("yp").value =
+d.getFullYear();
+
+
+$("mp").onchange =
+renderMonth;
+
+
+$("yp").oninput =
+renderYear;
+
+
+/* ---------- NAVIGATION ---------- */
+
+document
+.querySelectorAll("nav button")
+.forEach(
+  b=>
+  b.onclick=()=>{
+
+    document
+    .querySelectorAll(
+      "nav button,.view"
+    )
+    .forEach(
+      x=>
+      x.classList.remove(
+        "active"
+      )
+    );
+
+
+    b.classList.add(
+      "active"
+    );
+
+
+    $(b.dataset.v)
+    .classList.add(
+      "active"
+    );
+  }
+);
+
+
+/* ---------- AUTH EVENTS ---------- */
+
+sb.auth.onAuthStateChange(
+  (event,session)=>{
+
+    if(
+      event ===
+      "PASSWORD_RECOVERY"
+    ){
+
+      showReset();
+
+      return;
+    }
+
+
+    if(
+      event ===
+      "SIGNED_OUT" &&
+      !recoveryMode
+    ){
+
+      user = null;
+
+      showLogin();
+    }
+
+  }
+);
+
+
+/* ---------- START APP ---------- */
+
+(async()=>{
+
+  /*
+  CRITICAL:
+  Recovery URL is checked FIRST.
+
+  This prevents an active Supabase
+  recovery session from displaying
+  the savings dashboard.
+  */
+
+  if(recoveryMode){
+
+    showReset();
+
+    return;
+  }
+
+
+  showLogin();
+
+
+  const s =
+  await sb.auth.getSession();
+
+
+  if(
+    s.data &&
+    s.data.session
+  ){
+
+    user =
+    s.data.session.user;
+
+    showApp();
+
+    await load();
+  }
+
+})();
+
+</script>
+
+</body>
+</html>
