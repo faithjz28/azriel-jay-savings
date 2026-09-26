@@ -2,14 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Savings Tracker">
 <meta name="mobile-web-app-capable" content="yes">
-<meta id="themeMeta" name="theme-color" content="#f3f0ff">
+<meta id="themeMeta" name="theme-color" content="#f1f4ed">
 
 <title>Savings Tracker</title>
 
@@ -17,509 +15,550 @@
 *{box-sizing:border-box}
 
 :root{
-  --bg:#f3f0ff;
-  --card:#fffafd;
-  --card2:#f8f3fa;
-  --accent:#4f8b70;
-  --accentText:#fff;
-  --text:#17191e;
-  --muted:#858995;
-  --border:#dddde3;
-  --positive:#4f8b70;
-  --negative:#b75e64;
-  --nav:#fffafd;
-  --shadow:0 8px 28px rgba(0,0,0,.045);
+ --bg:#f1f4ed;
+ --card:#fffdf9;
+ --card2:#e7eee2;
+ --accent:#4f8b70;
+ --accentText:#fff;
+ --text:#1c2520;
+ --muted:#798078;
+ --border:#dce2d8;
+ --positive:#4f8b70;
+ --negative:#b75e64;
+ --nav:#fffdf9;
+ --shadow:0 8px 28px rgba(0,0,0,.045);
 }
 
 html,body{
-  margin:0;
-  min-height:100%;
-  background:var(--bg);
+ margin:0;
+ min-height:100%;
+ background:var(--bg);
 }
 
 body{
-  color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  -webkit-tap-highlight-color:transparent;
+ color:var(--text);
+ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+ -webkit-tap-highlight-color:transparent;
 }
 
-button,input,select,textarea{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
 
 main{
-  width:100%;
-  max-width:1100px;
-  margin:auto;
-  padding:32px 18px 125px;
+ width:100%;
+ max-width:1100px;
+ margin:auto;
+ padding:32px 18px 125px;
 }
 
 h1{
-  margin:16px 0 5px;
-  font-size:42px;
-  line-height:1.05;
-  letter-spacing:-1.5px;
+ margin:16px 0 5px;
+ font-size:42px;
+ line-height:1.05;
+ letter-spacing:-1.5px;
 }
 
 h2{
-  font-size:23px;
-  margin:28px 0 12px;
+ font-size:23px;
+ margin:28px 0 12px;
 }
 
 .profile-name{
-  margin-top:9px;
-  margin-bottom:30px;
-  color:var(--muted);
-  font-size:17px;
-  font-weight:600;
+ margin:9px 0 30px;
+ color:var(--muted);
+ font-size:17px;
+ font-weight:600;
 }
 
 .card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:27px;
-  padding:22px;
-  margin:14px 0;
-  box-shadow:var(--shadow);
+ background:var(--card);
+ border:1px solid var(--border);
+ border-radius:27px;
+ padding:22px;
+ margin:14px 0;
+ box-shadow:var(--shadow);
 }
 
-.label,.meta{
-  color:var(--muted);
-}
+.label,.meta{color:var(--muted)}
 
-.balance-card{
-  padding:27px 24px;
-}
+.balance-card{padding:27px 24px}
 
 .big{
-  margin:8px 0 5px;
-  font-size:46px;
-  font-weight:800;
-  letter-spacing:-2px;
+ margin:8px 0 5px;
+ font-size:46px;
+ font-weight:800;
+ letter-spacing:-2px;
 }
 
 .net-row{
-  margin-top:8px;
-  color:var(--muted);
+ margin-top:8px;
+ color:var(--muted);
 }
 
 .stats{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:12px;
 }
 
-.stat-card{
-  margin:0;
-}
+.stat-card{margin:0}
 
 .stat-icon{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  width:38px;
-  height:38px;
-  margin-bottom:14px;
-  border-radius:12px;
-  background:var(--card2);
-  font-weight:800;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ width:38px;
+ height:38px;
+ margin-bottom:14px;
+ border-radius:12px;
+ background:var(--card2);
+ font-weight:800;
 }
 
 .value{
-  margin-top:7px;
-  font-size:24px;
-  font-weight:800;
+ margin-top:7px;
+ font-size:24px;
+ font-weight:800;
 }
 
 .green{color:var(--positive)}
 .red{color:var(--negative)}
 
-input,
-select,
-textarea{
-  display:block;
-  width:100%;
-  margin:7px 0;
-  padding:15px 16px;
-  border:1px solid var(--border);
-  border-radius:15px;
-  outline:none;
-  background:var(--card);
-  color:var(--text);
+input,select,textarea{
+ display:block;
+ width:100%;
+ margin:7px 0;
+ padding:15px 16px;
+ border:1px solid var(--border);
+ border-radius:15px;
+ outline:none;
+ background:var(--card);
+ color:var(--text);
 }
 
-input:focus,
-select:focus,
-textarea:focus{
-  border-color:var(--accent);
-  box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 12%,transparent);
+input:focus,select:focus,textarea:focus{
+ border-color:var(--accent);
 }
 
 textarea{
-  min-height:90px;
-  resize:vertical;
+ min-height:90px;
+ resize:vertical;
 }
 
 button{
-  width:100%;
-  margin:7px 0;
-  padding:14px;
-  border:1px solid var(--border);
-  border-radius:15px;
-  background:var(--card);
-  color:var(--text);
+ width:100%;
+ margin:7px 0;
+ padding:14px;
+ border:1px solid var(--border);
+ border-radius:15px;
+ background:var(--card);
+ color:var(--text);
 }
 
 button.primary{
-  border-color:var(--accent);
-  background:var(--accent);
-  color:var(--accentText);
-  font-weight:750;
+ border-color:var(--accent);
+ background:var(--accent);
+ color:var(--accentText);
+ font-weight:750;
 }
 
-button:disabled{
-  opacity:.55;
+button.danger{
+ border-color:var(--negative);
+ color:var(--negative);
 }
+
+button:disabled{opacity:.55}
 
 .field-label{
-  display:block;
-  margin:15px 3px 3px;
-  color:var(--muted);
-  font-size:14px;
-  font-weight:700;
+ display:block;
+ margin:15px 3px 3px;
+ color:var(--muted);
+ font-size:14px;
+ font-weight:700;
 }
 
-.amount-wrap{
-  position:relative;
-}
+.amount-wrap{position:relative}
 
 .amount-symbol{
-  position:absolute;
-  top:50%;
-  left:16px;
-  transform:translateY(-50%);
-  color:var(--muted);
-  font-weight:700;
+ position:absolute;
+ top:50%;
+ left:16px;
+ transform:translateY(-50%);
+ color:var(--muted);
+ font-weight:700;
 }
 
-.amount-wrap input{
-  padding-left:36px;
-}
+.amount-wrap input{padding-left:36px}
 
 .view{display:none}
 .view.active{display:block}
 
 #app{display:none}
-
 #login,#resetPage{
-  max-width:480px;
-  margin:50px auto;
+ max-width:480px;
+ margin:50px auto;
 }
-
 #resetPage{display:none}
 
 .msg{
-  margin-top:10px;
-  line-height:1.4;
+ margin-top:10px;
+ line-height:1.4;
 }
-
 .error{color:var(--negative)}
 .success{color:var(--positive)}
 
 .empty{
-  padding:22px 5px;
-  color:var(--muted);
-  text-align:center;
+ padding:22px 5px;
+ color:var(--muted);
+ text-align:center;
+}
+
+/* VIEWER */
+
+.viewer-banner{
+ display:none;
+ margin:0 0 17px;
+ padding:13px 16px;
+ border:1px solid var(--border);
+ border-radius:16px;
+ background:var(--card2);
+ color:var(--text);
+ font-weight:700;
+}
+
+.viewer-banner span{
+ display:block;
+ margin-top:3px;
+ color:var(--muted);
+ font-size:12px;
+ font-weight:500;
 }
 
 /* TRANSACTIONS */
 
 .tx{
-  padding:17px 0;
-  border-bottom:1px solid var(--border);
+ padding:17px 0;
+ border-bottom:1px solid var(--border);
 }
 
-.tx:last-child{
-  border-bottom:0;
-}
+.tx:last-child{border-bottom:0}
 
 .tx-main{
-  display:flex;
-  justify-content:space-between;
-  gap:15px;
+ display:flex;
+ justify-content:space-between;
+ gap:15px;
 }
 
 .tx-left{
-  display:flex;
-  gap:12px;
-  min-width:0;
+ display:flex;
+ gap:12px;
+ min-width:0;
 }
 
 .tx-icon{
-  flex:0 0 auto;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  width:42px;
-  height:42px;
-  border-radius:14px;
-  background:var(--card2);
-  font-size:19px;
+ flex:0 0 auto;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ width:42px;
+ height:42px;
+ border-radius:14px;
+ background:var(--card2);
+ font-size:19px;
 }
 
-.tx-info{
-  min-width:0;
-}
+.tx-info{min-width:0}
 
 .name{
-  font-size:17px;
-  font-weight:750;
+ font-size:17px;
+ font-weight:750;
 }
 
 .meta{
-  margin-top:3px;
-  font-size:13px;
+ margin-top:3px;
+ font-size:13px;
 }
 
 .amt{
-  white-space:nowrap;
-  font-size:17px;
-  font-weight:800;
+ white-space:nowrap;
+ font-size:17px;
+ font-weight:800;
 }
 
 .tx-actions{
-  display:flex;
-  gap:7px;
-  margin-top:10px;
-  padding-left:54px;
+ display:flex;
+ gap:7px;
+ margin-top:10px;
+ padding-left:54px;
 }
 
 .tx-actions button{
-  width:auto;
-  margin:0;
-  padding:7px 11px;
-  border-radius:10px;
-  background:var(--card2);
-  font-size:12px;
+ width:auto;
+ margin:0;
+ padding:7px 11px;
+ border-radius:10px;
+ background:var(--card2);
+ font-size:12px;
 }
 
 .edit-btn{color:var(--accent)}
 .delete-btn{color:var(--negative)}
 
 .filter-row{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:7px;
-  margin:9px 0 15px;
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:7px;
+ margin:9px 0 15px;
 }
 
 .filter-btn{
-  padding:10px 5px;
-  background:var(--card2);
-  font-size:13px;
+ padding:10px 5px;
+ background:var(--card2);
+ font-size:13px;
 }
 
 .filter-btn.active-filter{
-  border-color:var(--accent);
-  background:var(--accent);
-  color:var(--accentText);
+ border-color:var(--accent);
+ background:var(--accent);
+ color:var(--accentText);
 }
 
 .edit-banner{
-  display:none;
-  margin-bottom:12px;
-  padding:12px;
-  border-radius:13px;
-  background:var(--card2);
-  font-weight:700;
+ display:none;
+ margin-bottom:12px;
+ padding:12px;
+ border-radius:13px;
+ background:var(--card2);
+ font-weight:700;
 }
 
 .cancel-edit{display:none}
 
+/* HISTORY */
+
+.history-item{
+ padding:17px 0;
+ border-bottom:1px solid var(--border);
+}
+
+.history-item:last-child{border-bottom:0}
+
+.history-top{
+ display:flex;
+ justify-content:space-between;
+ gap:10px;
+}
+
+.history-action{
+ display:inline-block;
+ padding:5px 9px;
+ border-radius:9px;
+ background:var(--card2);
+ font-size:12px;
+ font-weight:800;
+}
+
+.history-name{
+ margin-top:9px;
+ font-size:16px;
+ font-weight:750;
+}
+
+.history-amount{
+ margin-top:4px;
+ font-weight:750;
+}
+
 /* SETTINGS */
 
 .settings-intro{
-  margin:8px 0 25px;
-  color:var(--muted);
+ margin:8px 0 25px;
+ color:var(--muted);
 }
 
 .setting-card h2{
-  margin:0 0 6px;
-  font-size:25px;
+ margin:0 0 6px;
+ font-size:25px;
 }
 
 .setting-description{
-  margin:0 0 18px;
-  color:var(--muted);
-  line-height:1.4;
+ margin:0 0 18px;
+ color:var(--muted);
+ line-height:1.4;
 }
 
 .theme-display{
-  display:flex;
-  align-items:center;
-  gap:13px;
-  margin:14px 0 4px;
-  padding:13px;
-  border:1px solid var(--border);
-  border-radius:16px;
-  background:var(--card2);
+ display:flex;
+ align-items:center;
+ gap:13px;
+ margin:14px 0 4px;
+ padding:13px;
+ border:1px solid var(--border);
+ border-radius:16px;
+ background:var(--card2);
 }
 
 .theme-swatch{
-  width:43px;
-  height:43px;
-  flex:0 0 auto;
-  border:1px solid var(--border);
-  border-radius:14px;
-  background:var(--accent);
+ width:43px;
+ height:43px;
+ flex:0 0 auto;
+ border:1px solid var(--border);
+ border-radius:14px;
+ background:var(--accent);
 }
 
-.theme-text{
-  font-weight:750;
-}
+.theme-text{font-weight:750}
 
 .theme-sub{
-  margin-top:2px;
-  color:var(--muted);
-  font-size:13px;
+ margin-top:2px;
+ color:var(--muted);
+ font-size:13px;
 }
 
-/* PERIOD */
+.viewer-row{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:10px;
+ padding:13px 0;
+ border-bottom:1px solid var(--border);
+}
 
-.period-card select{
-  font-weight:700;
+.viewer-row:last-child{border-bottom:0}
+
+.viewer-email{
+ min-width:0;
+ overflow:hidden;
+ text-overflow:ellipsis;
+ font-weight:700;
+}
+
+.viewer-role{
+ margin-top:3px;
+ color:var(--muted);
+ font-size:12px;
+}
+
+.viewer-row button{
+ width:auto;
+ margin:0;
+ padding:8px 11px;
+ color:var(--negative);
+ font-size:12px;
+}
+
+/* MORE */
+
+.menu-button{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ text-align:left;
+ padding:17px;
+ background:var(--card);
+}
+
+.menu-left{
+ display:flex;
+ align-items:center;
+ gap:12px;
+}
+
+.menu-icon{
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ width:40px;
+ height:40px;
+ border-radius:13px;
+ background:var(--card2);
+ font-size:19px;
 }
 
 /* NAV */
 
 nav{
-  position:fixed;
-  right:0;
-  bottom:0;
-  left:0;
-  z-index:20;
-  display:none;
-  grid-template-columns:repeat(5,1fr);
-  border-top:1px solid var(--border);
-  background:var(--nav);
-  padding-bottom:env(safe-area-inset-bottom);
-  box-shadow:0 -5px 20px rgba(0,0,0,.035);
+ position:fixed;
+ right:0;
+ bottom:0;
+ left:0;
+ z-index:20;
+ display:none;
+ grid-template-columns:repeat(5,1fr);
+ border-top:1px solid var(--border);
+ background:var(--nav);
+ padding-bottom:env(safe-area-inset-bottom);
+ box-shadow:0 -5px 20px rgba(0,0,0,.035);
 }
 
 nav button{
-  margin:0;
-  padding:11px 2px 10px;
-  border:0;
-  border-radius:0;
-  background:transparent;
-  color:var(--muted);
-  font-size:11px;
+ margin:0;
+ padding:11px 2px 10px;
+ border:0;
+ border-radius:0;
+ background:transparent;
+ color:var(--muted);
+ font-size:11px;
 }
 
 nav button.active{
-  color:var(--accent);
-  font-weight:800;
+ color:var(--accent);
+ font-weight:800;
 }
 
 .nav-icon{
-  display:block;
-  margin-bottom:3px;
-  font-size:21px;
+ display:block;
+ margin-bottom:3px;
+ font-size:21px;
 }
-
-/* IPAD */
 
 @media(min-width:700px){
+ main{padding:38px 30px 125px}
 
-  main{
-    padding:38px 30px 125px;
-  }
+ .home-top{
+  display:grid;
+  grid-template-columns:1.4fr 1fr;
+  gap:14px;
+ }
 
-  .home-top{
-    display:grid;
-    grid-template-columns:1.4fr 1fr;
-    gap:14px;
-  }
+ .home-top .balance-card,
+ .home-top .stats{margin:0}
 
-  .home-top .balance-card,
-  .home-top .stats{
-    margin:0;
-  }
+ .settings-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  align-items:start;
+ }
 
-  .settings-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:14px;
-    align-items:start;
-  }
-
-  .settings-grid .card{
-    margin:0;
-  }
+ .settings-grid .card{margin:0}
 }
-
-/* DESKTOP */
 
 @media(min-width:1000px){
+ main{padding-top:48px}
 
-  main{
-    padding-top:48px;
-  }
+ .transaction-layout{
+  display:grid;
+  grid-template-columns:410px 1fr;
+  gap:18px;
+  align-items:start;
+ }
 
-  .transaction-layout{
-    display:grid;
-    grid-template-columns:410px 1fr;
-    gap:18px;
-    align-items:start;
-  }
-
-  .transaction-layout .card{
-    margin:0;
-  }
+ .transaction-layout .card{margin:0}
 }
 
-/* IPHONE */
-
 @media(max-width:480px){
-
-  main{
-    padding:27px 14px 120px;
-  }
-
-  h1{
-    font-size:40px;
-  }
-
-  .card{
-    padding:20px;
-    border-radius:24px;
-  }
-
-  .big{
-    font-size:42px;
-  }
-
-  .stats{
-    gap:9px;
-  }
-
-  .stat-card{
-    padding:17px;
-  }
-
-  .value{
-    font-size:20px;
-  }
+ main{padding:27px 14px 120px}
+ h1{font-size:40px}
+ .card{padding:20px;border-radius:24px}
+ .big{font-size:42px}
+ .stats{gap:9px}
+ .stat-card{padding:17px}
+ .value{font-size:20px}
 }
 
 @media(display-mode:standalone){
-  body{
-    padding-top:env(safe-area-inset-top);
-  }
+ body{padding-top:env(safe-area-inset-top)}
 }
 </style>
 
@@ -530,2292 +569,1421 @@ nav button.active{
 
 <main>
 
-<!-- LOGIN -->
-
 <section id="login">
+ <h1 class="app-title">Savings Tracker</h1>
+ <div class="profile-name">Your personal savings</div>
 
-<h1 class="app-title">Savings Tracker</h1>
+ <div class="card">
+  <h2 style="margin-top:0">Private sign in</h2>
 
-<div class="profile-name">
-Your personal savings
-</div>
+  <input id="email" type="email" autocomplete="username" placeholder="Email">
+  <input id="password" type="password" autocomplete="current-password" placeholder="Password">
 
-<div class="card">
+  <button id="signin" class="primary" type="button">Sign in</button>
+  <button id="forgot" type="button">Forgot password?</button>
 
-<h2 style="margin-top:0">Private sign in</h2>
-
-<input id="email" type="email" autocomplete="username" placeholder="Email">
-
-<input id="password" type="password" autocomplete="current-password" placeholder="Password">
-
-<button id="signin" class="primary" type="button">
-Sign in
-</button>
-
-<button id="forgot" type="button">
-Forgot password?
-</button>
-
-<div id="loginMsg" class="msg error"></div>
-
-</div>
-
+  <div id="loginMsg" class="msg error"></div>
+ </div>
 </section>
-
-
-<!-- RESET -->
 
 <section id="resetPage">
+ <h1 class="app-title">Savings Tracker</h1>
 
-<h1 class="app-title">Savings Tracker</h1>
+ <div class="card">
+  <h2 style="margin-top:0">Create new password</h2>
+  <p class="label">Enter and confirm your new password.</p>
 
-<div class="card">
+  <input id="newPassword" type="password" autocomplete="new-password" placeholder="New password">
+  <input id="confirmPassword" type="password" autocomplete="new-password" placeholder="Confirm new password">
 
-<h2 style="margin-top:0">Create new password</h2>
-
-<p class="label">
-Enter and confirm your new password.
-</p>
-
-<input id="newPassword" type="password" autocomplete="new-password" placeholder="New password">
-
-<input id="confirmPassword" type="password" autocomplete="new-password" placeholder="Confirm new password">
-
-<button id="savePassword" class="primary" type="button">
-Save new password
-</button>
-
-<div id="resetMsg" class="msg error"></div>
-
-</div>
-
+  <button id="savePassword" class="primary" type="button">Save new password</button>
+  <div id="resetMsg" class="msg error"></div>
+ </div>
 </section>
-
-
-<!-- APP -->
 
 <div id="app">
 
+<div id="viewerBanner" class="viewer-banner">
+ 👁️ View Only
+ <span>You can view this savings account but cannot add, edit or delete transactions.</span>
+</div>
 
 <!-- HOME -->
 
 <section id="home" class="view active">
 
-<h1 class="app-title">Savings Tracker</h1>
+ <h1 class="app-title">Savings Tracker</h1>
+ <div id="homeProfile" class="profile-name">My Savings</div>
 
-<div id="homeProfile" class="profile-name">
-My Savings
-</div>
+ <div class="home-top">
 
-<div class="home-top">
+  <div class="card balance-card">
+   <div class="label">Current savings</div>
+   <div id="bal" class="big">$0.00</div>
+   <div class="net-row">Net change: <strong id="net">$0.00</strong></div>
+  </div>
 
-<div class="card balance-card">
+  <div class="stats">
+   <div class="card stat-card">
+    <div class="stat-icon">↓</div>
+    <div class="label">Money in</div>
+    <div id="mi" class="value green">$0.00</div>
+   </div>
 
-<div class="label">
-Current savings
-</div>
+   <div class="card stat-card">
+    <div class="stat-icon">↑</div>
+    <div class="label">Money out</div>
+    <div id="mo" class="value red">$0.00</div>
+   </div>
+  </div>
 
-<div id="bal" class="big">
-$0.00
-</div>
+ </div>
 
-<div class="net-row">
-Net change:
-<strong id="net">$0.00</strong>
-</div>
-
-</div>
-
-
-<div class="stats">
-
-<div class="card stat-card">
-
-<div class="stat-icon">↓</div>
-
-<div class="label">
-Money in
-</div>
-
-<div id="mi" class="value green">
-$0.00
-</div>
-
-</div>
-
-
-<div class="card stat-card">
-
-<div class="stat-icon">↑</div>
-
-<div class="label">
-Money out
-</div>
-
-<div id="mo" class="value red">
-$0.00
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-
-<h2>Recent transactions</h2>
-
-<div id="recent" class="card">
-<div class="empty">No transactions yet.</div>
-</div>
+ <h2>Recent transactions</h2>
+ <div id="recent" class="card">
+  <div class="empty">No transactions yet.</div>
+ </div>
 
 </section>
-
 
 <!-- TRANSACTIONS -->
 
 <section id="transactions" class="view">
 
-<h1>Transactions</h1>
+ <h1>Transactions</h1>
+ <div class="profile-name">Add, search and manage your transactions.</div>
 
-<div class="profile-name">
-Add, search and manage your transactions.
-</div>
+ <div class="transaction-layout">
 
-<div class="transaction-layout">
+  <div id="transactionFormCard" class="card">
 
-<div class="card">
+   <div id="editBanner" class="edit-banner">✏️ Editing transaction</div>
 
-<div id="editBanner" class="edit-banner">
-✏️ Editing transaction
-</div>
+   <form id="form">
 
-<form id="form">
+    <label class="field-label">Type</label>
+    <select id="typ">
+     <option>Money In</option>
+     <option>Money Out</option>
+    </select>
 
-<label class="field-label">Type</label>
+    <label class="field-label">Amount</label>
+    <div class="amount-wrap">
+     <span id="amountSymbol" class="amount-symbol">$</span>
+     <input id="amt" type="number" inputmode="decimal" min="0" step=".01" placeholder="0.00" required>
+    </div>
 
-<select id="typ">
-<option>Money In</option>
-<option>Money Out</option>
-</select>
+    <label class="field-label">Description</label>
+    <select id="desSelect"></select>
+    <input id="desOther" placeholder="Type your description" style="display:none">
 
-<label class="field-label">Amount</label>
+    <label class="field-label">Category</label>
+    <select id="catSelect"></select>
+    <input id="catOther" placeholder="Type your category" style="display:none">
 
-<div class="amount-wrap">
+    <label class="field-label">Date</label>
+    <input id="dat" type="date" required>
 
-<span id="amountSymbol" class="amount-symbol">$</span>
+    <label class="field-label">Notes</label>
+    <textarea id="notes" placeholder="Notes (optional)"></textarea>
 
-<input
-id="amt"
-type="number"
-inputmode="decimal"
-min="0"
-step=".01"
-placeholder="0.00"
-required
->
+    <button id="submitTransaction" class="primary" type="submit">＋ Add Transaction</button>
+    <button id="cancelEdit" class="cancel-edit" type="button">Cancel Edit</button>
 
-</div>
+   </form>
+  </div>
 
-<label class="field-label">Description</label>
+  <div class="card">
 
-<select id="desSelect"></select>
+   <input id="searchTx" type="search" placeholder="🔎 Search transactions">
 
-<input
-id="desOther"
-placeholder="Type your description"
-style="display:none"
->
+   <div class="filter-row">
+    <button class="filter-btn active-filter" data-filter="All" type="button">All</button>
+    <button class="filter-btn" data-filter="Money In" type="button">Money In</button>
+    <button class="filter-btn" data-filter="Money Out" type="button">Money Out</button>
+   </div>
 
-<label class="field-label">Category</label>
+   <div id="all"><div class="empty">No transactions yet.</div></div>
 
-<select id="catSelect"></select>
+  </div>
 
-<input
-id="catOther"
-placeholder="Type your category"
-style="display:none"
->
-
-<label class="field-label">Date</label>
-
-<input id="dat" type="date" required>
-
-<label class="field-label">Notes</label>
-
-<textarea id="notes" placeholder="Notes (optional)"></textarea>
-
-<button id="submitTransaction" class="primary" type="submit">
-＋ Add Transaction
-</button>
-
-<button id="cancelEdit" class="cancel-edit" type="button">
-Cancel Edit
-</button>
-
-</form>
-
-</div>
-
-
-<div class="card">
-
-<input id="searchTx" type="search" placeholder="🔎 Search transactions">
-
-<div class="filter-row">
-
-<button class="filter-btn active-filter" data-filter="All" type="button">
-All
-</button>
-
-<button class="filter-btn" data-filter="Money In" type="button">
-Money In
-</button>
-
-<button class="filter-btn" data-filter="Money Out" type="button">
-Money Out
-</button>
-
-</div>
-
-<div id="all">
-<div class="empty">No transactions yet.</div>
-</div>
-
-</div>
-
-</div>
-
+ </div>
 </section>
-
 
 <!-- MONTHLY -->
 
 <section id="monthly" class="view">
 
-<h1>Monthly</h1>
+ <h1>Monthly</h1>
+ <div class="profile-name">See your savings activity by month.</div>
 
-<div class="profile-name">
-See your savings activity by month.
-</div>
-
-<div class="card period-card">
-
-<label class="field-label">Select month</label>
-
-<input id="mp" type="month">
-
-<div id="ms"></div>
-
-</div>
+ <div class="card">
+  <label class="field-label">Select month</label>
+  <input id="mp" type="month">
+  <div id="ms"></div>
+ </div>
 
 </section>
-
 
 <!-- YEARLY -->
 
 <section id="yearly" class="view">
 
-<h1>Yearly</h1>
+ <h1>Yearly</h1>
+ <div class="profile-name">See your savings activity by year.</div>
 
-<div class="profile-name">
-See your savings activity by year.
-</div>
-
-<div class="card period-card">
-
-<label class="field-label">Select year</label>
-
-<select id="yp"></select>
-
-<div id="ys"></div>
-
-</div>
+ <div class="card">
+  <label class="field-label">Select year</label>
+  <select id="yp"></select>
+  <div id="ys"></div>
+ </div>
 
 </section>
 
+<!-- MORE -->
+
+<section id="more" class="view">
+
+ <h1>More</h1>
+ <div class="profile-name">History, settings and account.</div>
+
+ <button class="menu-button" type="button" onclick="openView('history')">
+  <span class="menu-left">
+   <span class="menu-icon">🕘</span>
+   <span>
+    <strong>History</strong><br>
+    <span class="meta">Added, edited & deleted transactions</span>
+   </span>
+  </span>
+  <span>›</span>
+ </button>
+
+ <button class="menu-button" type="button" onclick="openView('settings')">
+  <span class="menu-left">
+   <span class="menu-icon">⚙︎</span>
+   <span>
+    <strong>Settings</strong><br>
+    <span class="meta">Theme, names, viewers & account</span>
+   </span>
+  </span>
+  <span>›</span>
+ </button>
+
+</section>
+
+<!-- HISTORY -->
+
+<section id="history" class="view">
+
+ <h1>History</h1>
+ <div class="profile-name">Your transaction activity log.</div>
+
+ <button type="button" onclick="openView('more')">‹ Back to More</button>
+
+ <div id="historyList" class="card">
+  <div class="empty">No history yet.</div>
+ </div>
+
+</section>
 
 <!-- SETTINGS -->
 
 <section id="settings" class="view">
 
-<h1>Settings</h1>
+ <h1>Settings</h1>
+ <div class="settings-intro">Personalize your Savings Tracker.</div>
 
-<div class="settings-intro">
-Personalize your Savings Tracker.
-</div>
+ <button type="button" onclick="openView('more')">‹ Back to More</button>
 
-<div class="settings-grid">
+ <div class="settings-grid">
 
+  <div id="namesCard" class="card setting-card">
+   <h2>Names</h2>
+   <p class="setting-description">Choose what appears at the top of your app.</p>
 
-<!-- NAMES -->
+   <label class="field-label">App title</label>
+   <input id="appTitleInput" maxlength="40" placeholder="Savings Tracker">
 
-<div class="card setting-card">
+   <label class="field-label">Profile name</label>
+   <input id="profileInput" maxlength="50" placeholder="Faith & JJ Savings">
 
-<h2>Names</h2>
+   <button id="saveNames" class="primary" type="button">Save Names</button>
+   <div id="nameMsg" class="msg success"></div>
+  </div>
 
-<p class="setting-description">
-Choose what appears at the top of your app.
-</p>
+  <div id="themeCard" class="card setting-card">
+   <h2>Theme</h2>
+   <p class="setting-description">One choice changes the whole look — background, cards and buttons.</p>
 
-<label class="field-label">
-App title
-</label>
+   <label class="field-label">Choose theme</label>
 
-<input
-id="appTitleInput"
-maxlength="40"
-placeholder="Savings Tracker"
->
+   <select id="themeSelect">
+    <option value="pink">🌸 Pink</option>
+    <option value="rose">🌹 Rose</option>
+    <option value="lavender">💜 Lavender</option>
+    <option value="purple">🔮 Purple Dark</option>
+    <option value="ocean">🌊 Ocean Blue</option>
+    <option value="sky">🩵 Sky Blue</option>
+    <option value="sage">🌿 Sage</option>
+    <option value="mint">🍃 Mint</option>
+    <option value="cream">🤍 Cream</option>
+    <option value="mocha">🤎 Mocha</option>
+    <option value="neutral">🩶 Neutral</option>
+    <option value="midnight">🌙 Midnight</option>
+   </select>
 
-<label class="field-label">
-Profile name
-</label>
+   <div class="theme-display">
+    <div class="theme-swatch"></div>
+    <div>
+     <div id="themeName" class="theme-text">Sage</div>
+     <div class="theme-sub">Background + cards + buttons</div>
+    </div>
+   </div>
+  </div>
 
-<input
-id="profileInput"
-maxlength="50"
-placeholder="Faith & JJ Savings"
->
+  <div id="currencyCard" class="card setting-card">
+   <h2>Currency</h2>
+   <p class="setting-description">Choose how your amounts are displayed.</p>
 
-<button id="saveNames" class="primary" type="button">
-Save Names
-</button>
+   <select id="currencySelect">
+    <option value="CAD">🇨🇦 CAD — $</option>
+    <option value="USD">🇺🇸 USD — $</option>
+    <option value="PHP">🇵🇭 PHP — ₱</option>
+   </select>
+  </div>
 
-<div id="nameMsg" class="msg success"></div>
+  <div id="viewerSettings" class="card setting-card">
+   <h2>Viewer Access 👁️</h2>
 
-</div>
+   <p class="setting-description">
+    Give someone view-only access. They can see your savings but cannot add, edit or delete transactions.
+   </p>
 
+   <label class="field-label">Viewer email</label>
+   <input id="viewerEmail" type="email" placeholder="viewer@email.com">
 
-<!-- THEME -->
+   <button id="addViewer" class="primary" type="button">Add Viewer</button>
 
-<div class="card setting-card">
+   <div id="viewerMsg" class="msg"></div>
 
-<h2>Theme</h2>
+   <h2 style="font-size:18px;margin-top:25px">Current viewers</h2>
 
-<p class="setting-description">
-One choice changes the whole look — background, cards and buttons.
-</p>
+   <div id="viewerList">
+    <div class="empty">No viewers yet.</div>
+   </div>
+  </div>
 
-<label class="field-label">
-Choose theme
-</label>
+  <div class="card setting-card">
+   <h2>Account</h2>
+   <p id="accountEmail" class="setting-description"></p>
+   <button id="settingsLogout" type="button">Sign out</button>
+  </div>
 
-<select id="themeSelect">
-
-<option value="pink">🌸 Pink</option>
-<option value="rose">🌹 Rose</option>
-<option value="lavender">💜 Lavender</option>
-<option value="purple">🔮 Purple</option>
-<option value="ocean">🌊 Ocean Blue</option>
-<option value="sky">🩵 Sky Blue</option>
-<option value="sage">🌿 Sage</option>
-<option value="mint">🍃 Mint</option>
-<option value="cream">🤍 Cream</option>
-<option value="mocha">🤎 Mocha</option>
-<option value="neutral">🩶 Neutral</option>
-<option value="midnight">🌙 Midnight</option>
-
-</select>
-
-<div class="theme-display">
-
-<div class="theme-swatch"></div>
-
-<div>
-<div id="themeName" class="theme-text">
-Sage
-</div>
-
-<div class="theme-sub">
-Background + cards + buttons
-</div>
-</div>
-
-</div>
-
-</div>
-
-
-<!-- CURRENCY -->
-
-<div class="card setting-card">
-
-<h2>Currency</h2>
-
-<p class="setting-description">
-Choose how your amounts are displayed.
-</p>
-
-<select id="currencySelect">
-
-<option value="CAD">
-🇨🇦 CAD — $
-</option>
-
-<option value="USD">
-🇺🇸 USD — $
-</option>
-
-<option value="PHP">
-🇵🇭 PHP — ₱
-</option>
-
-</select>
-
-</div>
-
-
-<!-- ACCOUNT -->
-
-<div class="card setting-card">
-
-<h2>Account</h2>
-
-<p id="accountEmail" class="setting-description"></p>
-
-<button id="settingsLogout" type="button">
-Sign out
-</button>
-
-</div>
-
-</div>
+ </div>
 
 </section>
 
 </div>
-
 </main>
-
-
-<!-- NAV -->
 
 <nav id="nav">
 
-<button class="active" data-v="home">
-<span class="nav-icon">⌂</span>
-Home
-</button>
+ <button class="active" data-v="home">
+  <span class="nav-icon">⌂</span>
+  Home
+ </button>
 
-<button data-v="transactions">
-<span class="nav-icon">＋</span>
-Transactions
-</button>
+ <button data-v="transactions">
+  <span class="nav-icon">＋</span>
+  Transactions
+ </button>
 
-<button data-v="monthly">
-<span class="nav-icon">▦</span>
-Monthly
-</button>
+ <button data-v="monthly">
+  <span class="nav-icon">▦</span>
+  Monthly
+ </button>
 
-<button data-v="yearly">
-<span class="nav-icon">▥</span>
-Yearly
-</button>
+ <button data-v="yearly">
+  <span class="nav-icon">▥</span>
+  Yearly
+ </button>
 
-<button data-v="settings">
-<span class="nav-icon">⚙︎</span>
-Settings
-</button>
+ <button data-v="more">
+  <span class="nav-icon">•••</span>
+  More
+ </button>
 
 </nav>
 
-
 <script>
 
-/* ==========================
-SUPABASE
-========================== */
+const SUPABASE_URL="https://nscgbqeyyninunvhlkas.supabase.co";
+const SUPABASE_KEY="sb_publishable_noeKmKCYmGqETcdSSlPxRw_T9NdIAD_";
+const SITE_URL="https://faithjz28.github.io/azriel-jay-savings/";
+const RECOVERY_URL=SITE_URL+"?recovery=1";
 
-const SUPABASE_URL =
-"https://nscgbqeyyninunvhlkas.supabase.co";
-
-const SUPABASE_KEY =
-"sb_publishable_noeKmKCYmGqETcdSSlPxRw_T9NdIAD_";
-
-const SITE_URL =
-"https://faithjz28.github.io/azriel-jay-savings/";
-
-const RECOVERY_URL =
-SITE_URL + "?recovery=1";
-
-const sb =
-supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
-);
+const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
 let T=[];
+let H=[];
 let user=null;
+let ownerId=null;
+let isViewer=false;
 let editingId=null;
 let currentFilter="All";
 
 const $=id=>document.getElementById(id);
 
 const url=new URL(window.location.href);
-
-const recoveryMode =
-url.searchParams.get("recovery")==="1" ||
-url.hash.includes("type=recovery");
-
-
-/* ==========================
-SETTINGS
-========================== */
+const recoveryMode=
+ url.searchParams.get("recovery")==="1" ||
+ url.hash.includes("type=recovery");
 
 const defaults={
-title:"Savings Tracker",
-profile:"My Savings",
-theme:"sage",
-currency:"CAD"
+ title:"Savings Tracker",
+ profile:"My Savings",
+ theme:"sage",
+ currency:"CAD"
 };
 
 function settingKey(name){
-
-return user
-? "savings-"+user.id+"-"+name
-: "savings-"+name;
-
+ return user ? "savings-"+user.id+"-"+name : "savings-"+name;
 }
 
 function getSetting(name){
-
-return localStorage.getItem(
-settingKey(name)
-) || defaults[name];
-
+ return localStorage.getItem(settingKey(name)) || defaults[name];
 }
 
 function saveSetting(name,value){
-
-localStorage.setItem(
-settingKey(name),
-value
-);
-
+ localStorage.setItem(settingKey(name),value);
 }
-
-
-/* ==========================
-THEMES
-========================== */
 
 const themes={
-
-pink:{
-name:"Pink",
-bg:"#fff1f6",
-card:"#fffafd",
-card2:"#fde7ef",
-accent:"#d65f8c",
-accentText:"#ffffff",
-text:"#211b1e",
-muted:"#89777e",
-border:"#edd9e0",
-positive:"#4f8b70",
-negative:"#b75e64",
-nav:"#fffafd"
-},
-
-rose:{
-name:"Rose",
-bg:"#fff2f3",
-card:"#fffafa",
-card2:"#fae3e6",
-accent:"#c7546c",
-accentText:"#ffffff",
-text:"#271d20",
-muted:"#88757a",
-border:"#ecd8dc",
-positive:"#4f8b70",
-negative:"#bd5260",
-nav:"#fffafa"
-},
-
-lavender:{
-name:"Lavender",
-bg:"#f3f0ff",
-card:"#fdfbff",
-card2:"#eae3fb",
-accent:"#8164c7",
-accentText:"#ffffff",
-text:"#211d29",
-muted:"#7c7588",
-border:"#ded8ec",
-positive:"#4f8b70",
-negative:"#b75e64",
-nav:"#fdfbff"
-},
-
-purple:{
-name:"Purple Dark",
-bg:"#181322",
-card:"#241c31",
-card2:"#30253f",
-accent:"#a985ff",
-accentText:"#1d1429",
-text:"#f8f5fc",
-muted:"#b9afc5",
-border:"#3d324a",
-positive:"#75c89d",
-negative:"#f08d93",
-nav:"#21192d"
-},
-
-ocean:{
-name:"Ocean Blue",
-bg:"#eef7ff",
-card:"#fbfdff",
-card2:"#e1effb",
-accent:"#397fc5",
-accentText:"#ffffff",
-text:"#182631",
-muted:"#72818d",
-border:"#d7e5ef",
-positive:"#3f8d72",
-negative:"#bd6262",
-nav:"#fbfdff"
-},
-
-sky:{
-name:"Sky Blue",
-bg:"#eff9ff",
-card:"#ffffff",
-card2:"#e2f3fc",
-accent:"#58a4dc",
-accentText:"#ffffff",
-text:"#1b2932",
-muted:"#73828b",
-border:"#d6e8f1",
-positive:"#408c71",
-negative:"#b85d62",
-nav:"#ffffff"
-},
-
-sage:{
-name:"Sage",
-bg:"#f1f4ed",
-card:"#fffdf9",
-card2:"#e7eee2",
-accent:"#4f8b70",
-accentText:"#ffffff",
-text:"#1c2520",
-muted:"#798078",
-border:"#dce2d8",
-positive:"#4f8b70",
-negative:"#b75e64",
-nav:"#fffdf9"
-},
-
-mint:{
-name:"Mint",
-bg:"#eef9f5",
-card:"#fbfffd",
-card2:"#dff2ea",
-accent:"#49927d",
-accentText:"#ffffff",
-text:"#1d2925",
-muted:"#718079",
-border:"#d5e8e1",
-positive:"#438c72",
-negative:"#b65e63",
-nav:"#fbfffd"
-},
-
-cream:{
-name:"Cream",
-bg:"#faf6ec",
-card:"#fffdf8",
-card2:"#f2eadb",
-accent:"#8c7558",
-accentText:"#ffffff",
-text:"#2b2721",
-muted:"#827a6f",
-border:"#e8dfd0",
-positive:"#56826a",
-negative:"#af625d",
-nav:"#fffdf8"
-},
-
-mocha:{
-name:"Mocha",
-bg:"#f4ede7",
-card:"#fffaf6",
-card2:"#eaded4",
-accent:"#86634b",
-accentText:"#ffffff",
-text:"#30261f",
-muted:"#806f63",
-border:"#dfd2c7",
-positive:"#5e836c",
-negative:"#ae625c",
-nav:"#fffaf6"
-},
-
-neutral:{
-name:"Neutral",
-bg:"#f5f6f8",
-card:"#ffffff",
-card2:"#eef0f3",
-accent:"#555f6b",
-accentText:"#ffffff",
-text:"#17191e",
-muted:"#7b818c",
-border:"#e1e3e8",
-positive:"#4f8b70",
-negative:"#b75e64",
-nav:"#ffffff"
-},
-
-midnight:{
-name:"Midnight",
-bg:"#0f141d",
-card:"#19202b",
-card2:"#232c39",
-accent:"#84a9ff",
-accentText:"#101725",
-text:"#f6f7fa",
-muted:"#a7b0bd",
-border:"#303a47",
-positive:"#72c59c",
-negative:"#ed898f",
-nav:"#171e28"
-}
-
+ pink:{name:"Pink",bg:"#fff1f6",card:"#fffafd",card2:"#fde7ef",accent:"#d65f8c",accentText:"#fff",text:"#211b1e",muted:"#89777e",border:"#edd9e0",positive:"#4f8b70",negative:"#b75e64",nav:"#fffafd"},
+ rose:{name:"Rose",bg:"#fff2f3",card:"#fffafa",card2:"#fae3e6",accent:"#c7546c",accentText:"#fff",text:"#271d20",muted:"#88757a",border:"#ecd8dc",positive:"#4f8b70",negative:"#bd5260",nav:"#fffafa"},
+ lavender:{name:"Lavender",bg:"#f3f0ff",card:"#fdfbff",card2:"#eae3fb",accent:"#8164c7",accentText:"#fff",text:"#211d29",muted:"#7c7588",border:"#ded8ec",positive:"#4f8b70",negative:"#b75e64",nav:"#fdfbff"},
+ purple:{name:"Purple Dark",bg:"#181322",card:"#241c31",card2:"#30253f",accent:"#a985ff",accentText:"#1d1429",text:"#f8f5fc",muted:"#b9afc5",border:"#3d324a",positive:"#75c89d",negative:"#f08d93",nav:"#21192d"},
+ ocean:{name:"Ocean Blue",bg:"#eef7ff",card:"#fbfdff",card2:"#e1effb",accent:"#397fc5",accentText:"#fff",text:"#182631",muted:"#72818d",border:"#d7e5ef",positive:"#3f8d72",negative:"#bd6262",nav:"#fbfdff"},
+ sky:{name:"Sky Blue",bg:"#eff9ff",card:"#fff",card2:"#e2f3fc",accent:"#58a4dc",accentText:"#fff",text:"#1b2932",muted:"#73828b",border:"#d6e8f1",positive:"#408c71",negative:"#b85d62",nav:"#fff"},
+ sage:{name:"Sage",bg:"#f1f4ed",card:"#fffdf9",card2:"#e7eee2",accent:"#4f8b70",accentText:"#fff",text:"#1c2520",muted:"#798078",border:"#dce2d8",positive:"#4f8b70",negative:"#b75e64",nav:"#fffdf9"},
+ mint:{name:"Mint",bg:"#eef9f5",card:"#fbfffd",card2:"#dff2ea",accent:"#49927d",accentText:"#fff",text:"#1d2925",muted:"#718079",border:"#d5e8e1",positive:"#438c72",negative:"#b65e63",nav:"#fbfffd"},
+ cream:{name:"Cream",bg:"#faf6ec",card:"#fffdf8",card2:"#f2eadb",accent:"#8c7558",accentText:"#fff",text:"#2b2721",muted:"#827a6f",border:"#e8dfd0",positive:"#56826a",negative:"#af625d",nav:"#fffdf8"},
+ mocha:{name:"Mocha",bg:"#f4ede7",card:"#fffaf6",card2:"#eaded4",accent:"#86634b",accentText:"#fff",text:"#30261f",muted:"#806f63",border:"#dfd2c7",positive:"#5e836c",negative:"#ae625c",nav:"#fffaf6"},
+ neutral:{name:"Neutral",bg:"#f5f6f8",card:"#fff",card2:"#eef0f3",accent:"#555f6b",accentText:"#fff",text:"#17191e",muted:"#7b818c",border:"#e1e3e8",positive:"#4f8b70",negative:"#b75e64",nav:"#fff"},
+ midnight:{name:"Midnight",bg:"#0f141d",card:"#19202b",card2:"#232c39",accent:"#84a9ff",accentText:"#101725",text:"#f6f7fa",muted:"#a7b0bd",border:"#303a47",positive:"#72c59c",negative:"#ed898f",nav:"#171e28"}
 };
-
 
 function applyTheme(themeName){
+ const theme=themes[themeName]||themes.sage;
+ const root=document.documentElement.style;
 
-const theme=
-themes[themeName] ||
-themes.sage;
+ Object.entries({
+  "--bg":theme.bg,
+  "--card":theme.card,
+  "--card2":theme.card2,
+  "--accent":theme.accent,
+  "--accentText":theme.accentText,
+  "--text":theme.text,
+  "--muted":theme.muted,
+  "--border":theme.border,
+  "--positive":theme.positive,
+  "--negative":theme.negative,
+  "--nav":theme.nav
+ }).forEach(([k,v])=>root.setProperty(k,v));
 
-const root=
-document.documentElement.style;
+ $("themeMeta").setAttribute("content",theme.bg);
 
-root.setProperty("--bg",theme.bg);
-root.setProperty("--card",theme.card);
-root.setProperty("--card2",theme.card2);
-root.setProperty("--accent",theme.accent);
-root.setProperty("--accentText",theme.accentText);
-root.setProperty("--text",theme.text);
-root.setProperty("--muted",theme.muted);
-root.setProperty("--border",theme.border);
-root.setProperty("--positive",theme.positive);
-root.setProperty("--negative",theme.negative);
-root.setProperty("--nav",theme.nav);
-
-$("themeMeta").setAttribute(
-"content",
-theme.bg
-);
-
-if($("themeSelect")){
-$("themeSelect").value=themeName;
+ if($("themeSelect")) $("themeSelect").value=themeName;
+ if($("themeName")) $("themeName").textContent=theme.name;
 }
 
-if($("themeName")){
-$("themeName").textContent=theme.name;
-}
-
-}
-
-
-/* ==========================
-CURRENCY
-========================== */
-
-function currency(){
-
-return getSetting("currency");
-
-}
-
-function currencySymbol(){
-
-return currency()==="PHP"
-? "₱"
-: "$";
-
-}
+function currency(){return getSetting("currency")}
+function currencySymbol(){return currency()==="PHP"?"₱":"$"}
 
 function money(n){
+ const c=currency();
+ const locale=c==="PHP"?"en-PH":c==="USD"?"en-US":"en-CA";
 
-const c=currency();
-
-const locale=
-c==="PHP"
-? "en-PH"
-: c==="USD"
-? "en-US"
-: "en-CA";
-
-return new Intl.NumberFormat(
-locale,
-{
-style:"currency",
-currency:c
+ return new Intl.NumberFormat(locale,{
+  style:"currency",
+  currency:c
+ }).format(Number(n||0));
 }
-).format(Number(n||0));
-
-}
-
-
-/* ==========================
-ESCAPE
-========================== */
 
 function esc(v){
-
-return String(v??"")
-.replace(
-/[&<>"']/g,
-c=>({
-"&":"&amp;",
-"<":"&lt;",
-">":"&gt;",
-'"':"&quot;",
-"'":"&#39;"
-}[c])
-);
-
+ return String(v??"").replace(/[&<>"']/g,c=>({
+  "&":"&amp;",
+  "<":"&lt;",
+  ">":"&gt;",
+  '"':"&quot;",
+  "'":"&#39;"
+ }[c]));
 }
-
-
-/* ==========================
-APPLY SETTINGS
-========================== */
 
 function applySettings(){
+ const title=getSetting("title");
+ const profile=getSetting("profile");
 
-const title=getSetting("title");
-const profile=getSetting("profile");
-const theme=getSetting("theme");
+ document.title=title;
 
-document.title=title;
+ document.querySelectorAll(".app-title").forEach(x=>x.textContent=title);
 
-document
-.querySelectorAll(".app-title")
-.forEach(x=>{
-x.textContent=title;
-});
+ if($("homeProfile")) $("homeProfile").textContent=profile;
+ if($("appTitleInput")) $("appTitleInput").value=title;
+ if($("profileInput")) $("profileInput").value=profile;
+ if($("currencySelect")) $("currencySelect").value=currency();
+ if($("amountSymbol")) $("amountSymbol").textContent=currencySymbol();
 
-if($("homeProfile")){
-$("homeProfile").textContent=profile;
+ applyTheme(getSetting("theme"));
+
+ if(T.length) render();
 }
-
-if($("appTitleInput")){
-$("appTitleInput").value=title;
-}
-
-if($("profileInput")){
-$("profileInput").value=profile;
-}
-
-if($("currencySelect")){
-$("currencySelect").value=currency();
-}
-
-if($("amountSymbol")){
-$("amountSymbol").textContent=
-currencySymbol();
-}
-
-applyTheme(theme);
-
-if(T.length){
-render();
-}
-
-}
-
-
-/* ==========================
-SAVE NAMES
-========================== */
 
 $("saveNames").onclick=()=>{
+ if(isViewer)return;
 
-const title=
-$("appTitleInput").value.trim();
+ const title=$("appTitleInput").value.trim();
+ const profile=$("profileInput").value.trim();
 
-const profile=
-$("profileInput").value.trim();
+ if(!title||!profile){
+  $("nameMsg").className="msg error";
+  $("nameMsg").textContent="Enter both names.";
+  return;
+ }
 
-if(!title || !profile){
+ saveSetting("title",title);
+ saveSetting("profile",profile);
+ applySettings();
 
-$("nameMsg").className="msg error";
-$("nameMsg").textContent=
-"Enter both names.";
+ $("nameMsg").className="msg success";
+ $("nameMsg").textContent="Names saved ✓";
 
-return;
-
-}
-
-saveSetting("title",title);
-saveSetting("profile",profile);
-
-applySettings();
-
-$("nameMsg").className="msg success";
-$("nameMsg").textContent="Names saved ✓";
-
-setTimeout(()=>{
-$("nameMsg").textContent="";
-},1500);
-
+ setTimeout(()=>$("nameMsg").textContent="",1500);
 };
-
-
-/* ==========================
-THEME
-========================== */
 
 $("themeSelect").onchange=()=>{
-
-saveSetting(
-"theme",
-$("themeSelect").value
-);
-
-applySettings();
-
+ saveSetting("theme",$("themeSelect").value);
+ applySettings();
 };
-
-
-/* ==========================
-CURRENCY
-========================== */
 
 $("currencySelect").onchange=()=>{
-
-saveSetting(
-"currency",
-$("currencySelect").value
-);
-
-applySettings();
-
+ saveSetting("currency",$("currencySelect").value);
+ applySettings();
 };
 
-
-/* ==========================
-TRANSACTION OPTIONS
-========================== */
-
 const moneyInDescriptions=[
-"Pay Day",
-"Savings Deposit",
-"Transfer In",
-"Bonus",
-"Refund",
-"Gift",
-"Cash Deposit",
-"Investment Return",
-"Other"
+ "Pay Day","Savings Deposit","Transfer In","Bonus","Refund",
+ "Gift","Cash Deposit","Investment Return","Other"
 ];
 
 const moneyOutDescriptions=[
-"Groceries",
-"Dining Out",
-"Shopping",
-"Bills",
-"Rent / Mortgage",
-"Gas",
-"Transportation",
-"Travel",
-"Entertainment",
-"Poker / Casino",
-"Baby",
-"Health",
-"Beauty",
-"Subscription",
-"Transfer Out",
-"Other"
+ "Groceries","Dining Out","Shopping","Bills","Rent / Mortgage",
+ "Gas","Transportation","Travel","Entertainment","Poker / Casino",
+ "Baby","Health","Beauty","Subscription","Transfer Out","Other"
 ];
 
 const moneyInCategories=[
-"Income",
-"Savings",
-"Transfer",
-"Bonus",
-"Refund",
-"Gift",
-"Investment",
-"Other"
+ "Income","Savings","Transfer","Bonus","Refund","Gift","Investment","Other"
 ];
 
 const moneyOutCategories=[
-"Food",
-"Groceries",
-"Dining",
-"Shopping",
-"Housing",
-"Utilities",
-"Transportation",
-"Travel",
-"Entertainment",
-"Poker / Casino",
-"Baby",
-"Health",
-"Beauty",
-"Subscriptions",
-"Transfer",
-"Other"
+ "Food","Groceries","Dining","Shopping","Housing","Utilities",
+ "Transportation","Travel","Entertainment","Poker / Casino","Baby",
+ "Health","Beauty","Subscriptions","Transfer","Other"
 ];
 
-
 function fillSelect(element,options){
-
-element.innerHTML=
-options.map(
-x=>`<option value="${esc(x)}">${esc(x)}</option>`
-).join("");
-
+ element.innerHTML=options.map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join("");
 }
-
 
 function updateTransactionOptions(){
+ const isIn=$("typ").value==="Money In";
 
-const isIn=
-$("typ").value==="Money In";
+ fillSelect($("desSelect"),isIn?moneyInDescriptions:moneyOutDescriptions);
+ fillSelect($("catSelect"),isIn?moneyInCategories:moneyOutCategories);
 
-fillSelect(
-$("desSelect"),
-isIn
-? moneyInDescriptions
-: moneyOutDescriptions
-);
-
-fillSelect(
-$("catSelect"),
-isIn
-? moneyInCategories
-: moneyOutCategories
-);
-
-$("desOther").style.display="none";
-$("catOther").style.display="none";
-
-$("desOther").value="";
-$("catOther").value="";
-
+ $("desOther").style.display="none";
+ $("catOther").style.display="none";
+ $("desOther").value="";
+ $("catOther").value="";
 }
 
-
-$("typ").onchange=
-updateTransactionOptions;
-
+$("typ").onchange=updateTransactionOptions;
 
 $("desSelect").onchange=()=>{
-
-$("desOther").style.display=
-$("desSelect").value==="Other"
-? "block"
-: "none";
-
+ $("desOther").style.display=$("desSelect").value==="Other"?"block":"none";
 };
-
 
 $("catSelect").onchange=()=>{
-
-$("catOther").style.display=
-$("catSelect").value==="Other"
-? "block"
-: "none";
-
+ $("catOther").style.display=$("catSelect").value==="Other"?"block":"none";
 };
-
-
-/* ==========================
-DISPLAY
-========================== */
 
 function showLogin(){
+ if(recoveryMode)return;
 
-if(recoveryMode)return;
-
-$("login").style.display="block";
-$("resetPage").style.display="none";
-$("app").style.display="none";
-$("nav").style.display="none";
-
-applySettings();
-
+ $("login").style.display="block";
+ $("resetPage").style.display="none";
+ $("app").style.display="none";
+ $("nav").style.display="none";
+ applySettings();
 }
-
 
 function showReset(){
-
-$("login").style.display="none";
-$("app").style.display="none";
-$("nav").style.display="none";
-$("resetPage").style.display="block";
-
-applySettings();
-
+ $("login").style.display="none";
+ $("app").style.display="none";
+ $("nav").style.display="none";
+ $("resetPage").style.display="block";
+ applySettings();
 }
-
 
 function showApp(){
+ if(recoveryMode){
+  showReset();
+  return;
+ }
 
-if(recoveryMode){
+ $("login").style.display="none";
+ $("resetPage").style.display="none";
+ $("app").style.display="block";
+ $("nav").style.display="grid";
 
-showReset();
-return;
+ $("accountEmail").textContent=user?.email||"";
 
+ applySettings();
+ applyRoleUI();
 }
 
-$("login").style.display="none";
-$("resetPage").style.display="none";
-$("app").style.display="block";
-$("nav").style.display="grid";
+function applyRoleUI(){
+ $("viewerBanner").style.display=isViewer?"block":"none";
+ $("transactionFormCard").style.display=isViewer?"none":"block";
+ $("viewerSettings").style.display=isViewer?"none":"block";
+ $("namesCard").style.display=isViewer?"none":"block";
 
-applySettings();
-
-if(user){
-
-$("accountEmail").textContent=
-user.email || "";
-
+ if(isViewer){
+  $("homeProfile").textContent="Shared Savings";
+ }
 }
-
-}
-
-
-/* ==========================
-TOTALS
-========================== */
 
 function totals(a=T){
+ let i=0,o=0;
 
-let i=0;
-let o=0;
+ a.forEach(x=>{
+  if(x.transaction_type==="Money In") i+=Number(x.amount);
+  else o+=Number(x.amount);
+ });
 
-a.forEach(x=>{
-
-if(x.transaction_type==="Money In"){
-
-i+=Number(x.amount);
-
-}else{
-
-o+=Number(x.amount);
-
+ return{i,o,n:i-o};
 }
-
-});
-
-return{
-i,
-o,
-n:i-o
-};
-
-}
-
-
-/* ==========================
-ICONS
-========================== */
 
 function transactionIcon(x){
+ const c=String(x.category||"").toLowerCase();
+ const d=String(x.description||"").toLowerCase();
 
-const c=
-String(x.category||"").toLowerCase();
+ if(x.transaction_type==="Money In") return "↓";
+ if(c.includes("food")||c.includes("dining")||c.includes("grocer")) return "🍽";
+ if(c.includes("travel")||c.includes("transport")) return "✈️";
+ if(c.includes("shopping")||d.includes("shopping")) return "🛍";
+ if(c.includes("baby")) return "🍼";
+ if(c.includes("health")) return "♡";
+ if(c.includes("beauty")) return "✨";
+ if(c.includes("poker")||d.includes("casino")) return "♠";
+ if(c.includes("housing")) return "⌂";
 
-const d=
-String(x.description||"").toLowerCase();
-
-if(x.transaction_type==="Money In"){
-return "↓";
+ return "↑";
 }
-
-if(c.includes("food") || c.includes("dining") || c.includes("grocer")){
-return "🍽";
-}
-
-if(c.includes("travel") || c.includes("transport")){
-return "✈️";
-}
-
-if(c.includes("shopping") || d.includes("shopping")){
-return "🛍";
-}
-
-if(c.includes("baby")){
-return "🍼";
-}
-
-if(c.includes("health")){
-return "♡";
-}
-
-if(c.includes("beauty")){
-return "✨";
-}
-
-if(c.includes("poker") || d.includes("casino")){
-return "♠";
-}
-
-if(c.includes("housing")){
-return "⌂";
-}
-
-return "↑";
-
-}
-
-
-/* ==========================
-TRANSACTION ROW
-========================== */
 
 function txrow(x){
+ const actions=isViewer ? "" : `
+ <div class="tx-actions">
+  <button class="edit-btn" type="button" onclick="editTransaction('${esc(x.id)}')">Edit</button>
+  <button class="delete-btn" type="button" onclick="deleteTransaction('${esc(x.id)}')">Delete</button>
+ </div>`;
 
-return `
-<div class="tx">
+ return `
+ <div class="tx">
+  <div class="tx-main">
 
-<div class="tx-main">
+   <div class="tx-left">
+    <div class="tx-icon">${transactionIcon(x)}</div>
 
-<div class="tx-left">
+    <div class="tx-info">
+     <div class="name">${esc(x.description)}</div>
+     <div class="meta">
+      ${esc(x.transaction_date)}
+      ${x.category?" · "+esc(x.category):""}
+     </div>
+    </div>
+   </div>
 
-<div class="tx-icon">
-${transactionIcon(x)}
-</div>
+   <div class="amt ${x.transaction_type==="Money In"?"green":"red"}">
+    ${x.transaction_type==="Money In"?"+":"−"}${money(x.amount)}
+   </div>
 
-<div class="tx-info">
-
-<div class="name">
-${esc(x.description)}
-</div>
-
-<div class="meta">
-${esc(x.transaction_date)}
-${x.category ? " · "+esc(x.category) : ""}
-</div>
-
-</div>
-
-</div>
-
-<div class="amt ${
-x.transaction_type==="Money In"
-? "green"
-: "red"
-}">
-
-${x.transaction_type==="Money In" ? "+" : "−"}
-${money(Number(x.amount))}
-
-</div>
-
-</div>
-
-<div class="tx-actions">
-
-<button
-class="edit-btn"
-type="button"
-onclick="editTransaction('${esc(x.id)}')"
->
-Edit
-</button>
-
-<button
-class="delete-btn"
-type="button"
-onclick="deleteTransaction('${esc(x.id)}')"
->
-Delete
-</button>
-
-</div>
-
-</div>
-`;
-
+  </div>
+  ${actions}
+ </div>`;
 }
-
-
-/* ==========================
-SUMMARY
-========================== */
 
 function summary(t){
+ return `
+ <h2>Summary</h2>
 
-return `
+ <div class="stats">
+  <div class="card stat-card">
+   <div class="label">Money in</div>
+   <div class="value green">${money(t.i)}</div>
+  </div>
 
-<h2>Summary</h2>
+  <div class="card stat-card">
+   <div class="label">Money out</div>
+   <div class="value red">${money(t.o)}</div>
+  </div>
+ </div>
 
-<div class="stats">
-
-<div class="card stat-card">
-
-<div class="label">Money in</div>
-
-<div class="value green">
-${money(t.i)}
-</div>
-
-</div>
-
-<div class="card stat-card">
-
-<div class="label">Money out</div>
-
-<div class="value red">
-${money(t.o)}
-</div>
-
-</div>
-
-</div>
-
-<div style="margin-top:18px">
-
-<div class="label">
-Net change
-</div>
-
-<div class="value">
-${money(t.n)}
-</div>
-
-</div>
-
-`;
-
+ <div style="margin-top:18px">
+  <div class="label">Net change</div>
+  <div class="value">${money(t.n)}</div>
+ </div>`;
 }
-
-
-/* ==========================
-FILTER
-========================== */
 
 function filteredTransactions(){
+ const q=$("searchTx").value.trim().toLowerCase();
 
-const q=
-$("searchTx")
-.value
-.trim()
-.toLowerCase();
+ return T.filter(x=>{
+  const matchesFilter=
+   currentFilter==="All" ||
+   x.transaction_type===currentFilter;
 
-return T.filter(x=>{
+  const haystack=[
+   x.description,x.category,x.notes,x.transaction_date
+  ].join(" ").toLowerCase();
 
-const matchesFilter=
-currentFilter==="All" ||
-x.transaction_type===currentFilter;
-
-const haystack=[
-x.description,
-x.category,
-x.notes,
-x.transaction_date
-]
-.join(" ")
-.toLowerCase();
-
-return matchesFilter &&
-(
-!q ||
-haystack.includes(q)
-);
-
-});
-
+  return matchesFilter&&(!q||haystack.includes(q));
+ });
 }
-
 
 function renderAll(){
+ const s=filteredTransactions().sort(
+  (a,b)=>b.transaction_date.localeCompare(a.transaction_date)
+ );
 
-const s=
-filteredTransactions()
-.sort(
-(a,b)=>
-b.transaction_date.localeCompare(
-a.transaction_date
-)
-);
-
-$("all").innerHTML=
-s.length
-? s.map(txrow).join("")
-: '<div class="empty">No matching transactions.</div>';
-
+ $("all").innerHTML=s.length
+  ?s.map(txrow).join("")
+  :'<div class="empty">No matching transactions.</div>';
 }
 
+$("searchTx").oninput=renderAll;
 
-$("searchTx").oninput=
-renderAll;
+document.querySelectorAll(".filter-btn").forEach(b=>{
+ b.onclick=()=>{
+  currentFilter=b.dataset.filter;
 
+  document.querySelectorAll(".filter-btn")
+   .forEach(x=>x.classList.remove("active-filter"));
 
-document
-.querySelectorAll(".filter-btn")
-.forEach(b=>{
-
-b.onclick=()=>{
-
-currentFilter=b.dataset.filter;
-
-document
-.querySelectorAll(".filter-btn")
-.forEach(x=>
-x.classList.remove("active-filter")
-);
-
-b.classList.add("active-filter");
-
-renderAll();
-
-};
-
+  b.classList.add("active-filter");
+  renderAll();
+ };
 });
-
-
-/* ==========================
-RENDER
-========================== */
 
 function render(){
+ const t=totals();
 
-const t=totals();
+ const s=[...T].sort(
+  (a,b)=>b.transaction_date.localeCompare(a.transaction_date)
+ );
 
-const s=[...T].sort(
-(a,b)=>
-b.transaction_date.localeCompare(
-a.transaction_date
-)
-);
+ $("bal").textContent=money(t.n);
+ $("net").textContent=money(t.n);
+ $("mi").textContent=money(t.i);
+ $("mo").textContent=money(t.o);
 
-$("bal").textContent=money(t.n);
-$("net").textContent=money(t.n);
-$("mi").textContent=money(t.i);
-$("mo").textContent=money(t.o);
+ $("recent").innerHTML=s.length
+  ?s.slice(0,5).map(txrow).join("")
+  :'<div class="empty">No transactions yet.</div>';
 
-$("recent").innerHTML=
-s.length
-? s.slice(0,5).map(txrow).join("")
-: '<div class="empty">No transactions yet.</div>';
-
-renderAll();
-renderMonth();
-renderYear();
-
+ renderAll();
+ renderMonth();
+ renderYear();
 }
 
+async function determineAccess(){
+ isViewer=false;
+ ownerId=user.id;
 
-/* ==========================
-LOAD
-========================== */
+ const r=await sb
+  .from("ledger_access")
+  .select("owner_user_id,viewer_user_id,role")
+  .eq("viewer_user_id",user.id)
+  .limit(1);
+
+ if(!r.error && r.data && r.data.length){
+  isViewer=true;
+  ownerId=r.data[0].owner_user_id;
+ }
+}
 
 async function load(){
+ if(!user)return;
 
-if(!user)return;
+ await determineAccess();
+ applyRoleUI();
 
-const r=
-await sb
-.from("transactions")
-.select("*")
-.eq("user_id",user.id)
-.order(
-"transaction_date",
-{ascending:false}
-);
+ const r=await sb
+  .from("transactions")
+  .select("*")
+  .eq("user_id",ownerId)
+  .order("transaction_date",{ascending:false});
 
-if(r.error){
+ if(r.error){
+  alert("Transactions could not load: "+r.error.message);
+  return;
+ }
 
-alert(
-"Transactions could not load: "+
-r.error.message
-);
+ T=r.data||[];
 
-return;
+ populateYears();
+ render();
 
+ await loadHistory();
+
+ if(!isViewer) await loadViewers();
 }
 
-T=r.data || [];
+window.editTransaction=function(id){
+ if(isViewer)return;
 
-populateYears();
+ const x=T.find(t=>String(t.id)===String(id));
+ if(!x)return;
 
-render();
+ editingId=x.id;
+ $("typ").value=x.transaction_type;
 
-}
+ updateTransactionOptions();
 
+ $("amt").value=x.amount;
 
-/* ==========================
-EDIT
-========================== */
+ const descriptions=
+  x.transaction_type==="Money In"
+   ?moneyInDescriptions
+   :moneyOutDescriptions;
 
-window.editTransaction=
-function(id){
+ if(descriptions.includes(x.description)){
+  $("desSelect").value=x.description;
+  $("desOther").style.display="none";
+ }else{
+  $("desSelect").value="Other";
+  $("desOther").style.display="block";
+  $("desOther").value=x.description||"";
+ }
 
-const x=
-T.find(
-t=>String(t.id)===String(id)
-);
+ const categories=
+  x.transaction_type==="Money In"
+   ?moneyInCategories
+   :moneyOutCategories;
 
-if(!x)return;
+ if(x.category&&categories.includes(x.category)){
+  $("catSelect").value=x.category;
+  $("catOther").style.display="none";
+ }else if(x.category){
+  $("catSelect").value="Other";
+  $("catOther").style.display="block";
+  $("catOther").value=x.category;
+ }
 
-editingId=x.id;
+ $("dat").value=x.transaction_date;
+ $("notes").value=x.notes||"";
 
-$("typ").value=x.transaction_type;
+ $("submitTransaction").textContent="Save Changes";
+ $("editBanner").style.display="block";
+ $("cancelEdit").style.display="block";
 
-updateTransactionOptions();
-
-$("amt").value=x.amount;
-
-const descriptions=
-x.transaction_type==="Money In"
-? moneyInDescriptions
-: moneyOutDescriptions;
-
-if(descriptions.includes(x.description)){
-
-$("desSelect").value=x.description;
-$("desOther").style.display="none";
-
-}else{
-
-$("desSelect").value="Other";
-$("desOther").style.display="block";
-$("desOther").value=x.description || "";
-
-}
-
-const categories=
-x.transaction_type==="Money In"
-? moneyInCategories
-: moneyOutCategories;
-
-if(
-x.category &&
-categories.includes(x.category)
-){
-
-$("catSelect").value=x.category;
-$("catOther").style.display="none";
-
-}else if(x.category){
-
-$("catSelect").value="Other";
-$("catOther").style.display="block";
-$("catOther").value=x.category;
-
-}
-
-$("dat").value=x.transaction_date;
-$("notes").value=x.notes || "";
-
-$("submitTransaction").textContent=
-"Save Changes";
-
-$("editBanner").style.display="block";
-$("cancelEdit").style.display="block";
-
-openView("transactions");
-
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
-
+ openView("transactions");
+ window.scrollTo({top:0,behavior:"smooth"});
 };
-
-
-/* ==========================
-CANCEL EDIT
-========================== */
 
 function cancelEditing(){
+ editingId=null;
+ $("form").reset();
+ $("typ").value="Money In";
 
-editingId=null;
+ updateTransactionOptions();
 
-$("form").reset();
-
-$("typ").value="Money In";
-
-updateTransactionOptions();
-
-$("dat").value=
-localDateString();
-
-$("submitTransaction").textContent=
-"＋ Add Transaction";
-
-$("editBanner").style.display="none";
-$("cancelEdit").style.display="none";
-
+ $("dat").value=localDateString();
+ $("submitTransaction").textContent="＋ Add Transaction";
+ $("editBanner").style.display="none";
+ $("cancelEdit").style.display="none";
 }
 
-$("cancelEdit").onclick=
-cancelEditing;
+$("cancelEdit").onclick=cancelEditing;
 
+/* PASSWORD PROTECTED DELETE */
 
-/* ==========================
-DELETE
-========================== */
+window.deleteTransaction=async function(id){
+ if(isViewer)return;
 
-window.deleteTransaction=
-async function(id){
+ const x=T.find(t=>String(t.id)===String(id));
+ if(!x)return;
 
-const x=
-T.find(
-t=>String(t.id)===String(id)
-);
+ const yes=confirm(
+  'Delete "'+x.description+'" for '+money(x.amount)+
+  "?\n\nYou will need your password to confirm."
+ );
 
-if(!x)return;
+ if(!yes)return;
 
-const yes=
-confirm(
-'Delete "'+
-x.description+
-'" for '+
-money(x.amount)+
-"?\n\nThis cannot be undone."
-);
+ const password=prompt(
+  "🔐 Enter your Savings Tracker password to delete this transaction:"
+ );
 
-if(!yes)return;
+ if(password===null)return;
 
-const r=
-await sb
-.from("transactions")
-.delete()
-.eq("id",x.id)
-.eq("user_id",user.id);
+ if(!password){
+  alert("Password is required. Nothing was deleted.");
+  return;
+ }
 
-if(r.error){
+ const verify=await sb.auth.signInWithPassword({
+  email:user.email,
+  password
+ });
 
-alert(
-"Transaction could not be deleted: "+
-r.error.message
-);
+ if(verify.error){
+  alert("Incorrect password. Transaction was NOT deleted.");
+  return;
+ }
 
-return;
+ const r=await sb
+  .from("transactions")
+  .delete()
+  .eq("id",x.id)
+  .eq("user_id",user.id);
 
-}
+ if(r.error){
+  alert("Transaction could not be deleted: "+r.error.message);
+  return;
+ }
 
-if(
-String(editingId)===
-String(x.id)
-){
-cancelEditing();
-}
+ if(String(editingId)===String(x.id)) cancelEditing();
 
-await load();
-
+ alert("Transaction deleted. It is still recorded in History.");
+ await load();
 };
 
+$("form").onsubmit=async e=>{
+ e.preventDefault();
 
-/* ==========================
-ADD / UPDATE
-========================== */
+ if(isViewer){
+  alert("View-only accounts cannot change transactions.");
+  return;
+ }
 
-$("form").onsubmit=
-async e=>{
+ if(!user){
+  alert("Please sign in again.");
+  return;
+ }
 
-e.preventDefault();
+ const amount=Number($("amt").value);
 
-if(!user){
+ if(!Number.isFinite(amount)||amount<=0){
+  alert("Enter a valid amount.");
+  return;
+ }
 
-alert("Please sign in again.");
-return;
+ let description=$("desSelect").value;
 
-}
+ if(description==="Other"){
+  description=$("desOther").value.trim();
+ }
 
-const amount=
-Number($("amt").value);
+ if(!description){
+  alert("Enter a description.");
+  return;
+ }
 
-if(
-!Number.isFinite(amount) ||
-amount<=0
-){
+ let category=$("catSelect").value;
 
-alert("Enter a valid amount.");
-return;
+ if(category==="Other"){
+  category=$("catOther").value.trim();
+ }
 
-}
+ const values={
+  user_id:user.id,
+  transaction_date:$("dat").value,
+  description,
+  transaction_type:$("typ").value,
+  amount,
+  category:category||null,
+  notes:$("notes").value.trim()||null
+ };
 
-let description=
-$("desSelect").value;
+ let r;
 
-if(description==="Other"){
+ if(editingId){
+  r=await sb
+   .from("transactions")
+   .update(values)
+   .eq("id",editingId)
+   .eq("user_id",user.id);
+ }else{
+  r=await sb.from("transactions").insert(values);
+ }
 
-description=
-$("desOther").value.trim();
+ if(r.error){
+  alert(
+   editingId
+    ?"Changes could not be saved: "+r.error.message
+    :"Transaction could not be saved: "+r.error.message
+  );
+  return;
+ }
 
-}
-
-if(!description){
-
-alert("Enter a description.");
-return;
-
-}
-
-let category=
-$("catSelect").value;
-
-if(category==="Other"){
-
-category=
-$("catOther").value.trim();
-
-}
-
-const values={
-
-user_id:user.id,
-
-transaction_date:
-$("dat").value,
-
-description,
-
-transaction_type:
-$("typ").value,
-
-amount,
-
-category:
-category || null,
-
-notes:
-$("notes").value.trim() || null
-
+ cancelEditing();
+ await load();
 };
 
-let r;
+/* HISTORY */
 
-if(editingId){
+async function loadHistory(){
+ if(!ownerId)return;
 
-r=
-await sb
-.from("transactions")
-.update(values)
-.eq("id",editingId)
-.eq("user_id",user.id);
+ const r=await sb
+  .from("transaction_history")
+  .select("*")
+  .eq("owner_user_id",ownerId)
+  .order("created_at",{ascending:false})
+  .limit(200);
 
-}else{
+ if(r.error){
+  $("historyList").innerHTML=
+   '<div class="empty">History could not load.</div>';
+  return;
+ }
 
-r=
-await sb
-.from("transactions")
-.insert(values);
-
+ H=r.data||[];
+ renderHistory();
 }
 
-if(r.error){
+function renderHistory(){
+ if(!H.length){
+  $("historyList").innerHTML=
+   '<div class="empty">No history yet. New changes will appear here.</div>';
+  return;
+ }
 
-alert(
-editingId
-? "Changes could not be saved: "+
-r.error.message
-: "Transaction could not be saved: "+
-r.error.message
-);
+ $("historyList").innerHTML=H.map(h=>{
+  const when=new Date(h.created_at).toLocaleString();
 
-return;
+  const actionIcon=
+   h.action==="ADDED"?"＋":
+   h.action==="EDITED"?"✏️":"🗑️";
 
+  return `
+  <div class="history-item">
+
+   <div class="history-top">
+    <span class="history-action">
+     ${actionIcon} ${esc(h.action)}
+    </span>
+    <span class="meta">${esc(when)}</span>
+   </div>
+
+   <div class="history-name">${esc(h.description||"Transaction")}</div>
+
+   <div class="history-amount">
+    ${h.transaction_type==="Money In"?"+":"−"}${money(h.amount)}
+   </div>
+
+   <div class="meta">
+    ${esc(h.transaction_date||"")}
+    ${h.category?" · "+esc(h.category):""}
+   </div>
+
+  </div>`;
+ }).join("");
 }
 
-cancelEditing();
+/* VIEWERS */
 
-await load();
+$("addViewer").onclick=async()=>{
+ if(isViewer)return;
 
+ const email=$("viewerEmail").value.trim();
+
+ $("viewerMsg").textContent="";
+ $("viewerMsg").className="msg";
+
+ if(!email){
+  $("viewerMsg").className="msg error";
+  $("viewerMsg").textContent="Enter the viewer's email.";
+  return;
+ }
+
+ $("addViewer").disabled=true;
+ $("addViewer").textContent="Adding…";
+
+ const r=await sb.rpc("add_viewer_by_email",{
+  viewer_email:email
+ });
+
+ $("addViewer").disabled=false;
+ $("addViewer").textContent="Add Viewer";
+
+ if(r.error){
+  $("viewerMsg").className="msg error";
+
+  if(r.error.message.includes("No account found")){
+   $("viewerMsg").textContent=
+    "That email does not have a Savings Tracker login yet.";
+  }else{
+   $("viewerMsg").textContent=r.error.message;
+  }
+
+  return;
+ }
+
+ $("viewerEmail").value="";
+ $("viewerMsg").className="msg success";
+ $("viewerMsg").textContent="Viewer added ✓";
+
+ await loadViewers();
 };
 
+async function loadViewers(){
+ if(!user||isViewer)return;
 
-/* ==========================
-MONTHLY / YEARLY
-========================== */
+ const r=await sb
+  .from("ledger_access")
+  .select("id,viewer_user_id,role,created_at")
+  .eq("owner_user_id",user.id)
+  .order("created_at",{ascending:false});
+
+ if(r.error){
+  $("viewerList").innerHTML=
+   '<div class="empty">Could not load viewers.</div>';
+  return;
+ }
+
+ const viewers=r.data||[];
+
+ if(!viewers.length){
+  $("viewerList").innerHTML=
+   '<div class="empty">No viewers yet.</div>';
+  return;
+ }
+
+ /*
+ Supabase does not expose another user's email through the browser.
+ We display the viewer number safely instead.
+ */
+
+ $("viewerList").innerHTML=viewers.map((v,i)=>`
+  <div class="viewer-row">
+
+   <div>
+    <div class="viewer-email">Viewer ${i+1}</div>
+    <div class="viewer-role">👁️ View only</div>
+   </div>
+
+   <button type="button"
+    onclick="removeViewer('${esc(v.id)}')">
+    Remove
+   </button>
+
+  </div>
+ `).join("");
+}
+
+window.removeViewer=async function(id){
+ if(isViewer)return;
+
+ if(!confirm("Remove this viewer's access?"))return;
+
+ const r=await sb
+  .from("ledger_access")
+  .delete()
+  .eq("id",id)
+  .eq("owner_user_id",user.id);
+
+ if(r.error){
+  alert("Viewer could not be removed: "+r.error.message);
+  return;
+ }
+
+ await loadViewers();
+};
+
+/* MONTHLY / YEARLY */
 
 function renderMonth(){
-
-$("ms").innerHTML=
-summary(
-totals(
-T.filter(
-x=>
-x.transaction_date.startsWith(
-$("mp").value
-)
-)
-)
-);
-
+ $("ms").innerHTML=summary(
+  totals(
+   T.filter(x=>x.transaction_date.startsWith($("mp").value))
+  )
+ );
 }
-
 
 function renderYear(){
-
-$("ys").innerHTML=
-summary(
-totals(
-T.filter(
-x=>
-x.transaction_date.startsWith(
-$("yp").value+"-"
-)
-)
-)
-);
-
+ $("ys").innerHTML=summary(
+  totals(
+   T.filter(x=>x.transaction_date.startsWith($("yp").value+"-"))
+  )
+ );
 }
 
+/* YEARS THROUGH 2040 */
 
 function populateYears(){
+ const current=new Date().getFullYear();
+ const previous=$("yp").value;
 
-const current=
-new Date().getFullYear();
+ const txYears=T
+  .map(x=>Number(String(x.transaction_date).slice(0,4)))
+  .filter(Number.isFinite);
 
-const years=
-T
-.map(x=>
-Number(
-String(x.transaction_date).slice(0,4)
-)
-)
-.filter(Number.isFinite);
+ const oldest=txYears.length
+  ?Math.min(...txYears,2020)
+  :2020;
 
-const oldest=
-years.length
-? Math.min(...years,current-6)
-: current-6;
+ $("yp").innerHTML="";
 
-const previous=
-$("yp").value;
+ for(let y=2040;y>=oldest;y--){
+  const o=document.createElement("option");
+  o.value=String(y);
+  o.textContent=String(y);
+  $("yp").appendChild(o);
+ }
 
-$("yp").innerHTML="";
-
-for(
-let y=current+1;
-y>=oldest;
-y--
-){
-
-const o=
-document.createElement("option");
-
-o.value=String(y);
-o.textContent=String(y);
-
-$("yp").appendChild(o);
-
+ if(previous&&[...$("yp").options].some(o=>o.value===previous)){
+  $("yp").value=previous;
+ }else{
+  $("yp").value=String(current);
+ }
 }
-
-if(
-previous &&
-[...$("yp").options]
-.some(o=>o.value===previous)
-){
-
-$("yp").value=previous;
-
-}else{
-
-$("yp").value=String(current);
-
-}
-
-}
-
-
-/* ==========================
-DATE
-========================== */
 
 function localDateString(){
-
-const d=new Date();
-
-const y=d.getFullYear();
-
-const m=String(
-d.getMonth()+1
-).padStart(2,"0");
-
-const day=String(
-d.getDate()
-).padStart(2,"0");
-
-return `${y}-${m}-${day}`;
-
+ const d=new Date();
+ const y=d.getFullYear();
+ const m=String(d.getMonth()+1).padStart(2,"0");
+ const day=String(d.getDate()).padStart(2,"0");
+ return `${y}-${m}-${day}`;
 }
 
 const d=new Date();
 
-$("dat").value=
-localDateString();
+$("dat").value=localDateString();
 
 $("mp").value=
-d.getFullYear()+
-"-"+
-String(
-d.getMonth()+1
-).padStart(2,"0");
+ d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");
 
 populateYears();
+$("yp").value=String(d.getFullYear());
 
-$("yp").value=
-String(d.getFullYear());
+$("mp").onchange=renderMonth;
+$("yp").onchange=renderYear;
 
-$("mp").onchange=
-renderMonth;
+/* SIGN IN */
 
-$("yp").onchange=
-renderYear;
+$("signin").onclick=async()=>{
+ const e=$("email").value.trim();
+ const p=$("password").value;
 
+ $("loginMsg").className="msg error";
+ $("loginMsg").textContent="";
 
-/* ==========================
-SIGN IN
-========================== */
+ if(!e||!p){
+  $("loginMsg").textContent="Enter your email and password.";
+  return;
+ }
 
-$("signin").onclick=
-async()=>{
+ $("signin").disabled=true;
+ $("signin").textContent="Signing in…";
 
-const e=
-$("email").value.trim();
+ const r=await sb.auth.signInWithPassword({
+  email:e,
+  password:p
+ });
 
-const p=
-$("password").value;
+ $("signin").disabled=false;
+ $("signin").textContent="Sign in";
 
-$("loginMsg").className="msg error";
-$("loginMsg").textContent="";
+ if(r.error){
+  $("loginMsg").textContent="Incorrect email or password.";
+  return;
+ }
 
-if(!e || !p){
+ user=r.data.user;
 
-$("loginMsg").textContent=
-"Enter your email and password.";
-
-return;
-
-}
-
-$("signin").disabled=true;
-$("signin").textContent="Signing in…";
-
-const r=
-await sb.auth
-.signInWithPassword({
-email:e,
-password:p
-});
-
-$("signin").disabled=false;
-$("signin").textContent="Sign in";
-
-if(r.error){
-
-$("loginMsg").textContent=
-"Incorrect email or password.";
-
-return;
-
-}
-
-user=r.data.user;
-
-showApp();
-
-await load();
-
+ await determineAccess();
+ showApp();
+ await load();
 };
 
+/* FORGOT PASSWORD */
 
-/* ==========================
-FORGOT PASSWORD
-========================== */
+$("forgot").onclick=async()=>{
+ const e=$("email").value.trim();
 
-$("forgot").onclick=
-async()=>{
+ $("loginMsg").className="msg error";
+ $("loginMsg").textContent="";
 
-const e=
-$("email").value.trim();
+ if(!e){
+  $("loginMsg").textContent="Enter your email first.";
+  return;
+ }
 
-$("loginMsg").className="msg error";
-$("loginMsg").textContent="";
+ $("forgot").disabled=true;
+ $("forgot").textContent="Sending reset email…";
 
-if(!e){
+ const r=await sb.auth.resetPasswordForEmail(e,{
+  redirectTo:RECOVERY_URL
+ });
 
-$("loginMsg").textContent=
-"Enter your email first.";
+ $("forgot").disabled=false;
+ $("forgot").textContent="Forgot password?";
 
-return;
+ if(r.error){
+  $("loginMsg").textContent=
+   "Could not send reset email: "+r.error.message;
+  return;
+ }
 
-}
-
-$("forgot").disabled=true;
-
-$("forgot").textContent=
-"Sending reset email…";
-
-const r=
-await sb.auth
-.resetPasswordForEmail(
-e,
-{
-redirectTo:RECOVERY_URL
-}
-);
-
-$("forgot").disabled=false;
-
-$("forgot").textContent=
-"Forgot password?";
-
-if(r.error){
-
-$("loginMsg").textContent=
-"Could not send reset email: "+
-r.error.message;
-
-return;
-
-}
-
-$("loginMsg").className=
-"msg success";
-
-$("loginMsg").textContent=
-"Password reset email sent. Check your inbox.";
-
+ $("loginMsg").className="msg success";
+ $("loginMsg").textContent=
+  "Password reset email sent. Check your inbox.";
 };
 
+/* RESET PASSWORD */
 
-/* ==========================
-PASSWORD RESET
-========================== */
+$("savePassword").onclick=async()=>{
+ const p=$("newPassword").value;
+ const c=$("confirmPassword").value;
 
-$("savePassword").onclick=
-async()=>{
+ $("resetMsg").className="msg error";
+ $("resetMsg").textContent="";
 
-const p=
-$("newPassword").value;
+ if(p.length<6){
+  $("resetMsg").textContent="Password must be at least 6 characters.";
+  return;
+ }
 
-const c=
-$("confirmPassword").value;
+ if(p!==c){
+  $("resetMsg").textContent="Passwords do not match.";
+  return;
+ }
 
-$("resetMsg").className="msg error";
-$("resetMsg").textContent="";
+ $("savePassword").disabled=true;
+ $("savePassword").textContent="Saving…";
 
-if(p.length<6){
+ const sessionResult=await sb.auth.getSession();
 
-$("resetMsg").textContent=
-"Password must be at least 6 characters.";
+ if(sessionResult.error||!sessionResult.data.session){
+  $("savePassword").disabled=false;
+  $("savePassword").textContent="Save new password";
+  $("resetMsg").textContent=
+   "This reset link is invalid or expired. Please request a new password reset email.";
+  return;
+ }
 
-return;
+ const r=await sb.auth.updateUser({password:p});
 
-}
+ if(r.error){
+  $("savePassword").disabled=false;
+  $("savePassword").textContent="Save new password";
+  $("resetMsg").textContent=
+   "Could not change password: "+r.error.message;
+  return;
+ }
 
-if(p!==c){
+ $("resetMsg").className="msg success";
+ $("resetMsg").textContent=
+  "Password changed successfully! Returning to sign in…";
 
-$("resetMsg").textContent=
-"Passwords do not match.";
-
-return;
-
-}
-
-$("savePassword").disabled=true;
-
-$("savePassword").textContent=
-"Saving…";
-
-const sessionResult=
-await sb.auth.getSession();
-
-if(
-sessionResult.error ||
-!sessionResult.data.session
-){
-
-$("savePassword").disabled=false;
-
-$("savePassword").textContent=
-"Save new password";
-
-$("resetMsg").textContent=
-"This reset link is invalid or expired. Please request a new password reset email.";
-
-return;
-
-}
-
-const r=
-await sb.auth.updateUser({
-password:p
-});
-
-if(r.error){
-
-$("savePassword").disabled=false;
-
-$("savePassword").textContent=
-"Save new password";
-
-$("resetMsg").textContent=
-"Could not change password: "+
-r.error.message;
-
-return;
-
-}
-
-$("resetMsg").className=
-"msg success";
-
-$("resetMsg").textContent=
-"Password changed successfully! Returning to sign in…";
-
-setTimeout(
-async()=>{
-
-await sb.auth.signOut();
-
-window.location.replace(
-SITE_URL
-);
-
-},
-1500
-);
-
+ setTimeout(async()=>{
+  await sb.auth.signOut();
+  window.location.replace(SITE_URL);
+ },1500);
 };
-
-
-/* ==========================
-SIGN OUT
-========================== */
 
 async function signOut(){
-
-await sb.auth.signOut();
-
-window.location.replace(
-SITE_URL
-);
-
+ await sb.auth.signOut();
+ window.location.replace(SITE_URL);
 }
 
-$("settingsLogout").onclick=
-signOut;
+$("settingsLogout").onclick=signOut;
 
+/* NAVIGATION */
 
-/* ==========================
-NAV
-========================== */
+window.openView=function(id){
+ document.querySelectorAll("nav button,.view")
+  .forEach(x=>x.classList.remove("active"));
 
-function openView(id){
+ const view=$(id);
+ if(view)view.classList.add("active");
 
-document
-.querySelectorAll("nav button,.view")
-.forEach(
-x=>x.classList.remove("active")
-);
+ let navId=id;
 
-const view=$(id);
+ if(id==="history"||id==="settings"){
+  navId="more";
+ }
 
-if(view){
-view.classList.add("active");
-}
+ const button=document.querySelector(
+  `nav button[data-v="${navId}"]`
+ );
 
-const button=
-document.querySelector(
-`nav button[data-v="${id}"]`
-);
+ if(button)button.classList.add("active");
 
-if(button){
-button.classList.add("active");
-}
+ if(id==="history")loadHistory();
+ if(id==="settings"&&!isViewer)loadViewers();
 
-}
+ window.scrollTo(0,0);
+};
 
+document.querySelectorAll("nav button").forEach(b=>{
+ b.onclick=()=>openView(b.dataset.v);
+});
 
-document
-.querySelectorAll("nav button")
-.forEach(
-b=>b.onclick=()=>{
+/* AUTH */
 
-openView(b.dataset.v);
+sb.auth.onAuthStateChange((event,session)=>{
+ if(event==="PASSWORD_RECOVERY"){
+  showReset();
+  return;
+ }
 
-window.scrollTo(0,0);
+ if(event==="SIGNED_OUT"&&!recoveryMode){
+  user=null;
+  ownerId=null;
+  isViewer=false;
+  showLogin();
+ }
+});
 
-}
-);
-
-
-/* ==========================
-AUTH
-========================== */
-
-sb.auth.onAuthStateChange(
-(event,session)=>{
-
-if(event==="PASSWORD_RECOVERY"){
-
-showReset();
-return;
-
-}
-
-if(
-event==="SIGNED_OUT" &&
-!recoveryMode
-){
-
-user=null;
-showLogin();
-
-}
-
-}
-);
-
-
-/* ==========================
-START
-========================== */
+/* START */
 
 (async()=>{
+ updateTransactionOptions();
+ populateYears();
+ applySettings();
 
-updateTransactionOptions();
+ if(recoveryMode){
+  showReset();
+  return;
+ }
 
-populateYears();
+ showLogin();
 
-applySettings();
+ const s=await sb.auth.getSession();
 
-if(recoveryMode){
+ if(s.data&&s.data.session){
+  user=s.data.session.user;
 
-showReset();
-return;
-
-}
-
-showLogin();
-
-const s=
-await sb.auth.getSession();
-
-if(
-s.data &&
-s.data.session
-){
-
-user=
-s.data.session.user;
-
-showApp();
-
-await load();
-
-}
-
+  await determineAccess();
+  showApp();
+  await load();
+ }
 })();
 
 </script>
-
 </body>
 </html>
