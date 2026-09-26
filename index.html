@@ -3,17 +3,13 @@
 <head>
 <meta charset="utf-8">
 
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1,viewport-fit=cover"
->
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Savings Tracker">
 <meta name="mobile-web-app-capable" content="yes">
-
-<meta id="themeMeta" name="theme-color" content="#f6f7f9">
+<meta id="themeMeta" name="theme-color" content="#f3f0ff">
 
 <title>Savings Tracker</title>
 
@@ -21,89 +17,122 @@
 *{box-sizing:border-box}
 
 :root{
-  --accent:#17191e;
-  --accentText:#ffffff;
-  --bg:#f6f7f9;
-  --card:#ffffff;
-  --card2:#fafafa;
+  --bg:#f3f0ff;
+  --card:#fffafd;
+  --card2:#f8f3fa;
+  --accent:#4f8b70;
+  --accentText:#fff;
   --text:#17191e;
-  --muted:#7b818c;
-  --border:#e2e4e8;
-  --nav:#ffffff;
-  --positive:#32825e;
-  --negative:#a6534e;
-  --shadow:0 5px 20px rgba(0,0,0,.035);
+  --muted:#858995;
+  --border:#dddde3;
+  --positive:#4f8b70;
+  --negative:#b75e64;
+  --nav:#fffafd;
+  --shadow:0 8px 28px rgba(0,0,0,.045);
 }
 
-html{
+html,body{
+  margin:0;
+  min-height:100%;
   background:var(--bg);
 }
 
 body{
-  margin:0;
-  min-height:100vh;
-  background:var(--bg);
   color:var(--text);
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   -webkit-tap-highlight-color:transparent;
-  transition:background .2s,color .2s;
+}
+
+button,input,select,textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
 }
 
 main{
   width:100%;
-  max-width:1180px;
+  max-width:1100px;
   margin:auto;
-  padding:28px 18px 125px;
+  padding:32px 18px 125px;
 }
 
 h1{
-  font-size:34px;
-  line-height:1.08;
-  margin:18px 0 5px;
+  margin:16px 0 5px;
+  font-size:42px;
+  line-height:1.05;
+  letter-spacing:-1.5px;
 }
 
 h2{
-  margin-top:24px;
+  font-size:23px;
+  margin:28px 0 12px;
 }
 
 .profile-name{
+  margin-top:9px;
+  margin-bottom:30px;
   color:var(--muted);
   font-size:17px;
-  margin:0 0 27px;
   font-weight:600;
 }
 
 .card{
   background:var(--card);
   border:1px solid var(--border);
-  border-radius:24px;
+  border-radius:27px;
   padding:22px;
   margin:14px 0;
   box-shadow:var(--shadow);
-  transition:background .2s,border .2s;
 }
 
-.label,.meta,.help{
+.label,.meta{
   color:var(--muted);
 }
 
-.big{
-  font-size:45px;
-  font-weight:800;
-  margin:8px 0;
-  letter-spacing:-1.5px;
+.balance-card{
+  padding:27px 24px;
 }
 
-.grid{
+.big{
+  margin:8px 0 5px;
+  font-size:46px;
+  font-weight:800;
+  letter-spacing:-2px;
+}
+
+.net-row{
+  margin-top:8px;
+  color:var(--muted);
+}
+
+.stats{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:12px;
 }
 
+.stat-card{
+  margin:0;
+}
+
+.stat-icon{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:38px;
+  height:38px;
+  margin-bottom:14px;
+  border-radius:12px;
+  background:var(--card2);
+  font-weight:800;
+}
+
 .value{
-  font-size:25px;
-  font-weight:750;
-  margin-top:9px;
+  margin-top:7px;
+  font-size:24px;
+  font-weight:800;
 }
 
 .green{color:var(--positive)}
@@ -111,23 +140,23 @@ h2{
 
 input,
 select,
-textarea,
-button{
-  font:inherit;
+textarea{
+  display:block;
   width:100%;
-  padding:14px;
+  margin:7px 0;
+  padding:15px 16px;
   border:1px solid var(--border);
-  border-radius:13px;
+  border-radius:15px;
+  outline:none;
   background:var(--card);
   color:var(--text);
-  margin:6px 0;
-  outline:none;
 }
 
 input:focus,
 select:focus,
 textarea:focus{
   border-color:var(--accent);
+  box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 12%,transparent);
 }
 
 textarea{
@@ -136,27 +165,32 @@ textarea{
 }
 
 button{
-  cursor:pointer;
+  width:100%;
+  margin:7px 0;
+  padding:14px;
+  border:1px solid var(--border);
+  border-radius:15px;
+  background:var(--card);
+  color:var(--text);
 }
 
 button.primary{
-  background:var(--accent);
   border-color:var(--accent);
+  background:var(--accent);
   color:var(--accentText);
-  font-weight:700;
+  font-weight:750;
 }
 
 button:disabled{
   opacity:.55;
-  cursor:not-allowed;
 }
 
 .field-label{
   display:block;
+  margin:15px 3px 3px;
   color:var(--muted);
   font-size:14px;
-  font-weight:650;
-  margin:13px 3px 2px;
+  font-weight:700;
 }
 
 .amount-wrap{
@@ -165,20 +199,47 @@ button:disabled{
 
 .amount-symbol{
   position:absolute;
-  left:15px;
   top:50%;
+  left:16px;
   transform:translateY(-50%);
   color:var(--muted);
   font-weight:700;
-  pointer-events:none;
 }
 
 .amount-wrap input{
-  padding-left:34px;
+  padding-left:36px;
 }
 
+.view{display:none}
+.view.active{display:block}
+
+#app{display:none}
+
+#login,#resetPage{
+  max-width:480px;
+  margin:50px auto;
+}
+
+#resetPage{display:none}
+
+.msg{
+  margin-top:10px;
+  line-height:1.4;
+}
+
+.error{color:var(--negative)}
+.success{color:var(--positive)}
+
+.empty{
+  padding:22px 5px;
+  color:var(--muted);
+  text-align:center;
+}
+
+/* TRANSACTIONS */
+
 .tx{
-  padding:16px 0;
+  padding:17px 0;
   border-bottom:1px solid var(--border);
 }
 
@@ -189,201 +250,203 @@ button:disabled{
 .tx-main{
   display:flex;
   justify-content:space-between;
-  align-items:flex-start;
-  gap:12px;
+  gap:15px;
 }
 
-.name,.amt{
-  font-size:18px;
-  font-weight:700;
+.tx-left{
+  display:flex;
+  gap:12px;
+  min-width:0;
+}
+
+.tx-icon{
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  background:var(--card2);
+  font-size:19px;
+}
+
+.tx-info{
+  min-width:0;
+}
+
+.name{
+  font-size:17px;
+  font-weight:750;
+}
+
+.meta{
+  margin-top:3px;
+  font-size:13px;
 }
 
 .amt{
   white-space:nowrap;
+  font-size:17px;
+  font-weight:800;
 }
 
 .tx-actions{
   display:flex;
-  gap:8px;
+  gap:7px;
   margin-top:10px;
+  padding-left:54px;
 }
 
 .tx-actions button{
-  padding:8px 12px;
-  margin:0;
   width:auto;
-  font-size:13px;
+  margin:0;
+  padding:7px 11px;
+  border-radius:10px;
   background:var(--card2);
+  font-size:12px;
 }
 
-.edit-btn{
-  color:var(--accent);
-}
-
-.delete-btn{
-  color:var(--negative);
-}
-
-.empty{
-  text-align:center;
-  color:var(--muted);
-  padding:20px;
-}
-
-.view{
-  display:none;
-}
-
-.view.active{
-  display:block;
-}
-
-#app{
-  display:none;
-}
-
-#login,
-#resetPage{
-  max-width:480px;
-  margin:55px auto;
-}
-
-#resetPage{
-  display:none;
-}
-
-.msg{
-  margin-top:10px;
-  line-height:1.4;
-}
-
-.error{color:var(--negative)}
-.success{color:var(--positive)}
+.edit-btn{color:var(--accent)}
+.delete-btn{color:var(--negative)}
 
 .filter-row{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:7px;
-  margin:8px 0 15px;
+  margin:9px 0 15px;
 }
 
 .filter-btn{
   padding:10px 5px;
-  font-size:13px;
   background:var(--card2);
+  font-size:13px;
 }
 
 .filter-btn.active-filter{
+  border-color:var(--accent);
   background:var(--accent);
   color:var(--accentText);
-  border-color:var(--accent);
 }
 
 .edit-banner{
   display:none;
+  margin-bottom:12px;
   padding:12px;
-  border-radius:12px;
-  margin-bottom:10px;
+  border-radius:13px;
   background:var(--card2);
   font-weight:700;
 }
 
-.cancel-edit{
-  display:none;
-}
+.cancel-edit{display:none}
 
 /* SETTINGS */
 
-.setting-title{
-  margin:0 0 5px;
+.settings-intro{
+  margin:8px 0 25px;
+  color:var(--muted);
+}
+
+.setting-card h2{
+  margin:0 0 6px;
+  font-size:25px;
 }
 
 .setting-description{
+  margin:0 0 18px;
   color:var(--muted);
-  margin:0 0 14px;
-  line-height:1.45;
+  line-height:1.4;
 }
 
-.theme-preview{
-  height:78px;
-  border-radius:18px;
-  margin:12px 0 4px;
-  background:
-    linear-gradient(
-      135deg,
-      var(--accent) 0 24%,
-      var(--card) 24% 62%,
-      var(--bg) 62% 100%
-    );
+.theme-display{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  margin:14px 0 4px;
+  padding:13px;
   border:1px solid var(--border);
+  border-radius:16px;
+  background:var(--card2);
+}
+
+.theme-swatch{
+  width:43px;
+  height:43px;
+  flex:0 0 auto;
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:var(--accent);
+}
+
+.theme-text{
+  font-weight:750;
+}
+
+.theme-sub{
+  margin-top:2px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+/* PERIOD */
+
+.period-card select{
+  font-weight:700;
 }
 
 /* NAV */
 
 nav{
   position:fixed;
+  right:0;
   bottom:0;
   left:0;
-  right:0;
-  background:var(--nav);
-  border-top:1px solid var(--border);
+  z-index:20;
   display:none;
   grid-template-columns:repeat(5,1fr);
+  border-top:1px solid var(--border);
+  background:var(--nav);
   padding-bottom:env(safe-area-inset-bottom);
-  z-index:10;
   box-shadow:0 -5px 20px rgba(0,0,0,.035);
 }
 
 nav button{
-  border:0;
-  color:var(--muted);
   margin:0;
+  padding:11px 2px 10px;
+  border:0;
   border-radius:0;
-  padding:12px 2px;
   background:transparent;
+  color:var(--muted);
   font-size:11px;
 }
 
 nav button.active{
   color:var(--accent);
-  font-weight:750;
+  font-weight:800;
 }
 
 .nav-icon{
   display:block;
-  font-size:20px;
   margin-bottom:3px;
+  font-size:21px;
 }
 
-/* TABLET */
+/* IPAD */
 
-@media(min-width:768px){
+@media(min-width:700px){
 
   main{
-    padding:36px 32px 125px;
+    padding:38px 30px 125px;
   }
 
-  #home,
-  #transactions,
-  #monthly,
-  #yearly,
-  #settings{
-    max-width:900px;
-    margin:auto;
-  }
-
-  .home-stats{
+  .home-top{
     display:grid;
     grid-template-columns:1.4fr 1fr;
     gap:14px;
-    align-items:stretch;
   }
 
-  .home-stats > .card{
-    margin:0;
-  }
-
-  .home-stats > .grid .card{
+  .home-top .balance-card,
+  .home-top .stats{
     margin:0;
   }
 
@@ -401,68 +464,55 @@ nav button.active{
 
 /* DESKTOP */
 
-@media(min-width:1050px){
+@media(min-width:1000px){
 
   main{
-    padding-top:45px;
+    padding-top:48px;
+  }
+
+  .transaction-layout{
+    display:grid;
+    grid-template-columns:410px 1fr;
+    gap:18px;
+    align-items:start;
+  }
+
+  .transaction-layout .card{
+    margin:0;
+  }
+}
+
+/* IPHONE */
+
+@media(max-width:480px){
+
+  main{
+    padding:27px 14px 120px;
   }
 
   h1{
     font-size:40px;
   }
 
-  .big{
-    font-size:52px;
-  }
-
-  #transactions{
-    max-width:1050px;
-  }
-
-  .transaction-layout{
-    display:grid;
-    grid-template-columns:420px 1fr;
-    gap:18px;
-    align-items:start;
-  }
-
-  .transaction-layout > .card{
-    margin:0;
-  }
-}
-
-/* PHONE */
-
-@media(max-width:430px){
-
-  main{
-    padding-left:14px;
-    padding-right:14px;
-  }
-
-  h1{
-    font-size:31px;
-  }
-
-  .big{
-    font-size:39px;
-  }
-
   .card{
-    padding:19px;
-    border-radius:21px;
+    padding:20px;
+    border-radius:24px;
   }
 
-  .grid{
+  .big{
+    font-size:42px;
+  }
+
+  .stats{
     gap:9px;
   }
 
-  .tx-main{
-    gap:8px;
+  .stat-card{
+    padding:17px;
   }
 
-  .name,.amt{
-    font-size:16px;
+  .value{
+    font-size:20px;
   }
 }
 
@@ -484,77 +534,60 @@ nav button.active{
 
 <section id="login">
 
-  <h1 class="app-title">Savings Tracker</h1>
-  <div class="profile-name">Your personal savings</div>
+<h1 class="app-title">Savings Tracker</h1>
 
-  <div class="card">
+<div class="profile-name">
+Your personal savings
+</div>
 
-    <h2>Private sign in</h2>
+<div class="card">
 
-    <input
-      id="email"
-      type="email"
-      autocomplete="username"
-      placeholder="Email"
-    >
+<h2 style="margin-top:0">Private sign in</h2>
 
-    <input
-      id="password"
-      type="password"
-      autocomplete="current-password"
-      placeholder="Password"
-    >
+<input id="email" type="email" autocomplete="username" placeholder="Email">
 
-    <button id="signin" class="primary" type="button">
-      Sign in
-    </button>
+<input id="password" type="password" autocomplete="current-password" placeholder="Password">
 
-    <button id="forgot" type="button">
-      Forgot password?
-    </button>
+<button id="signin" class="primary" type="button">
+Sign in
+</button>
 
-    <div id="loginMsg" class="msg error"></div>
+<button id="forgot" type="button">
+Forgot password?
+</button>
 
-  </div>
+<div id="loginMsg" class="msg error"></div>
+
+</div>
 
 </section>
 
 
-<!-- PASSWORD RESET -->
+<!-- RESET -->
 
 <section id="resetPage">
 
-  <h1 class="app-title">Savings Tracker</h1>
+<h1 class="app-title">Savings Tracker</h1>
 
-  <div class="card">
+<div class="card">
 
-    <h2>Create new password</h2>
+<h2 style="margin-top:0">Create new password</h2>
 
-    <p class="label">
-      Enter and confirm your new password.
-    </p>
+<p class="label">
+Enter and confirm your new password.
+</p>
 
-    <input
-      id="newPassword"
-      type="password"
-      autocomplete="new-password"
-      placeholder="New password"
-    >
+<input id="newPassword" type="password" autocomplete="new-password" placeholder="New password">
 
-    <input
-      id="confirmPassword"
-      type="password"
-      autocomplete="new-password"
-      placeholder="Confirm new password"
-    >
+<input id="confirmPassword" type="password" autocomplete="new-password" placeholder="Confirm new password">
 
-    <button id="savePassword" class="primary" type="button">
-      Save new password
-    </button>
+<button id="savePassword" class="primary" type="button">
+Save new password
+</button>
 
-    <div id="resetMsg" class="msg error"></div>
+<div id="resetMsg" class="msg error"></div>
 
-  </div>
+</div>
 
 </section>
 
@@ -563,76 +596,78 @@ nav button.active{
 
 <div id="app">
 
+
 <!-- HOME -->
 
 <section id="home" class="view active">
 
-  <h1 class="app-title">Savings Tracker</h1>
+<h1 class="app-title">Savings Tracker</h1>
 
-  <div id="homeProfile" class="profile-name">
-    My Savings
-  </div>
+<div id="homeProfile" class="profile-name">
+My Savings
+</div>
 
-  <div class="home-stats">
+<div class="home-top">
 
-    <div class="card">
+<div class="card balance-card">
 
-      <div class="label">
-        Current savings
-      </div>
+<div class="label">
+Current savings
+</div>
 
-      <div class="big" id="bal">
-        $0.00
-      </div>
+<div id="bal" class="big">
+$0.00
+</div>
 
-      <div class="label">
-        Net change:
-        <span id="net">$0.00</span>
-      </div>
+<div class="net-row">
+Net change:
+<strong id="net">$0.00</strong>
+</div>
 
-    </div>
+</div>
 
-    <div class="grid">
 
-      <div class="card">
+<div class="stats">
 
-        <div class="label">
-          Money in
-        </div>
+<div class="card stat-card">
 
-        <div id="mi" class="value green">
-          $0.00
-        </div>
+<div class="stat-icon">↓</div>
 
-      </div>
+<div class="label">
+Money in
+</div>
 
-      <div class="card">
+<div id="mi" class="value green">
+$0.00
+</div>
 
-        <div class="label">
-          Money out
-        </div>
+</div>
 
-        <div id="mo" class="value red">
-          $0.00
-        </div>
 
-      </div>
+<div class="card stat-card">
 
-    </div>
+<div class="stat-icon">↑</div>
 
-  </div>
+<div class="label">
+Money out
+</div>
 
-  <h2>Recent transactions</h2>
+<div id="mo" class="value red">
+$0.00
+</div>
 
-  <div class="card" id="recent">
-    <div class="empty">
-      No transactions yet.
-    </div>
-  </div>
+</div>
 
-  <button id="logout" type="button">
-    Sign out
-  </button>
+</div>
+
+</div>
+
+
+<h2>Recent transactions</h2>
+
+<div id="recent" class="card">
+<div class="empty">No transactions yet.</div>
+</div>
 
 </section>
 
@@ -641,163 +676,115 @@ nav button.active{
 
 <section id="transactions" class="view">
 
-  <h1>Transactions</h1>
+<h1>Transactions</h1>
 
-  <div class="transaction-layout">
+<div class="profile-name">
+Add, search and manage your transactions.
+</div>
 
-    <div class="card">
+<div class="transaction-layout">
 
-      <div id="editBanner" class="edit-banner">
-        ✏️ Editing transaction
-      </div>
+<div class="card">
 
-      <form id="form">
+<div id="editBanner" class="edit-banner">
+✏️ Editing transaction
+</div>
 
-        <label class="field-label">
-          Type
-        </label>
+<form id="form">
 
-        <select id="typ">
-          <option>Money In</option>
-          <option>Money Out</option>
-        </select>
+<label class="field-label">Type</label>
 
-        <label class="field-label">
-          Amount
-        </label>
+<select id="typ">
+<option>Money In</option>
+<option>Money Out</option>
+</select>
 
-        <div class="amount-wrap">
+<label class="field-label">Amount</label>
 
-          <span
-            id="amountSymbol"
-            class="amount-symbol"
-          >
-            $
-          </span>
+<div class="amount-wrap">
 
-          <input
-            id="amt"
-            type="number"
-            inputmode="decimal"
-            min="0"
-            step=".01"
-            placeholder="0.00"
-            required
-          >
+<span id="amountSymbol" class="amount-symbol">$</span>
 
-        </div>
+<input
+id="amt"
+type="number"
+inputmode="decimal"
+min="0"
+step=".01"
+placeholder="0.00"
+required
+>
 
-        <label class="field-label">
-          Description
-        </label>
+</div>
 
-        <select id="desSelect"></select>
+<label class="field-label">Description</label>
 
-        <input
-          id="desOther"
-          placeholder="Type your description"
-          style="display:none"
-        >
+<select id="desSelect"></select>
 
-        <label class="field-label">
-          Category
-        </label>
+<input
+id="desOther"
+placeholder="Type your description"
+style="display:none"
+>
 
-        <select id="catSelect"></select>
+<label class="field-label">Category</label>
 
-        <input
-          id="catOther"
-          placeholder="Type your category"
-          style="display:none"
-        >
+<select id="catSelect"></select>
 
-        <label class="field-label">
-          Date
-        </label>
+<input
+id="catOther"
+placeholder="Type your category"
+style="display:none"
+>
 
-        <input
-          id="dat"
-          type="date"
-          required
-        >
+<label class="field-label">Date</label>
 
-        <label class="field-label">
-          Notes
-        </label>
+<input id="dat" type="date" required>
 
-        <textarea
-          id="notes"
-          placeholder="Notes (optional)"
-        ></textarea>
+<label class="field-label">Notes</label>
 
-        <button
-          id="submitTransaction"
-          class="primary"
-          type="submit"
-        >
-          Add Transaction
-        </button>
+<textarea id="notes" placeholder="Notes (optional)"></textarea>
 
-        <button
-          id="cancelEdit"
-          class="cancel-edit"
-          type="button"
-        >
-          Cancel Edit
-        </button>
+<button id="submitTransaction" class="primary" type="submit">
+＋ Add Transaction
+</button>
 
-      </form>
+<button id="cancelEdit" class="cancel-edit" type="button">
+Cancel Edit
+</button>
 
-    </div>
+</form>
+
+</div>
 
 
-    <div class="card">
+<div class="card">
 
-      <input
-        id="searchTx"
-        type="search"
-        placeholder="🔎 Search transactions"
-      >
+<input id="searchTx" type="search" placeholder="🔎 Search transactions">
 
-      <div class="filter-row">
+<div class="filter-row">
 
-        <button
-          class="filter-btn active-filter"
-          data-filter="All"
-          type="button"
-        >
-          All
-        </button>
+<button class="filter-btn active-filter" data-filter="All" type="button">
+All
+</button>
 
-        <button
-          class="filter-btn"
-          data-filter="Money In"
-          type="button"
-        >
-          Money In
-        </button>
+<button class="filter-btn" data-filter="Money In" type="button">
+Money In
+</button>
 
-        <button
-          class="filter-btn"
-          data-filter="Money Out"
-          type="button"
-        >
-          Money Out
-        </button>
+<button class="filter-btn" data-filter="Money Out" type="button">
+Money Out
+</button>
 
-      </div>
+</div>
 
-      <div id="all">
+<div id="all">
+<div class="empty">No transactions yet.</div>
+</div>
 
-        <div class="empty">
-          No transactions yet.
-        </div>
+</div>
 
-      </div>
-
-    </div>
-
-  </div>
+</div>
 
 </section>
 
@@ -806,22 +793,21 @@ nav button.active{
 
 <section id="monthly" class="view">
 
-  <h1>Monthly</h1>
+<h1>Monthly</h1>
 
-  <div class="card">
+<div class="profile-name">
+See your savings activity by month.
+</div>
 
-    <label class="field-label">
-      Month
-    </label>
+<div class="card period-card">
 
-    <input
-      id="mp"
-      type="month"
-    >
+<label class="field-label">Select month</label>
 
-    <div id="ms"></div>
+<input id="mp" type="month">
 
-  </div>
+<div id="ms"></div>
+
+</div>
 
 </section>
 
@@ -830,19 +816,21 @@ nav button.active{
 
 <section id="yearly" class="view">
 
-  <h1>Yearly</h1>
+<h1>Yearly</h1>
 
-  <div class="card">
+<div class="profile-name">
+See your savings activity by year.
+</div>
 
-    <label class="field-label">
-      Year
-    </label>
+<div class="card period-card">
 
-    <select id="yp"></select>
+<label class="field-label">Select year</label>
 
-    <div id="ys"></div>
+<select id="yp"></select>
 
-  </div>
+<div id="ys"></div>
+
+</div>
 
 </section>
 
@@ -851,185 +839,148 @@ nav button.active{
 
 <section id="settings" class="view">
 
-  <h1>Settings</h1>
+<h1>Settings</h1>
 
-  <div class="settings-grid">
+<div class="settings-intro">
+Personalize your Savings Tracker.
+</div>
 
-    <div class="card">
-
-      <h2 class="setting-title">
-        Names
-      </h2>
-
-      <p class="setting-description">
-        Personalize your tracker.
-      </p>
-
-      <label class="field-label">
-        App title
-      </label>
-
-      <input
-        id="appTitleInput"
-        maxlength="40"
-        placeholder="Savings Tracker"
-      >
-
-      <label class="field-label">
-        Profile name
-      </label>
-
-      <input
-        id="profileInput"
-        maxlength="50"
-        placeholder="Faith & JJ Savings"
-      >
-
-      <button
-        id="saveNames"
-        class="primary"
-        type="button"
-      >
-        Save Names
-      </button>
-
-      <div
-        id="nameMsg"
-        class="msg success"
-      ></div>
-
-    </div>
+<div class="settings-grid">
 
 
-    <div class="card">
+<!-- NAMES -->
 
-      <h2 class="setting-title">
-        Theme
-      </h2>
+<div class="card setting-card">
 
-      <p class="setting-description">
-        One theme changes the background, cards and buttons together.
-      </p>
+<h2>Names</h2>
 
-      <select id="themeSelect">
+<p class="setting-description">
+Choose what appears at the top of your app.
+</p>
 
-        <option value="pink">
-          🌸 Pink
-        </option>
+<label class="field-label">
+App title
+</label>
 
-        <option value="rose">
-          🌹 Rose
-        </option>
+<input
+id="appTitleInput"
+maxlength="40"
+placeholder="Savings Tracker"
+>
 
-        <option value="lavender">
-          💜 Lavender
-        </option>
+<label class="field-label">
+Profile name
+</label>
 
-        <option value="purpleDark">
-          🌙 Purple Dark
-        </option>
+<input
+id="profileInput"
+maxlength="50"
+placeholder="Faith & JJ Savings"
+>
 
-        <option value="ocean">
-          🌊 Ocean Blue
-        </option>
+<button id="saveNames" class="primary" type="button">
+Save Names
+</button>
 
-        <option value="sky">
-          🩵 Sky
-        </option>
+<div id="nameMsg" class="msg success"></div>
 
-        <option value="sage">
-          🌿 Sage
-        </option>
-
-        <option value="forest">
-          🌲 Forest
-        </option>
-
-        <option value="mint">
-          🍃 Mint
-        </option>
-
-        <option value="peach">
-          🍑 Peach
-        </option>
-
-        <option value="sunset">
-          🌅 Sunset
-        </option>
-
-        <option value="cream">
-          🤍 Cream
-        </option>
-
-        <option value="mocha">
-          🤎 Mocha
-        </option>
-
-        <option value="neutral">
-          🩶 Neutral
-        </option>
-
-        <option value="midnight">
-          🌑 Midnight
-        </option>
-
-      </select>
-
-      <div class="theme-preview"></div>
-
-    </div>
+</div>
 
 
-    <div class="card">
+<!-- THEME -->
 
-      <h2 class="setting-title">
-        Currency
-      </h2>
+<div class="card setting-card">
 
-      <p class="setting-description">
-        Changes how amounts are displayed.
-      </p>
+<h2>Theme</h2>
 
-      <select id="currencySelect">
+<p class="setting-description">
+One choice changes the whole look — background, cards and buttons.
+</p>
 
-        <option value="CAD">
-          🇨🇦 CAD — $
-        </option>
+<label class="field-label">
+Choose theme
+</label>
 
-        <option value="USD">
-          🇺🇸 USD — $
-        </option>
+<select id="themeSelect">
 
-        <option value="PHP">
-          🇵🇭 PHP — ₱
-        </option>
+<option value="pink">🌸 Pink</option>
+<option value="rose">🌹 Rose</option>
+<option value="lavender">💜 Lavender</option>
+<option value="purple">🔮 Purple</option>
+<option value="ocean">🌊 Ocean Blue</option>
+<option value="sky">🩵 Sky Blue</option>
+<option value="sage">🌿 Sage</option>
+<option value="mint">🍃 Mint</option>
+<option value="cream">🤍 Cream</option>
+<option value="mocha">🤎 Mocha</option>
+<option value="neutral">🩶 Neutral</option>
+<option value="midnight">🌙 Midnight</option>
 
-      </select>
+</select>
 
-    </div>
+<div class="theme-display">
+
+<div class="theme-swatch"></div>
+
+<div>
+<div id="themeName" class="theme-text">
+Sage
+</div>
+
+<div class="theme-sub">
+Background + cards + buttons
+</div>
+</div>
+
+</div>
+
+</div>
 
 
-    <div class="card">
+<!-- CURRENCY -->
 
-      <h2 class="setting-title">
-        Account
-      </h2>
+<div class="card setting-card">
 
-      <p
-        id="accountEmail"
-        class="setting-description"
-      ></p>
+<h2>Currency</h2>
 
-      <button
-        id="settingsLogout"
-        type="button"
-      >
-        Sign out
-      </button>
+<p class="setting-description">
+Choose how your amounts are displayed.
+</p>
 
-    </div>
+<select id="currencySelect">
 
-  </div>
+<option value="CAD">
+🇨🇦 CAD — $
+</option>
+
+<option value="USD">
+🇺🇸 USD — $
+</option>
+
+<option value="PHP">
+🇵🇭 PHP — ₱
+</option>
+
+</select>
+
+</div>
+
+
+<!-- ACCOUNT -->
+
+<div class="card setting-card">
+
+<h2>Account</h2>
+
+<p id="accountEmail" class="setting-description"></p>
+
+<button id="settingsLogout" type="button">
+Sign out
+</button>
+
+</div>
+
+</div>
 
 </section>
 
@@ -1042,50 +993,39 @@ nav button.active{
 
 <nav id="nav">
 
-  <button
-    class="active"
-    data-v="home"
-  >
-    <span class="nav-icon">⌂</span>
-    Home
-  </button>
+<button class="active" data-v="home">
+<span class="nav-icon">⌂</span>
+Home
+</button>
 
-  <button
-    data-v="transactions"
-  >
-    <span class="nav-icon">＋</span>
-    Transactions
-  </button>
+<button data-v="transactions">
+<span class="nav-icon">＋</span>
+Transactions
+</button>
 
-  <button
-    data-v="monthly"
-  >
-    <span class="nav-icon">▦</span>
-    Monthly
-  </button>
+<button data-v="monthly">
+<span class="nav-icon">▦</span>
+Monthly
+</button>
 
-  <button
-    data-v="yearly"
-  >
-    <span class="nav-icon">▥</span>
-    Yearly
-  </button>
+<button data-v="yearly">
+<span class="nav-icon">▥</span>
+Yearly
+</button>
 
-  <button
-    data-v="settings"
-  >
-    <span class="nav-icon">⚙︎</span>
-    Settings
-  </button>
+<button data-v="settings">
+<span class="nav-icon">⚙︎</span>
+Settings
+</button>
 
 </nav>
 
 
 <script>
 
-/* ==============================
-   SUPABASE
-============================== */
+/* ==========================
+SUPABASE
+========================== */
 
 const SUPABASE_URL =
 "https://nscgbqeyyninunvhlkas.supabase.co";
@@ -1101,2025 +1041,1777 @@ SITE_URL + "?recovery=1";
 
 const sb =
 supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
+SUPABASE_URL,
+SUPABASE_KEY
 );
 
-let T = [];
-let user = null;
-let editingId = null;
-let currentFilter = "All";
+let T=[];
+let user=null;
+let editingId=null;
+let currentFilter="All";
 
-const url =
-new URL(window.location.href);
+const $=id=>document.getElementById(id);
+
+const url=new URL(window.location.href);
 
 const recoveryMode =
-url.searchParams.get("recovery") === "1" ||
+url.searchParams.get("recovery")==="1" ||
 url.hash.includes("type=recovery");
 
-const $ = id =>
-document.getElementById(id);
 
+/* ==========================
+SETTINGS
+========================== */
 
-/* ==============================
-   SETTINGS
-============================== */
-
-const defaults = {
-  title:"Savings Tracker",
-  profile:"My Savings",
-  theme:"neutral",
-  currency:"CAD"
+const defaults={
+title:"Savings Tracker",
+profile:"My Savings",
+theme:"sage",
+currency:"CAD"
 };
 
 function settingKey(name){
 
-  return user
-  ? "savings-" + user.id + "-" + name
-  : "savings-" + name;
+return user
+? "savings-"+user.id+"-"+name
+: "savings-"+name;
+
 }
 
 function getSetting(name){
 
-  return (
-    localStorage.getItem(
-      settingKey(name)
-    ) ||
-    defaults[name]
-  );
+return localStorage.getItem(
+settingKey(name)
+) || defaults[name];
+
 }
 
 function saveSetting(name,value){
 
-  localStorage.setItem(
-    settingKey(name),
-    value
-  );
+localStorage.setItem(
+settingKey(name),
+value
+);
+
 }
 
 
-/* ==============================
-   THEMES
-============================== */
+/* ==========================
+THEMES
+========================== */
 
-const themes = {
+const themes={
 
-  pink:{
-    accent:"#e85d8f",
-    accentText:"#ffffff",
-    bg:"#fff3f7",
-    card:"#ffffff",
-    card2:"#ffe9f1",
-    text:"#2b2025",
-    muted:"#876f78",
-    border:"#f2dce4",
-    nav:"#fffafd"
-  },
+pink:{
+name:"Pink",
+bg:"#fff1f6",
+card:"#fffafd",
+card2:"#fde7ef",
+accent:"#d65f8c",
+accentText:"#ffffff",
+text:"#211b1e",
+muted:"#89777e",
+border:"#edd9e0",
+positive:"#4f8b70",
+negative:"#b75e64",
+nav:"#fffafd"
+},
 
-  rose:{
-    accent:"#c94f6d",
-    accentText:"#ffffff",
-    bg:"#fff4f5",
-    card:"#ffffff",
-    card2:"#fbe5e9",
-    text:"#302124",
-    muted:"#876e73",
-    border:"#efdadd",
-    nav:"#fffafa"
-  },
+rose:{
+name:"Rose",
+bg:"#fff2f3",
+card:"#fffafa",
+card2:"#fae3e6",
+accent:"#c7546c",
+accentText:"#ffffff",
+text:"#271d20",
+muted:"#88757a",
+border:"#ecd8dc",
+positive:"#4f8b70",
+negative:"#bd5260",
+nav:"#fffafa"
+},
 
-  lavender:{
-    accent:"#8663c7",
-    accentText:"#ffffff",
-    bg:"#f6f2ff",
-    card:"#ffffff",
-    card2:"#eee7fb",
-    text:"#272231",
-    muted:"#777083",
-    border:"#e4dcf1",
-    nav:"#fbf9ff"
-  },
+lavender:{
+name:"Lavender",
+bg:"#f3f0ff",
+card:"#fdfbff",
+card2:"#eae3fb",
+accent:"#8164c7",
+accentText:"#ffffff",
+text:"#211d29",
+muted:"#7c7588",
+border:"#ded8ec",
+positive:"#4f8b70",
+negative:"#b75e64",
+nav:"#fdfbff"
+},
 
-  purpleDark:{
-    accent:"#a882ff",
-    accentText:"#20172f",
-    bg:"#171224",
-    card:"#241b35",
-    card2:"#302344",
-    text:"#f8f4ff",
-    muted:"#bdb1cf",
-    border:"#3d3150",
-    nav:"#21182f"
-  },
+purple:{
+name:"Purple Dark",
+bg:"#181322",
+card:"#241c31",
+card2:"#30253f",
+accent:"#a985ff",
+accentText:"#1d1429",
+text:"#f8f5fc",
+muted:"#b9afc5",
+border:"#3d324a",
+positive:"#75c89d",
+negative:"#f08d93",
+nav:"#21192d"
+},
 
-  ocean:{
-    accent:"#397fc5",
-    accentText:"#ffffff",
-    bg:"#eef7ff",
-    card:"#ffffff",
-    card2:"#e2f0fc",
-    text:"#172635",
-    muted:"#6f8191",
-    border:"#d6e5f1",
-    nav:"#f8fcff"
-  },
+ocean:{
+name:"Ocean Blue",
+bg:"#eef7ff",
+card:"#fbfdff",
+card2:"#e1effb",
+accent:"#397fc5",
+accentText:"#ffffff",
+text:"#182631",
+muted:"#72818d",
+border:"#d7e5ef",
+positive:"#3f8d72",
+negative:"#bd6262",
+nav:"#fbfdff"
+},
 
-  sky:{
-    accent:"#5aa6df",
-    accentText:"#ffffff",
-    bg:"#f0f9ff",
-    card:"#ffffff",
-    card2:"#e5f4fd",
-    text:"#1d2932",
-    muted:"#71818c",
-    border:"#d8e9f3",
-    nav:"#f9fdff"
-  },
+sky:{
+name:"Sky Blue",
+bg:"#eff9ff",
+card:"#ffffff",
+card2:"#e2f3fc",
+accent:"#58a4dc",
+accentText:"#ffffff",
+text:"#1b2932",
+muted:"#73828b",
+border:"#d6e8f1",
+positive:"#408c71",
+negative:"#b85d62",
+nav:"#ffffff"
+},
 
-  sage:{
-    accent:"#6d8e6a",
-    accentText:"#ffffff",
-    bg:"#f2f5ee",
-    card:"#fbfcf9",
-    card2:"#e8eee2",
-    text:"#263026",
-    muted:"#747d70",
-    border:"#dce4d7",
-    nav:"#fafcf8"
-  },
+sage:{
+name:"Sage",
+bg:"#f1f4ed",
+card:"#fffdf9",
+card2:"#e7eee2",
+accent:"#4f8b70",
+accentText:"#ffffff",
+text:"#1c2520",
+muted:"#798078",
+border:"#dce2d8",
+positive:"#4f8b70",
+negative:"#b75e64",
+nav:"#fffdf9"
+},
 
-  forest:{
-    accent:"#28634c",
-    accentText:"#ffffff",
-    bg:"#edf5f0",
-    card:"#ffffff",
-    card2:"#dfeee6",
-    text:"#172820",
-    muted:"#687b71",
-    border:"#d3e3da",
-    nav:"#f7fbf9"
-  },
+mint:{
+name:"Mint",
+bg:"#eef9f5",
+card:"#fbfffd",
+card2:"#dff2ea",
+accent:"#49927d",
+accentText:"#ffffff",
+text:"#1d2925",
+muted:"#718079",
+border:"#d5e8e1",
+positive:"#438c72",
+negative:"#b65e63",
+nav:"#fbfffd"
+},
 
-  mint:{
-    accent:"#4a9a83",
-    accentText:"#ffffff",
-    bg:"#effaf6",
-    card:"#ffffff",
-    card2:"#dff4ed",
-    text:"#1e2e29",
-    muted:"#6f807b",
-    border:"#d4eae3",
-    nav:"#f8fdfa"
-  },
+cream:{
+name:"Cream",
+bg:"#faf6ec",
+card:"#fffdf8",
+card2:"#f2eadb",
+accent:"#8c7558",
+accentText:"#ffffff",
+text:"#2b2721",
+muted:"#827a6f",
+border:"#e8dfd0",
+positive:"#56826a",
+negative:"#af625d",
+nav:"#fffdf8"
+},
 
-  peach:{
-    accent:"#dc805d",
-    accentText:"#ffffff",
-    bg:"#fff5ef",
-    card:"#ffffff",
-    card2:"#fce8dc",
-    text:"#31251f",
-    muted:"#89766c",
-    border:"#f0ddd2",
-    nav:"#fffaf7"
-  },
+mocha:{
+name:"Mocha",
+bg:"#f4ede7",
+card:"#fffaf6",
+card2:"#eaded4",
+accent:"#86634b",
+accentText:"#ffffff",
+text:"#30261f",
+muted:"#806f63",
+border:"#dfd2c7",
+positive:"#5e836c",
+negative:"#ae625c",
+nav:"#fffaf6"
+},
 
-  sunset:{
-    accent:"#d56f56",
-    accentText:"#ffffff",
-    bg:"#fff3ec",
-    card:"#ffffff",
-    card2:"#fbe2d6",
-    text:"#32231f",
-    muted:"#88736b",
-    border:"#efd8cd",
-    nav:"#fff9f5"
-  },
+neutral:{
+name:"Neutral",
+bg:"#f5f6f8",
+card:"#ffffff",
+card2:"#eef0f3",
+accent:"#555f6b",
+accentText:"#ffffff",
+text:"#17191e",
+muted:"#7b818c",
+border:"#e1e3e8",
+positive:"#4f8b70",
+negative:"#b75e64",
+nav:"#ffffff"
+},
 
-  cream:{
-    accent:"#8e7556",
-    accentText:"#ffffff",
-    bg:"#faf6ed",
-    card:"#fffdf8",
-    card2:"#f3eadb",
-    text:"#2d2922",
-    muted:"#80786c",
-    border:"#e8dfd0",
-    nav:"#fffdf8"
-  },
-
-  mocha:{
-    accent:"#876348",
-    accentText:"#ffffff",
-    bg:"#f5eee8",
-    card:"#fffaf6",
-    card2:"#eaded4",
-    text:"#30261f",
-    muted:"#7e7065",
-    border:"#e0d3c8",
-    nav:"#fcf7f3"
-  },
-
-  neutral:{
-    accent:"#56606c",
-    accentText:"#ffffff",
-    bg:"#f5f6f8",
-    card:"#ffffff",
-    card2:"#eef0f3",
-    text:"#17191e",
-    muted:"#7b818c",
-    border:"#e1e3e8",
-    nav:"#ffffff"
-  },
-
-  midnight:{
-    accent:"#83a9ff",
-    accentText:"#101725",
-    bg:"#0f141d",
-    card:"#19202b",
-    card2:"#232c39",
-    text:"#f5f7fb",
-    muted:"#a7b0bd",
-    border:"#303a47",
-    nav:"#171e28"
-  }
+midnight:{
+name:"Midnight",
+bg:"#0f141d",
+card:"#19202b",
+card2:"#232c39",
+accent:"#84a9ff",
+accentText:"#101725",
+text:"#f6f7fa",
+muted:"#a7b0bd",
+border:"#303a47",
+positive:"#72c59c",
+negative:"#ed898f",
+nav:"#171e28"
+}
 
 };
 
 
-function applyTheme(name){
+function applyTheme(themeName){
 
-  const t =
-  themes[name] ||
-  themes.neutral;
+const theme=
+themes[themeName] ||
+themes.sage;
 
-  const root =
-  document.documentElement.style;
+const root=
+document.documentElement.style;
 
-  root.setProperty(
-    "--accent",
-    t.accent
-  );
+root.setProperty("--bg",theme.bg);
+root.setProperty("--card",theme.card);
+root.setProperty("--card2",theme.card2);
+root.setProperty("--accent",theme.accent);
+root.setProperty("--accentText",theme.accentText);
+root.setProperty("--text",theme.text);
+root.setProperty("--muted",theme.muted);
+root.setProperty("--border",theme.border);
+root.setProperty("--positive",theme.positive);
+root.setProperty("--negative",theme.negative);
+root.setProperty("--nav",theme.nav);
 
-  root.setProperty(
-    "--accentText",
-    t.accentText
-  );
+$("themeMeta").setAttribute(
+"content",
+theme.bg
+);
 
-  root.setProperty(
-    "--bg",
-    t.bg
-  );
+if($("themeSelect")){
+$("themeSelect").value=themeName;
+}
 
-  root.setProperty(
-    "--card",
-    t.card
-  );
+if($("themeName")){
+$("themeName").textContent=theme.name;
+}
 
-  root.setProperty(
-    "--card2",
-    t.card2
-  );
-
-  root.setProperty(
-    "--text",
-    t.text
-  );
-
-  root.setProperty(
-    "--muted",
-    t.muted
-  );
-
-  root.setProperty(
-    "--border",
-    t.border
-  );
-
-  root.setProperty(
-    "--nav",
-    t.nav
-  );
-
-  $("themeMeta")
-  .setAttribute(
-    "content",
-    t.bg
-  );
-
-  if($("themeSelect")){
-    $("themeSelect").value =
-    name;
-  }
 }
 
 
-/* ==============================
-   CURRENCY
-============================== */
+/* ==========================
+CURRENCY
+========================== */
 
 function currency(){
 
-  return getSetting(
-    "currency"
-  );
+return getSetting("currency");
+
 }
 
 function currencySymbol(){
 
-  if(currency()==="PHP"){
-    return "₱";
-  }
+return currency()==="PHP"
+? "₱"
+: "$";
 
-  return "$";
 }
 
 function money(n){
 
-  const c =
-  currency();
+const c=currency();
 
-  const locale =
-  c==="PHP"
-  ? "en-PH"
-  : c==="USD"
-  ? "en-US"
-  : "en-CA";
+const locale=
+c==="PHP"
+? "en-PH"
+: c==="USD"
+? "en-US"
+: "en-CA";
 
-  return new Intl.NumberFormat(
-    locale,
-    {
-      style:"currency",
-      currency:c
-    }
-  ).format(
-    Number(n || 0)
-  );
+return new Intl.NumberFormat(
+locale,
+{
+style:"currency",
+currency:c
+}
+).format(Number(n||0));
+
 }
 
 
-/* ==============================
-   ESCAPE
-============================== */
+/* ==========================
+ESCAPE
+========================== */
 
 function esc(v){
 
-  return String(v ?? "")
-  .replace(
-    /[&<>"']/g,
-    c=>({
-      "&":"&amp;",
-      "<":"&lt;",
-      ">":"&gt;",
-      '"':"&quot;",
-      "'":"&#39;"
-    }[c])
-  );
+return String(v??"")
+.replace(
+/[&<>"']/g,
+c=>({
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#39;"
+}[c])
+);
+
 }
 
 
-/* ==============================
-   APPLY SETTINGS
-============================== */
+/* ==========================
+APPLY SETTINGS
+========================== */
 
 function applySettings(){
 
-  const title =
-  getSetting("title");
+const title=getSetting("title");
+const profile=getSetting("profile");
+const theme=getSetting("theme");
 
-  const profile =
-  getSetting("profile");
+document.title=title;
 
-  const theme =
-  getSetting("theme");
+document
+.querySelectorAll(".app-title")
+.forEach(x=>{
+x.textContent=title;
+});
 
-  document.title =
-  title;
+if($("homeProfile")){
+$("homeProfile").textContent=profile;
+}
 
-  document
-  .querySelectorAll(
-    ".app-title"
-  )
-  .forEach(
-    x=>{
-      x.textContent =
-      title;
-    }
-  );
+if($("appTitleInput")){
+$("appTitleInput").value=title;
+}
 
-  if($("homeProfile")){
-    $("homeProfile").textContent =
-    profile;
-  }
+if($("profileInput")){
+$("profileInput").value=profile;
+}
 
-  if($("appTitleInput")){
-    $("appTitleInput").value =
-    title;
-  }
+if($("currencySelect")){
+$("currencySelect").value=currency();
+}
 
-  if($("profileInput")){
-    $("profileInput").value =
-    profile;
-  }
+if($("amountSymbol")){
+$("amountSymbol").textContent=
+currencySymbol();
+}
 
-  if($("currencySelect")){
-    $("currencySelect").value =
-    currency();
-  }
+applyTheme(theme);
 
-  if($("amountSymbol")){
-    $("amountSymbol").textContent =
-    currencySymbol();
-  }
+if(T.length){
+render();
+}
 
-  applyTheme(theme);
-
-  if(T.length){
-    render();
-  }
 }
 
 
-/* ==============================
-   SAVE NAMES
-============================== */
+/* ==========================
+SAVE NAMES
+========================== */
 
-$("saveNames").onclick =
-()=>{
+$("saveNames").onclick=()=>{
 
-  const title =
-  $("appTitleInput")
-  .value
-  .trim();
+const title=
+$("appTitleInput").value.trim();
 
-  const profile =
-  $("profileInput")
-  .value
-  .trim();
+const profile=
+$("profileInput").value.trim();
 
-  if(!title || !profile){
+if(!title || !profile){
 
-    $("nameMsg").className =
-    "msg error";
+$("nameMsg").className="msg error";
+$("nameMsg").textContent=
+"Enter both names.";
 
-    $("nameMsg").textContent =
-    "Enter both names.";
+return;
 
-    return;
-  }
+}
 
-  saveSetting(
-    "title",
-    title
-  );
+saveSetting("title",title);
+saveSetting("profile",profile);
 
-  saveSetting(
-    "profile",
-    profile
-  );
+applySettings();
 
-  applySettings();
+$("nameMsg").className="msg success";
+$("nameMsg").textContent="Names saved ✓";
 
-  $("nameMsg").className =
-  "msg success";
+setTimeout(()=>{
+$("nameMsg").textContent="";
+},1500);
 
-  $("nameMsg").textContent =
-  "Names saved ✓";
-
-  setTimeout(
-    ()=>{
-      $("nameMsg").textContent="";
-    },
-    1500
-  );
 };
 
 
-/* ==============================
-   THEME / CURRENCY
-============================== */
+/* ==========================
+THEME
+========================== */
 
-$("themeSelect").onchange =
-()=>{
+$("themeSelect").onchange=()=>{
 
-  saveSetting(
-    "theme",
-    $("themeSelect").value
-  );
+saveSetting(
+"theme",
+$("themeSelect").value
+);
 
-  applySettings();
+applySettings();
+
 };
 
 
-$("currencySelect").onchange =
-()=>{
+/* ==========================
+CURRENCY
+========================== */
 
-  saveSetting(
-    "currency",
-    $("currencySelect").value
-  );
+$("currencySelect").onchange=()=>{
 
-  applySettings();
+saveSetting(
+"currency",
+$("currencySelect").value
+);
+
+applySettings();
+
 };
 
 
-/* ==============================
-   DESCRIPTION OPTIONS
-============================== */
+/* ==========================
+TRANSACTION OPTIONS
+========================== */
 
-const moneyInDescriptions = [
-  "Pay Day",
-  "Savings Deposit",
-  "Transfer In",
-  "Bonus",
-  "Refund",
-  "Gift",
-  "Cash Deposit",
-  "Investment Return",
-  "Other"
+const moneyInDescriptions=[
+"Pay Day",
+"Savings Deposit",
+"Transfer In",
+"Bonus",
+"Refund",
+"Gift",
+"Cash Deposit",
+"Investment Return",
+"Other"
 ];
 
-const moneyOutDescriptions = [
-  "Groceries",
-  "Dining Out",
-  "Shopping",
-  "Bills",
-  "Rent / Mortgage",
-  "Gas",
-  "Transportation",
-  "Travel",
-  "Entertainment",
-  "Poker / Casino",
-  "Baby",
-  "Health",
-  "Beauty",
-  "Subscription",
-  "Transfer Out",
-  "Other"
+const moneyOutDescriptions=[
+"Groceries",
+"Dining Out",
+"Shopping",
+"Bills",
+"Rent / Mortgage",
+"Gas",
+"Transportation",
+"Travel",
+"Entertainment",
+"Poker / Casino",
+"Baby",
+"Health",
+"Beauty",
+"Subscription",
+"Transfer Out",
+"Other"
 ];
 
-const moneyInCategories = [
-  "Income",
-  "Savings",
-  "Transfer",
-  "Bonus",
-  "Refund",
-  "Gift",
-  "Investment",
-  "Other"
+const moneyInCategories=[
+"Income",
+"Savings",
+"Transfer",
+"Bonus",
+"Refund",
+"Gift",
+"Investment",
+"Other"
 ];
 
-const moneyOutCategories = [
-  "Food",
-  "Groceries",
-  "Dining",
-  "Shopping",
-  "Housing",
-  "Utilities",
-  "Transportation",
-  "Travel",
-  "Entertainment",
-  "Poker / Casino",
-  "Baby",
-  "Health",
-  "Beauty",
-  "Subscriptions",
-  "Transfer",
-  "Other"
+const moneyOutCategories=[
+"Food",
+"Groceries",
+"Dining",
+"Shopping",
+"Housing",
+"Utilities",
+"Transportation",
+"Travel",
+"Entertainment",
+"Poker / Casino",
+"Baby",
+"Health",
+"Beauty",
+"Subscriptions",
+"Transfer",
+"Other"
 ];
 
 
-function fillSelect(
-  element,
-  options
-){
+function fillSelect(element,options){
 
-  element.innerHTML =
-  options
-  .map(
-    x=>
-    `<option value="${esc(x)}">${esc(x)}</option>`
-  )
-  .join("");
+element.innerHTML=
+options.map(
+x=>`<option value="${esc(x)}">${esc(x)}</option>`
+).join("");
+
 }
 
 
 function updateTransactionOptions(){
 
-  const isIn =
-  $("typ").value ===
-  "Money In";
+const isIn=
+$("typ").value==="Money In";
 
-  fillSelect(
-    $("desSelect"),
-    isIn
-    ? moneyInDescriptions
-    : moneyOutDescriptions
-  );
+fillSelect(
+$("desSelect"),
+isIn
+? moneyInDescriptions
+: moneyOutDescriptions
+);
 
-  fillSelect(
-    $("catSelect"),
-    isIn
-    ? moneyInCategories
-    : moneyOutCategories
-  );
+fillSelect(
+$("catSelect"),
+isIn
+? moneyInCategories
+: moneyOutCategories
+);
 
-  $("desOther")
-  .style.display =
-  "none";
+$("desOther").style.display="none";
+$("catOther").style.display="none";
 
-  $("catOther")
-  .style.display =
-  "none";
+$("desOther").value="";
+$("catOther").value="";
 
-  $("desOther").value="";
-  $("catOther").value="";
 }
 
 
-$("typ").onchange =
+$("typ").onchange=
 updateTransactionOptions;
 
 
-$("desSelect").onchange =
-()=>{
+$("desSelect").onchange=()=>{
 
-  $("desOther")
-  .style.display =
-  $("desSelect").value==="Other"
-  ? "block"
-  : "none";
+$("desOther").style.display=
+$("desSelect").value==="Other"
+? "block"
+: "none";
+
 };
 
 
-$("catSelect").onchange =
-()=>{
+$("catSelect").onchange=()=>{
 
-  $("catOther")
-  .style.display =
-  $("catSelect").value==="Other"
-  ? "block"
-  : "none";
+$("catOther").style.display=
+$("catSelect").value==="Other"
+? "block"
+: "none";
+
 };
 
 
-/* ==============================
-   DISPLAY
-============================== */
+/* ==========================
+DISPLAY
+========================== */
 
 function showLogin(){
 
-  if(recoveryMode){
-    return;
-  }
+if(recoveryMode)return;
 
-  $("login").style.display =
-  "block";
+$("login").style.display="block";
+$("resetPage").style.display="none";
+$("app").style.display="none";
+$("nav").style.display="none";
 
-  $("resetPage").style.display =
-  "none";
+applySettings();
 
-  $("app").style.display =
-  "none";
-
-  $("nav").style.display =
-  "none";
-
-  applySettings();
 }
 
 
 function showReset(){
 
-  $("login").style.display =
-  "none";
+$("login").style.display="none";
+$("app").style.display="none";
+$("nav").style.display="none";
+$("resetPage").style.display="block";
 
-  $("app").style.display =
-  "none";
+applySettings();
 
-  $("nav").style.display =
-  "none";
-
-  $("resetPage").style.display =
-  "block";
-
-  applySettings();
 }
 
 
 function showApp(){
 
-  if(recoveryMode){
+if(recoveryMode){
 
-    showReset();
-    return;
-  }
+showReset();
+return;
 
-  $("login").style.display =
-  "none";
+}
 
-  $("resetPage").style.display =
-  "none";
+$("login").style.display="none";
+$("resetPage").style.display="none";
+$("app").style.display="block";
+$("nav").style.display="grid";
 
-  $("app").style.display =
-  "block";
+applySettings();
 
-  $("nav").style.display =
-  "grid";
+if(user){
 
-  applySettings();
+$("accountEmail").textContent=
+user.email || "";
 
-  if(user){
+}
 
-    $("accountEmail")
-    .textContent =
-    user.email || "";
-  }
 }
 
 
-/* ==============================
-   TOTALS
-============================== */
+/* ==========================
+TOTALS
+========================== */
 
 function totals(a=T){
 
-  let i=0;
-  let o=0;
+let i=0;
+let o=0;
 
-  a.forEach(
-    x=>{
+a.forEach(x=>{
 
-      if(
-        x.transaction_type ===
-        "Money In"
-      ){
+if(x.transaction_type==="Money In"){
 
-        i +=
-        Number(x.amount);
+i+=Number(x.amount);
 
-      }else{
+}else{
 
-        o +=
-        Number(x.amount);
-      }
+o+=Number(x.amount);
 
-    }
-  );
+}
 
-  return{
-    i,
-    o,
-    n:i-o
-  };
+});
+
+return{
+i,
+o,
+n:i-o
+};
+
 }
 
 
-/* ==============================
-   TRANSACTION ROW
-============================== */
+/* ==========================
+ICONS
+========================== */
+
+function transactionIcon(x){
+
+const c=
+String(x.category||"").toLowerCase();
+
+const d=
+String(x.description||"").toLowerCase();
+
+if(x.transaction_type==="Money In"){
+return "↓";
+}
+
+if(c.includes("food") || c.includes("dining") || c.includes("grocer")){
+return "🍽";
+}
+
+if(c.includes("travel") || c.includes("transport")){
+return "✈️";
+}
+
+if(c.includes("shopping") || d.includes("shopping")){
+return "🛍";
+}
+
+if(c.includes("baby")){
+return "🍼";
+}
+
+if(c.includes("health")){
+return "♡";
+}
+
+if(c.includes("beauty")){
+return "✨";
+}
+
+if(c.includes("poker") || d.includes("casino")){
+return "♠";
+}
+
+if(c.includes("housing")){
+return "⌂";
+}
+
+return "↑";
+
+}
+
+
+/* ==========================
+TRANSACTION ROW
+========================== */
 
 function txrow(x){
 
-  return `
-  <div class="tx">
+return `
+<div class="tx">
 
-    <div class="tx-main">
+<div class="tx-main">
 
-      <div>
+<div class="tx-left">
 
-        <div class="name">
-          ${esc(x.description)}
-        </div>
+<div class="tx-icon">
+${transactionIcon(x)}
+</div>
 
-        <div class="meta">
+<div class="tx-info">
 
-          ${esc(x.transaction_date)}
+<div class="name">
+${esc(x.description)}
+</div>
 
-          ${
-            x.category
-            ? " · " +
-              esc(x.category)
-            : ""
-          }
+<div class="meta">
+${esc(x.transaction_date)}
+${x.category ? " · "+esc(x.category) : ""}
+</div>
 
-        </div>
+</div>
 
-      </div>
+</div>
 
-      <div
-        class="amt ${
-          x.transaction_type ===
-          "Money In"
-          ? "green"
-          : "red"
-        }"
-      >
+<div class="amt ${
+x.transaction_type==="Money In"
+? "green"
+: "red"
+}">
 
-        ${
-          x.transaction_type ===
-          "Money In"
-          ? "+"
-          : "−"
-        }
+${x.transaction_type==="Money In" ? "+" : "−"}
+${money(Number(x.amount))}
 
-        ${money(
-          Number(x.amount)
-        )}
+</div>
 
-      </div>
+</div>
 
-    </div>
+<div class="tx-actions">
 
-    <div class="tx-actions">
+<button
+class="edit-btn"
+type="button"
+onclick="editTransaction('${esc(x.id)}')"
+>
+Edit
+</button>
 
-      <button
-        class="edit-btn"
-        type="button"
-        onclick="editTransaction('${esc(x.id)}')"
-      >
-        ✏️ Edit
-      </button>
+<button
+class="delete-btn"
+type="button"
+onclick="deleteTransaction('${esc(x.id)}')"
+>
+Delete
+</button>
 
-      <button
-        class="delete-btn"
-        type="button"
-        onclick="deleteTransaction('${esc(x.id)}')"
-      >
-        🗑️ Delete
-      </button>
+</div>
 
-    </div>
+</div>
+`;
 
-  </div>
-  `;
 }
 
 
-/* ==============================
-   SUMMARY
-============================== */
+/* ==========================
+SUMMARY
+========================== */
 
 function summary(t){
 
-  return `
-    <h2>Summary</h2>
+return `
 
-    <div class="label">
-      Money in
-    </div>
+<h2>Summary</h2>
 
-    <div class="value green">
-      ${money(t.i)}
-    </div>
+<div class="stats">
 
-    <br>
+<div class="card stat-card">
 
-    <div class="label">
-      Money out
-    </div>
+<div class="label">Money in</div>
 
-    <div class="value red">
-      ${money(t.o)}
-    </div>
+<div class="value green">
+${money(t.i)}
+</div>
 
-    <br>
+</div>
 
-    <div class="label">
-      Net change
-    </div>
+<div class="card stat-card">
 
-    <div class="value">
-      ${money(t.n)}
-    </div>
-  `;
+<div class="label">Money out</div>
+
+<div class="value red">
+${money(t.o)}
+</div>
+
+</div>
+
+</div>
+
+<div style="margin-top:18px">
+
+<div class="label">
+Net change
+</div>
+
+<div class="value">
+${money(t.n)}
+</div>
+
+</div>
+
+`;
+
 }
 
 
-/* ==============================
-   SEARCH / FILTER
-============================== */
+/* ==========================
+FILTER
+========================== */
 
 function filteredTransactions(){
 
-  const q =
-  $("searchTx")
-  .value
-  .trim()
-  .toLowerCase();
+const q=
+$("searchTx")
+.value
+.trim()
+.toLowerCase();
 
-  return T.filter(
-    x=>{
+return T.filter(x=>{
 
-      const matchesFilter =
-      currentFilter==="All" ||
-      x.transaction_type===
-      currentFilter;
+const matchesFilter=
+currentFilter==="All" ||
+x.transaction_type===currentFilter;
 
-      const haystack =
-      [
-        x.description,
-        x.category,
-        x.notes,
-        x.transaction_date
-      ]
-      .join(" ")
-      .toLowerCase();
+const haystack=[
+x.description,
+x.category,
+x.notes,
+x.transaction_date
+]
+.join(" ")
+.toLowerCase();
 
-      const matchesSearch =
-      !q ||
-      haystack.includes(q);
+return matchesFilter &&
+(
+!q ||
+haystack.includes(q)
+);
 
-      return(
-        matchesFilter &&
-        matchesSearch
-      );
-    }
-  );
+});
+
 }
 
 
 function renderAll(){
 
-  const s =
-  filteredTransactions()
-  .sort(
-    (a,b)=>
-    b.transaction_date
-    .localeCompare(
-      a.transaction_date
-    )
-  );
+const s=
+filteredTransactions()
+.sort(
+(a,b)=>
+b.transaction_date.localeCompare(
+a.transaction_date
+)
+);
 
-  $("all").innerHTML =
-  s.length
-  ? s.map(txrow).join("")
-  : '<div class="empty">No matching transactions.</div>';
+$("all").innerHTML=
+s.length
+? s.map(txrow).join("")
+: '<div class="empty">No matching transactions.</div>';
+
 }
 
 
-$("searchTx").oninput =
+$("searchTx").oninput=
 renderAll;
 
 
 document
-.querySelectorAll(
-  ".filter-btn"
-)
-.forEach(
-  b=>
-  b.onclick=
-  ()=>{
+.querySelectorAll(".filter-btn")
+.forEach(b=>{
 
-    currentFilter =
-    b.dataset.filter;
+b.onclick=()=>{
 
-    document
-    .querySelectorAll(
-      ".filter-btn"
-    )
-    .forEach(
-      x=>
-      x.classList.remove(
-        "active-filter"
-      )
-    );
+currentFilter=b.dataset.filter;
 
-    b.classList.add(
-      "active-filter"
-    );
-
-    renderAll();
-  }
+document
+.querySelectorAll(".filter-btn")
+.forEach(x=>
+x.classList.remove("active-filter")
 );
 
+b.classList.add("active-filter");
 
-/* ==============================
-   RENDER
-============================== */
+renderAll();
+
+};
+
+});
+
+
+/* ==========================
+RENDER
+========================== */
 
 function render(){
 
-  const t =
-  totals();
+const t=totals();
 
-  const s =
-  [...T].sort(
-    (a,b)=>
-    b.transaction_date
-    .localeCompare(
-      a.transaction_date
-    )
-  );
+const s=[...T].sort(
+(a,b)=>
+b.transaction_date.localeCompare(
+a.transaction_date
+)
+);
 
-  $("bal").textContent =
-  money(t.n);
+$("bal").textContent=money(t.n);
+$("net").textContent=money(t.n);
+$("mi").textContent=money(t.i);
+$("mo").textContent=money(t.o);
 
-  $("net").textContent =
-  money(t.n);
+$("recent").innerHTML=
+s.length
+? s.slice(0,5).map(txrow).join("")
+: '<div class="empty">No transactions yet.</div>';
 
-  $("mi").textContent =
-  money(t.i);
+renderAll();
+renderMonth();
+renderYear();
 
-  $("mo").textContent =
-  money(t.o);
-
-  $("recent").innerHTML =
-  s.length
-  ? s
-    .slice(0,5)
-    .map(txrow)
-    .join("")
-  : '<div class="empty">No transactions yet.</div>';
-
-  renderAll();
-  renderMonth();
-  renderYear();
 }
 
 
-/* ==============================
-   LOAD TRANSACTIONS
-============================== */
+/* ==========================
+LOAD
+========================== */
 
 async function load(){
 
-  if(!user){
-    return;
-  }
+if(!user)return;
 
-  const r =
-  await sb
-  .from("transactions")
-  .select("*")
-  .eq(
-    "user_id",
-    user.id
-  )
-  .order(
-    "transaction_date",
-    {
-      ascending:false
-    }
-  );
+const r=
+await sb
+.from("transactions")
+.select("*")
+.eq("user_id",user.id)
+.order(
+"transaction_date",
+{ascending:false}
+);
 
-  if(r.error){
+if(r.error){
 
-    alert(
-      "Transactions could not load: " +
-      r.error.message
-    );
+alert(
+"Transactions could not load: "+
+r.error.message
+);
 
-    return;
-  }
+return;
 
-  T =
-  r.data || [];
+}
 
-  populateYears();
+T=r.data || [];
 
-  render();
+populateYears();
+
+render();
+
 }
 
 
-/* ==============================
-   EDIT TRANSACTION
-============================== */
+/* ==========================
+EDIT
+========================== */
 
-window.editTransaction =
+window.editTransaction=
 function(id){
 
-  const x =
-  T.find(
-    t=>
-    String(t.id)===
-    String(id)
-  );
+const x=
+T.find(
+t=>String(t.id)===String(id)
+);
 
-  if(!x){
-    return;
-  }
+if(!x)return;
 
-  editingId =
-  x.id;
+editingId=x.id;
 
-  $("typ").value =
-  x.transaction_type;
+$("typ").value=x.transaction_type;
 
-  updateTransactionOptions();
+updateTransactionOptions();
 
-  $("amt").value =
-  x.amount;
+$("amt").value=x.amount;
 
-  const descriptions =
-  x.transaction_type==="Money In"
-  ? moneyInDescriptions
-  : moneyOutDescriptions;
+const descriptions=
+x.transaction_type==="Money In"
+? moneyInDescriptions
+: moneyOutDescriptions;
 
-  if(
-    descriptions.includes(
-      x.description
-    )
-  ){
+if(descriptions.includes(x.description)){
 
-    $("desSelect").value =
-    x.description;
+$("desSelect").value=x.description;
+$("desOther").style.display="none";
 
-    $("desOther")
-    .style.display =
-    "none";
+}else{
 
-  }else{
+$("desSelect").value="Other";
+$("desOther").style.display="block";
+$("desOther").value=x.description || "";
 
-    $("desSelect").value =
-    "Other";
+}
 
-    $("desOther")
-    .style.display =
-    "block";
+const categories=
+x.transaction_type==="Money In"
+? moneyInCategories
+: moneyOutCategories;
 
-    $("desOther").value =
-    x.description || "";
-  }
+if(
+x.category &&
+categories.includes(x.category)
+){
 
-  const categories =
-  x.transaction_type==="Money In"
-  ? moneyInCategories
-  : moneyOutCategories;
+$("catSelect").value=x.category;
+$("catOther").style.display="none";
 
-  if(
-    x.category &&
-    categories.includes(
-      x.category
-    )
-  ){
+}else if(x.category){
 
-    $("catSelect").value =
-    x.category;
+$("catSelect").value="Other";
+$("catOther").style.display="block";
+$("catOther").value=x.category;
 
-    $("catOther")
-    .style.display =
-    "none";
+}
 
-  }else if(x.category){
+$("dat").value=x.transaction_date;
+$("notes").value=x.notes || "";
 
-    $("catSelect").value =
-    "Other";
+$("submitTransaction").textContent=
+"Save Changes";
 
-    $("catOther")
-    .style.display =
-    "block";
+$("editBanner").style.display="block";
+$("cancelEdit").style.display="block";
 
-    $("catOther").value =
-    x.category;
-  }
+openView("transactions");
 
-  $("dat").value =
-  x.transaction_date;
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
 
-  $("notes").value =
-  x.notes || "";
-
-  $("submitTransaction")
-  .textContent =
-  "Save Changes";
-
-  $("editBanner")
-  .style.display =
-  "block";
-
-  $("cancelEdit")
-  .style.display =
-  "block";
-
-  openView(
-    "transactions"
-  );
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
 };
 
 
-/* ==============================
-   CANCEL EDIT
-============================== */
+/* ==========================
+CANCEL EDIT
+========================== */
 
 function cancelEditing(){
 
-  editingId=null;
+editingId=null;
 
-  $("form").reset();
+$("form").reset();
 
-  $("typ").value =
-  "Money In";
+$("typ").value="Money In";
 
-  updateTransactionOptions();
+updateTransactionOptions();
 
-  $("dat").value =
-  localDateString();
+$("dat").value=
+localDateString();
 
-  $("submitTransaction")
-  .textContent =
-  "Add Transaction";
+$("submitTransaction").textContent=
+"＋ Add Transaction";
 
-  $("editBanner")
-  .style.display =
-  "none";
+$("editBanner").style.display="none";
+$("cancelEdit").style.display="none";
 
-  $("cancelEdit")
-  .style.display =
-  "none";
 }
 
-
-$("cancelEdit").onclick =
+$("cancelEdit").onclick=
 cancelEditing;
 
 
-/* ==============================
-   DELETE
-============================== */
+/* ==========================
+DELETE
+========================== */
 
-window.deleteTransaction =
+window.deleteTransaction=
 async function(id){
 
-  const x =
-  T.find(
-    t=>
-    String(t.id)===
-    String(id)
-  );
+const x=
+T.find(
+t=>String(t.id)===String(id)
+);
 
-  if(!x){
-    return;
-  }
+if(!x)return;
 
-  const yes =
-  confirm(
-    "Delete \"" +
-    x.description +
-    "\" for " +
-    money(x.amount) +
-    "?\n\nThis cannot be undone."
-  );
+const yes=
+confirm(
+'Delete "'+
+x.description+
+'" for '+
+money(x.amount)+
+"?\n\nThis cannot be undone."
+);
 
-  if(!yes){
-    return;
-  }
+if(!yes)return;
 
-  const r =
-  await sb
-  .from("transactions")
-  .delete()
-  .eq(
-    "id",
-    x.id
-  )
-  .eq(
-    "user_id",
-    user.id
-  );
+const r=
+await sb
+.from("transactions")
+.delete()
+.eq("id",x.id)
+.eq("user_id",user.id);
 
-  if(r.error){
+if(r.error){
 
-    alert(
-      "Transaction could not be deleted: " +
-      r.error.message
-    );
+alert(
+"Transaction could not be deleted: "+
+r.error.message
+);
 
-    return;
-  }
+return;
 
-  if(
-    String(editingId)===
-    String(x.id)
-  ){
+}
 
-    cancelEditing();
-  }
+if(
+String(editingId)===
+String(x.id)
+){
+cancelEditing();
+}
 
-  await load();
+await load();
+
 };
 
 
-/* ==============================
-   ADD / UPDATE
-============================== */
+/* ==========================
+ADD / UPDATE
+========================== */
 
-$("form").onsubmit =
+$("form").onsubmit=
 async e=>{
 
-  e.preventDefault();
+e.preventDefault();
 
-  if(!user){
+if(!user){
 
-    alert(
-      "Please sign in again."
-    );
+alert("Please sign in again.");
+return;
 
-    return;
-  }
+}
 
-  const amount =
-  Number(
-    $("amt").value
-  );
+const amount=
+Number($("amt").value);
 
-  if(
-    !Number.isFinite(amount) ||
-    amount<=0
-  ){
+if(
+!Number.isFinite(amount) ||
+amount<=0
+){
 
-    alert(
-      "Enter a valid amount."
-    );
+alert("Enter a valid amount.");
+return;
 
-    return;
-  }
+}
 
-  let description =
-  $("desSelect").value;
+let description=
+$("desSelect").value;
 
-  if(
-    description==="Other"
-  ){
+if(description==="Other"){
 
-    description =
-    $("desOther")
-    .value
-    .trim();
-  }
+description=
+$("desOther").value.trim();
 
-  if(!description){
+}
 
-    alert(
-      "Enter a description."
-    );
+if(!description){
 
-    return;
-  }
+alert("Enter a description.");
+return;
 
-  let category =
-  $("catSelect").value;
+}
 
-  if(
-    category==="Other"
-  ){
+let category=
+$("catSelect").value;
 
-    category =
-    $("catOther")
-    .value
-    .trim();
-  }
+if(category==="Other"){
 
-  const values = {
+category=
+$("catOther").value.trim();
 
-    user_id:
-    user.id,
+}
 
-    transaction_date:
-    $("dat").value,
+const values={
 
-    description:
-    description,
+user_id:user.id,
 
-    transaction_type:
-    $("typ").value,
+transaction_date:
+$("dat").value,
 
-    amount:
-    amount,
+description,
 
-    category:
-    category || null,
+transaction_type:
+$("typ").value,
 
-    notes:
-    $("notes")
-    .value
-    .trim() || null
+amount,
 
-  };
+category:
+category || null,
 
-  let r;
+notes:
+$("notes").value.trim() || null
 
-  if(editingId){
+};
 
-    r =
-    await sb
-    .from("transactions")
-    .update(values)
-    .eq(
-      "id",
-      editingId
-    )
-    .eq(
-      "user_id",
-      user.id
-    );
+let r;
 
-  }else{
+if(editingId){
 
-    r =
-    await sb
-    .from("transactions")
-    .insert(values);
-  }
+r=
+await sb
+.from("transactions")
+.update(values)
+.eq("id",editingId)
+.eq("user_id",user.id);
 
-  if(r.error){
+}else{
 
-    alert(
-      editingId
-      ? "Changes could not be saved: " +
-        r.error.message
-      : "Transaction could not be saved: " +
-        r.error.message
-    );
+r=
+await sb
+.from("transactions")
+.insert(values);
 
-    return;
-  }
+}
 
-  cancelEditing();
+if(r.error){
 
-  await load();
+alert(
+editingId
+? "Changes could not be saved: "+
+r.error.message
+: "Transaction could not be saved: "+
+r.error.message
+);
+
+return;
+
+}
+
+cancelEditing();
+
+await load();
+
 };
 
 
-/* ==============================
-   MONTH / YEAR
-============================== */
+/* ==========================
+MONTHLY / YEARLY
+========================== */
 
 function renderMonth(){
 
-  $("ms").innerHTML =
-  summary(
-    totals(
-      T.filter(
-        x=>
-        x.transaction_date
-        .startsWith(
-          $("mp").value
-        )
-      )
-    )
-  );
+$("ms").innerHTML=
+summary(
+totals(
+T.filter(
+x=>
+x.transaction_date.startsWith(
+$("mp").value
+)
+)
+)
+);
+
 }
 
 
 function renderYear(){
 
-  $("ys").innerHTML =
-  summary(
-    totals(
-      T.filter(
-        x=>
-        x.transaction_date
-        .startsWith(
-          $("yp").value +
-          "-"
-        )
-      )
-    )
-  );
+$("ys").innerHTML=
+summary(
+totals(
+T.filter(
+x=>
+x.transaction_date.startsWith(
+$("yp").value+"-"
+)
+)
+)
+);
+
 }
 
-
-/* YEAR DROPDOWN */
 
 function populateYears(){
 
-  const currentYear =
-  new Date()
-  .getFullYear();
+const current=
+new Date().getFullYear();
 
-  const transactionYears =
-  T
-  .map(
-    x=>
-    Number(
-      String(
-        x.transaction_date
-      ).slice(0,4)
-    )
-  )
-  .filter(
-    y=>
-    Number.isFinite(y)
-  );
+const years=
+T
+.map(x=>
+Number(
+String(x.transaction_date).slice(0,4)
+)
+)
+.filter(Number.isFinite);
 
-  const earliest =
-  transactionYears.length
-  ? Math.min(
-      ...transactionYears,
-      currentYear
-    )
-  : currentYear-10;
+const oldest=
+years.length
+? Math.min(...years,current-6)
+: current-6;
 
-  const startYear =
-  Math.min(
-    earliest,
-    currentYear-10
-  );
+const previous=
+$("yp").value;
 
-  const endYear =
-  currentYear+5;
+$("yp").innerHTML="";
 
-  const previous =
-  $("yp").value;
+for(
+let y=current+1;
+y>=oldest;
+y--
+){
 
-  $("yp").innerHTML="";
+const o=
+document.createElement("option");
 
-  for(
-    let y=endYear;
-    y>=startYear;
-    y--
-  ){
+o.value=String(y);
+o.textContent=String(y);
 
-    const option =
-    document.createElement(
-      "option"
-    );
+$("yp").appendChild(o);
 
-    option.value =
-    y;
+}
 
-    option.textContent =
-    y;
+if(
+previous &&
+[...$("yp").options]
+.some(o=>o.value===previous)
+){
 
-    $("yp").appendChild(
-      option
-    );
-  }
+$("yp").value=previous;
 
-  if(
-    previous &&
-    [...$("yp").options]
-    .some(
-      o=>
-      o.value===previous
-    )
-  ){
+}else{
 
-    $("yp").value =
-    previous;
+$("yp").value=String(current);
 
-  }else{
+}
 
-    $("yp").value =
-    String(currentYear);
-  }
 }
 
 
-/* ==============================
-   DATE
-============================== */
+/* ==========================
+DATE
+========================== */
 
 function localDateString(){
 
-  const d =
-  new Date();
+const d=new Date();
 
-  const y =
-  d.getFullYear();
+const y=d.getFullYear();
 
-  const m =
-  String(
-    d.getMonth()+1
-  ).padStart(
-    2,
-    "0"
-  );
+const m=String(
+d.getMonth()+1
+).padStart(2,"0");
 
-  const day =
-  String(
-    d.getDate()
-  ).padStart(
-    2,
-    "0"
-  );
+const day=String(
+d.getDate()
+).padStart(2,"0");
 
-  return(
-    y +
-    "-" +
-    m +
-    "-" +
-    day
-  );
+return `${y}-${m}-${day}`;
+
 }
 
+const d=new Date();
 
-const d =
-new Date();
-
-$("dat").value =
+$("dat").value=
 localDateString();
 
-$("mp").value =
-d.getFullYear() +
-"-" +
+$("mp").value=
+d.getFullYear()+
+"-"+
 String(
-  d.getMonth()+1
-).padStart(
-  2,
-  "0"
-);
+d.getMonth()+1
+).padStart(2,"0");
 
 populateYears();
 
-$("yp").value =
-String(
-  d.getFullYear()
-);
+$("yp").value=
+String(d.getFullYear());
 
-$("mp").onchange =
+$("mp").onchange=
 renderMonth;
 
-$("yp").onchange =
+$("yp").onchange=
 renderYear;
 
 
-/* ==============================
-   SIGN IN
-============================== */
+/* ==========================
+SIGN IN
+========================== */
 
-$("signin").onclick =
+$("signin").onclick=
 async()=>{
 
-  const e =
-  $("email")
-  .value
-  .trim();
+const e=
+$("email").value.trim();
 
-  const p =
-  $("password").value;
+const p=
+$("password").value;
 
-  $("loginMsg").className =
-  "msg error";
+$("loginMsg").className="msg error";
+$("loginMsg").textContent="";
 
-  $("loginMsg").textContent =
-  "";
+if(!e || !p){
 
-  if(!e || !p){
+$("loginMsg").textContent=
+"Enter your email and password.";
 
-    $("loginMsg").textContent =
-    "Enter your email and password.";
+return;
 
-    return;
-  }
+}
 
-  $("signin").disabled =
-  true;
+$("signin").disabled=true;
+$("signin").textContent="Signing in…";
 
-  $("signin").textContent =
-  "Signing in…";
+const r=
+await sb.auth
+.signInWithPassword({
+email:e,
+password:p
+});
 
-  const r =
-  await sb.auth
-  .signInWithPassword({
-    email:e,
-    password:p
-  });
+$("signin").disabled=false;
+$("signin").textContent="Sign in";
 
-  $("signin").disabled =
-  false;
+if(r.error){
 
-  $("signin").textContent =
-  "Sign in";
+$("loginMsg").textContent=
+"Incorrect email or password.";
 
-  if(r.error){
+return;
 
-    $("loginMsg").textContent =
-    "Incorrect email or password.";
+}
 
-    return;
-  }
+user=r.data.user;
 
-  user =
-  r.data.user;
+showApp();
 
-  showApp();
+await load();
 
-  await load();
 };
 
 
-/* ==============================
-   FORGOT PASSWORD
-============================== */
+/* ==========================
+FORGOT PASSWORD
+========================== */
 
-$("forgot").onclick =
+$("forgot").onclick=
 async()=>{
 
-  const e =
-  $("email")
-  .value
-  .trim();
+const e=
+$("email").value.trim();
 
-  $("loginMsg").className =
-  "msg error";
+$("loginMsg").className="msg error";
+$("loginMsg").textContent="";
 
-  $("loginMsg").textContent =
-  "";
+if(!e){
 
-  if(!e){
+$("loginMsg").textContent=
+"Enter your email first.";
 
-    $("loginMsg").textContent =
-    "Enter your email first.";
+return;
 
-    return;
-  }
+}
 
-  $("forgot").disabled =
-  true;
+$("forgot").disabled=true;
 
-  $("forgot").textContent =
-  "Sending reset email…";
+$("forgot").textContent=
+"Sending reset email…";
 
-  const r =
-  await sb.auth
-  .resetPasswordForEmail(
-    e,
-    {
-      redirectTo:
-      RECOVERY_URL
-    }
-  );
+const r=
+await sb.auth
+.resetPasswordForEmail(
+e,
+{
+redirectTo:RECOVERY_URL
+}
+);
 
-  $("forgot").disabled =
-  false;
+$("forgot").disabled=false;
 
-  $("forgot").textContent =
-  "Forgot password?";
+$("forgot").textContent=
+"Forgot password?";
 
-  if(r.error){
+if(r.error){
 
-    $("loginMsg").textContent =
-    "Could not send reset email: " +
-    r.error.message;
+$("loginMsg").textContent=
+"Could not send reset email: "+
+r.error.message;
 
-    return;
-  }
+return;
 
-  $("loginMsg").className =
-  "msg success";
+}
 
-  $("loginMsg").textContent =
-  "Password reset email sent. Check your inbox.";
+$("loginMsg").className=
+"msg success";
+
+$("loginMsg").textContent=
+"Password reset email sent. Check your inbox.";
+
 };
 
 
-/* ==============================
-   PASSWORD RESET
-============================== */
+/* ==========================
+PASSWORD RESET
+========================== */
 
-$("savePassword").onclick =
+$("savePassword").onclick=
 async()=>{
 
-  const p =
-  $("newPassword").value;
+const p=
+$("newPassword").value;
 
-  const c =
-  $("confirmPassword").value;
+const c=
+$("confirmPassword").value;
 
-  $("resetMsg").className =
-  "msg error";
+$("resetMsg").className="msg error";
+$("resetMsg").textContent="";
 
-  $("resetMsg").textContent =
-  "";
+if(p.length<6){
 
-  if(p.length<6){
+$("resetMsg").textContent=
+"Password must be at least 6 characters.";
 
-    $("resetMsg").textContent =
-    "Password must be at least 6 characters.";
+return;
 
-    return;
-  }
+}
 
-  if(p!==c){
+if(p!==c){
 
-    $("resetMsg").textContent =
-    "Passwords do not match.";
+$("resetMsg").textContent=
+"Passwords do not match.";
 
-    return;
-  }
+return;
 
-  $("savePassword").disabled =
-  true;
+}
 
-  $("savePassword").textContent =
-  "Saving…";
+$("savePassword").disabled=true;
 
-  const sessionResult =
-  await sb.auth.getSession();
+$("savePassword").textContent=
+"Saving…";
 
-  if(
-    sessionResult.error ||
-    !sessionResult.data.session
-  ){
+const sessionResult=
+await sb.auth.getSession();
 
-    $("savePassword").disabled =
-    false;
+if(
+sessionResult.error ||
+!sessionResult.data.session
+){
 
-    $("savePassword").textContent =
-    "Save new password";
+$("savePassword").disabled=false;
 
-    $("resetMsg").textContent =
-    "This reset link is invalid or expired. Please request a new password reset email.";
+$("savePassword").textContent=
+"Save new password";
 
-    return;
-  }
+$("resetMsg").textContent=
+"This reset link is invalid or expired. Please request a new password reset email.";
 
-  const r =
-  await sb.auth.updateUser({
-    password:p
-  });
+return;
 
-  if(r.error){
+}
 
-    $("savePassword").disabled =
-    false;
+const r=
+await sb.auth.updateUser({
+password:p
+});
 
-    $("savePassword").textContent =
-    "Save new password";
+if(r.error){
 
-    $("resetMsg").textContent =
-    "Could not change password: " +
-    r.error.message;
+$("savePassword").disabled=false;
 
-    return;
-  }
+$("savePassword").textContent=
+"Save new password";
 
-  $("resetMsg").className =
-  "msg success";
+$("resetMsg").textContent=
+"Could not change password: "+
+r.error.message;
 
-  $("resetMsg").textContent =
-  "Password changed successfully! Returning to sign in…";
+return;
 
-  setTimeout(
-    async()=>{
+}
 
-      await sb.auth.signOut();
+$("resetMsg").className=
+"msg success";
 
-      window.location.replace(
-        SITE_URL
-      );
+$("resetMsg").textContent=
+"Password changed successfully! Returning to sign in…";
 
-    },
-    1500
-  );
+setTimeout(
+async()=>{
+
+await sb.auth.signOut();
+
+window.location.replace(
+SITE_URL
+);
+
+},
+1500
+);
+
 };
 
 
-/* ==============================
-   SIGN OUT
-============================== */
+/* ==========================
+SIGN OUT
+========================== */
 
 async function signOut(){
 
-  await sb.auth.signOut();
+await sb.auth.signOut();
 
-  window.location.replace(
-    SITE_URL
-  );
+window.location.replace(
+SITE_URL
+);
+
 }
 
-$("logout").onclick =
-signOut;
-
-$("settingsLogout").onclick =
+$("settingsLogout").onclick=
 signOut;
 
 
-/* ==============================
-   NAVIGATION
-============================== */
+/* ==========================
+NAV
+========================== */
 
 function openView(id){
 
-  document
-  .querySelectorAll(
-    "nav button,.view"
-  )
-  .forEach(
-    x=>
-    x.classList.remove(
-      "active"
-    )
-  );
+document
+.querySelectorAll("nav button,.view")
+.forEach(
+x=>x.classList.remove("active")
+);
 
-  const view =
-  $(id);
+const view=$(id);
 
-  if(view){
-    view.classList.add(
-      "active"
-    );
-  }
+if(view){
+view.classList.add("active");
+}
 
-  const button =
-  document.querySelector(
-    `nav button[data-v="${id}"]`
-  );
+const button=
+document.querySelector(
+`nav button[data-v="${id}"]`
+);
 
-  if(button){
-    button.classList.add(
-      "active"
-    );
-  }
+if(button){
+button.classList.add("active");
+}
+
 }
 
 
 document
-.querySelectorAll(
-  "nav button"
-)
+.querySelectorAll("nav button")
 .forEach(
-  b=>
-  b.onclick=
-  ()=>{
+b=>b.onclick=()=>{
 
-    openView(
-      b.dataset.v
-    );
+openView(b.dataset.v);
 
-    window.scrollTo(
-      0,
-      0
-    );
-  }
+window.scrollTo(0,0);
+
+}
 );
 
 
-/* ==============================
-   AUTH EVENTS
-============================== */
+/* ==========================
+AUTH
+========================== */
 
 sb.auth.onAuthStateChange(
-  (event,session)=>{
+(event,session)=>{
 
-    if(
-      event===
-      "PASSWORD_RECOVERY"
-    ){
+if(event==="PASSWORD_RECOVERY"){
 
-      showReset();
+showReset();
+return;
 
-      return;
-    }
+}
 
-    if(
-      event===
-      "SIGNED_OUT" &&
-      !recoveryMode
-    ){
+if(
+event==="SIGNED_OUT" &&
+!recoveryMode
+){
 
-      user=null;
+user=null;
+showLogin();
 
-      showLogin();
-    }
+}
 
-  }
+}
 );
 
 
-/* ==============================
-   START
-============================== */
+/* ==========================
+START
+========================== */
 
 (async()=>{
 
-  updateTransactionOptions();
+updateTransactionOptions();
 
-  populateYears();
+populateYears();
 
-  applySettings();
+applySettings();
 
-  if(recoveryMode){
+if(recoveryMode){
 
-    showReset();
+showReset();
+return;
 
-    return;
-  }
+}
 
-  showLogin();
+showLogin();
 
-  const s =
-  await sb.auth.getSession();
+const s=
+await sb.auth.getSession();
 
-  if(
-    s.data &&
-    s.data.session
-  ){
+if(
+s.data &&
+s.data.session
+){
 
-    user =
-    s.data.session.user;
+user=
+s.data.session.user;
 
-    showApp();
+showApp();
 
-    await load();
-  }
+await load();
+
+}
 
 })();
 
