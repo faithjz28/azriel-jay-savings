@@ -13,25 +13,35 @@
 <meta name="apple-mobile-web-app-title" content="Savings Tracker">
 <meta name="mobile-web-app-capable" content="yes">
 
-<meta id="themeMeta" name="theme-color" content="#f5f6f8">
+<meta id="themeMeta" name="theme-color" content="#f6f7f9">
 
 <title>Savings Tracker</title>
 
 <style>
-
 *{box-sizing:border-box}
 
 :root{
   --accent:#17191e;
-  --bg:#f5f6f8;
+  --accentText:#ffffff;
+  --bg:#f6f7f9;
   --card:#ffffff;
+  --card2:#fafafa;
   --text:#17191e;
   --muted:#7b818c;
-  --border:#e1e3e8;
+  --border:#e2e4e8;
+  --nav:#ffffff;
+  --positive:#32825e;
+  --negative:#a6534e;
+  --shadow:0 5px 20px rgba(0,0,0,.035);
+}
+
+html{
+  background:var(--bg);
 }
 
 body{
   margin:0;
+  min-height:100vh;
   background:var(--bg);
   color:var(--text);
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
@@ -40,14 +50,20 @@ body{
 }
 
 main{
-  max-width:760px;
+  width:100%;
+  max-width:1180px;
   margin:auto;
   padding:28px 18px 125px;
 }
 
 h1{
   font-size:34px;
+  line-height:1.08;
   margin:18px 0 5px;
+}
+
+h2{
+  margin-top:24px;
 }
 
 .profile-name{
@@ -60,13 +76,14 @@ h1{
 .card{
   background:var(--card);
   border:1px solid var(--border);
-  border-radius:25px;
+  border-radius:24px;
   padding:22px;
   margin:14px 0;
-  transition:background .2s;
+  box-shadow:var(--shadow);
+  transition:background .2s,border .2s;
 }
 
-.label,.meta{
+.label,.meta,.help{
   color:var(--muted);
 }
 
@@ -74,6 +91,7 @@ h1{
   font-size:45px;
   font-weight:800;
   margin:8px 0;
+  letter-spacing:-1.5px;
 }
 
 .grid{
@@ -88,8 +106,8 @@ h1{
   margin-top:9px;
 }
 
-.green{color:#32825e}
-.red{color:#a6534e}
+.green{color:var(--positive)}
+.red{color:var(--negative)}
 
 input,
 select,
@@ -98,11 +116,18 @@ button{
   font:inherit;
   width:100%;
   padding:14px;
-  border:1px solid #d9dce1;
+  border:1px solid var(--border);
   border-radius:13px;
   background:var(--card);
   color:var(--text);
   margin:6px 0;
+  outline:none;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:var(--accent);
 }
 
 textarea{
@@ -110,12 +135,14 @@ textarea{
   resize:vertical;
 }
 
-button{cursor:pointer}
+button{
+  cursor:pointer;
+}
 
 button.primary{
   background:var(--accent);
   border-color:var(--accent);
-  color:#fff;
+  color:var(--accentText);
   font-weight:700;
 }
 
@@ -162,6 +189,7 @@ button:disabled{
 .tx-main{
   display:flex;
   justify-content:space-between;
+  align-items:flex-start;
   gap:12px;
 }
 
@@ -181,10 +209,11 @@ button:disabled{
 }
 
 .tx-actions button{
-  padding:8px 11px;
+  padding:8px 12px;
   margin:0;
   width:auto;
   font-size:13px;
+  background:var(--card2);
 }
 
 .edit-btn{
@@ -192,7 +221,7 @@ button:disabled{
 }
 
 .delete-btn{
-  color:#a6534e;
+  color:var(--negative);
 }
 
 .empty{
@@ -201,25 +230,35 @@ button:disabled{
   padding:20px;
 }
 
-.view{display:none}
-.view.active{display:block}
+.view{
+  display:none;
+}
 
-#app{display:none}
+.view.active{
+  display:block;
+}
 
-#login,#resetPage{
+#app{
+  display:none;
+}
+
+#login,
+#resetPage{
   max-width:480px;
   margin:55px auto;
 }
 
-#resetPage{display:none}
+#resetPage{
+  display:none;
+}
 
 .msg{
   margin-top:10px;
   line-height:1.4;
 }
 
-.error{color:#a6534e}
-.success{color:#32825e}
+.error{color:var(--negative)}
+.success{color:var(--positive)}
 
 .filter-row{
   display:grid;
@@ -231,11 +270,12 @@ button:disabled{
 .filter-btn{
   padding:10px 5px;
   font-size:13px;
+  background:var(--card2);
 }
 
 .filter-btn.active-filter{
   background:var(--accent);
-  color:#fff;
+  color:var(--accentText);
   border-color:var(--accent);
 }
 
@@ -244,7 +284,7 @@ button:disabled{
   padding:12px;
   border-radius:12px;
   margin-bottom:10px;
-  background:var(--bg);
+  background:var(--card2);
   font-weight:700;
 }
 
@@ -264,50 +304,19 @@ button:disabled{
   line-height:1.45;
 }
 
-.option-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:9px;
-  margin-top:10px;
+.theme-preview{
+  height:78px;
+  border-radius:18px;
+  margin:12px 0 4px;
+  background:
+    linear-gradient(
+      135deg,
+      var(--accent) 0 24%,
+      var(--card) 24% 62%,
+      var(--bg) 62% 100%
+    );
+  border:1px solid var(--border);
 }
-
-.choice{
-  padding:10px 6px;
-  font-size:13px;
-  font-weight:650;
-}
-
-.choice.selected{
-  border:2px solid var(--accent);
-}
-
-.dot{
-  display:block;
-  width:24px;
-  height:24px;
-  border-radius:50%;
-  margin:0 auto 7px;
-  border:1px solid #bbb;
-}
-
-.black{background:#17191e}
-.pink{background:#d85c8b}
-.purple{background:#7957c8}
-.blue{background:#3977c5}
-.greenDot{background:#388267}
-.orange{background:#c76d31}
-
-.bg-white{background:#ffffff}
-.bg-gray{background:#f5f6f8}
-.bg-pink{background:#fff1f5}
-.bg-lavender{background:#f4f0ff}
-.bg-blue{background:#eef7ff}
-.bg-sage{background:#eff7f1}
-
-.card-white{background:#ffffff}
-.card-pink{background:#fff7fa}
-.card-gray{background:#f0f1f3}
-.card-dark{background:#25272c}
 
 /* NAV */
 
@@ -316,12 +325,13 @@ nav{
   bottom:0;
   left:0;
   right:0;
-  background:var(--card);
+  background:var(--nav);
   border-top:1px solid var(--border);
   display:none;
   grid-template-columns:repeat(5,1fr);
   padding-bottom:env(safe-area-inset-bottom);
   z-index:10;
+  box-shadow:0 -5px 20px rgba(0,0,0,.035);
 }
 
 nav button{
@@ -345,6 +355,84 @@ nav button.active{
   margin-bottom:3px;
 }
 
+/* TABLET */
+
+@media(min-width:768px){
+
+  main{
+    padding:36px 32px 125px;
+  }
+
+  #home,
+  #transactions,
+  #monthly,
+  #yearly,
+  #settings{
+    max-width:900px;
+    margin:auto;
+  }
+
+  .home-stats{
+    display:grid;
+    grid-template-columns:1.4fr 1fr;
+    gap:14px;
+    align-items:stretch;
+  }
+
+  .home-stats > .card{
+    margin:0;
+  }
+
+  .home-stats > .grid .card{
+    margin:0;
+  }
+
+  .settings-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    align-items:start;
+  }
+
+  .settings-grid .card{
+    margin:0;
+  }
+}
+
+/* DESKTOP */
+
+@media(min-width:1050px){
+
+  main{
+    padding-top:45px;
+  }
+
+  h1{
+    font-size:40px;
+  }
+
+  .big{
+    font-size:52px;
+  }
+
+  #transactions{
+    max-width:1050px;
+  }
+
+  .transaction-layout{
+    display:grid;
+    grid-template-columns:420px 1fr;
+    gap:18px;
+    align-items:start;
+  }
+
+  .transaction-layout > .card{
+    margin:0;
+  }
+}
+
+/* PHONE */
+
 @media(max-width:430px){
 
   main{
@@ -352,18 +440,37 @@ nav button.active{
     padding-right:14px;
   }
 
-  h1{font-size:31px}
-  .big{font-size:39px}
+  h1{
+    font-size:31px;
+  }
 
-  .card{padding:19px}
+  .big{
+    font-size:39px;
+  }
 
-  .grid{gap:9px}
+  .card{
+    padding:19px;
+    border-radius:21px;
+  }
 
-  .option-grid{
-    grid-template-columns:repeat(2,1fr);
+  .grid{
+    gap:9px;
+  }
+
+  .tx-main{
+    gap:8px;
+  }
+
+  .name,.amt{
+    font-size:16px;
   }
 }
 
+@media(display-mode:standalone){
+  body{
+    padding-top:env(safe-area-inset-top);
+  }
+}
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -384,9 +491,19 @@ nav button.active{
 
     <h2>Private sign in</h2>
 
-    <input id="email" type="email" autocomplete="username" placeholder="Email">
+    <input
+      id="email"
+      type="email"
+      autocomplete="username"
+      placeholder="Email"
+    >
 
-    <input id="password" type="password" autocomplete="current-password" placeholder="Password">
+    <input
+      id="password"
+      type="password"
+      autocomplete="current-password"
+      placeholder="Password"
+    >
 
     <button id="signin" class="primary" type="button">
       Sign in
@@ -417,9 +534,19 @@ nav button.active{
       Enter and confirm your new password.
     </p>
 
-    <input id="newPassword" type="password" autocomplete="new-password" placeholder="New password">
+    <input
+      id="newPassword"
+      type="password"
+      autocomplete="new-password"
+      placeholder="New password"
+    >
 
-    <input id="confirmPassword" type="password" autocomplete="new-password" placeholder="Confirm new password">
+    <input
+      id="confirmPassword"
+      type="password"
+      autocomplete="new-password"
+      placeholder="Confirm new password"
+    >
 
     <button id="savePassword" class="primary" type="button">
       Save new password
@@ -436,7 +563,6 @@ nav button.active{
 
 <div id="app">
 
-
 <!-- HOME -->
 
 <section id="home" class="view active">
@@ -447,29 +573,51 @@ nav button.active{
     My Savings
   </div>
 
-  <div class="card">
-
-    <div class="label">Current savings</div>
-
-    <div class="big" id="bal">$0.00</div>
-
-    <div class="label">
-      Net change:
-      <span id="net">$0.00</span>
-    </div>
-
-  </div>
-
-  <div class="grid">
+  <div class="home-stats">
 
     <div class="card">
-      <div class="label">Money in</div>
-      <div id="mi" class="value green">$0.00</div>
+
+      <div class="label">
+        Current savings
+      </div>
+
+      <div class="big" id="bal">
+        $0.00
+      </div>
+
+      <div class="label">
+        Net change:
+        <span id="net">$0.00</span>
+      </div>
+
     </div>
 
-    <div class="card">
-      <div class="label">Money out</div>
-      <div id="mo" class="value red">$0.00</div>
+    <div class="grid">
+
+      <div class="card">
+
+        <div class="label">
+          Money in
+        </div>
+
+        <div id="mi" class="value green">
+          $0.00
+        </div>
+
+      </div>
+
+      <div class="card">
+
+        <div class="label">
+          Money out
+        </div>
+
+        <div id="mo" class="value red">
+          $0.00
+        </div>
+
+      </div>
+
     </div>
 
   </div>
@@ -477,7 +625,9 @@ nav button.active{
   <h2>Recent transactions</h2>
 
   <div class="card" id="recent">
-    <div class="empty">No transactions yet.</div>
+    <div class="empty">
+      No transactions yet.
+    </div>
   </div>
 
   <button id="logout" type="button">
@@ -493,104 +643,158 @@ nav button.active{
 
   <h1>Transactions</h1>
 
-  <div class="card">
+  <div class="transaction-layout">
 
-    <div id="editBanner" class="edit-banner">
-      ✏️ Editing transaction
-    </div>
+    <div class="card">
 
-    <form id="form">
-
-      <label class="field-label">Type</label>
-
-      <select id="typ">
-        <option>Money In</option>
-        <option>Money Out</option>
-      </select>
-
-      <label class="field-label">Amount</label>
-
-      <div class="amount-wrap">
-        <span id="amountSymbol" class="amount-symbol">$</span>
-
-        <input
-          id="amt"
-          type="number"
-          inputmode="decimal"
-          min="0"
-          step=".01"
-          placeholder="0.00"
-          required
-        >
+      <div id="editBanner" class="edit-banner">
+        ✏️ Editing transaction
       </div>
 
-      <label class="field-label">Description</label>
+      <form id="form">
 
-      <select id="desSelect"></select>
+        <label class="field-label">
+          Type
+        </label>
 
-      <input
-        id="desOther"
-        placeholder="Type your description"
-        style="display:none"
-      >
+        <select id="typ">
+          <option>Money In</option>
+          <option>Money Out</option>
+        </select>
 
-      <label class="field-label">Category</label>
+        <label class="field-label">
+          Amount
+        </label>
 
-      <select id="catSelect"></select>
+        <div class="amount-wrap">
 
-      <input
-        id="catOther"
-        placeholder="Type your category"
-        style="display:none"
-      >
+          <span
+            id="amountSymbol"
+            class="amount-symbol"
+          >
+            $
+          </span>
 
-      <label class="field-label">Date</label>
+          <input
+            id="amt"
+            type="number"
+            inputmode="decimal"
+            min="0"
+            step=".01"
+            placeholder="0.00"
+            required
+          >
 
-      <input id="dat" type="date" required>
+        </div>
 
-      <label class="field-label">Notes</label>
+        <label class="field-label">
+          Description
+        </label>
 
-      <textarea id="notes" placeholder="Notes (optional)"></textarea>
+        <select id="desSelect"></select>
 
-      <button id="submitTransaction" class="primary" type="submit">
-        Add Transaction
-      </button>
+        <input
+          id="desOther"
+          placeholder="Type your description"
+          style="display:none"
+        >
 
-      <button id="cancelEdit" class="cancel-edit" type="button">
-        Cancel Edit
-      </button>
+        <label class="field-label">
+          Category
+        </label>
 
-    </form>
+        <select id="catSelect"></select>
 
-  </div>
+        <input
+          id="catOther"
+          placeholder="Type your category"
+          style="display:none"
+        >
 
+        <label class="field-label">
+          Date
+        </label>
 
-  <div class="card">
+        <input
+          id="dat"
+          type="date"
+          required
+        >
 
-    <input
-      id="searchTx"
-      type="search"
-      placeholder="🔎 Search transactions"
-    >
+        <label class="field-label">
+          Notes
+        </label>
 
-    <div class="filter-row">
+        <textarea
+          id="notes"
+          placeholder="Notes (optional)"
+        ></textarea>
 
-      <button class="filter-btn active-filter" data-filter="All" type="button">
-        All
-      </button>
+        <button
+          id="submitTransaction"
+          class="primary"
+          type="submit"
+        >
+          Add Transaction
+        </button>
 
-      <button class="filter-btn" data-filter="Money In" type="button">
-        Money In
-      </button>
+        <button
+          id="cancelEdit"
+          class="cancel-edit"
+          type="button"
+        >
+          Cancel Edit
+        </button>
 
-      <button class="filter-btn" data-filter="Money Out" type="button">
-        Money Out
-      </button>
+      </form>
 
     </div>
 
-    <div id="all">
-      <div class="empty">No transactions yet.</div>
+
+    <div class="card">
+
+      <input
+        id="searchTx"
+        type="search"
+        placeholder="🔎 Search transactions"
+      >
+
+      <div class="filter-row">
+
+        <button
+          class="filter-btn active-filter"
+          data-filter="All"
+          type="button"
+        >
+          All
+        </button>
+
+        <button
+          class="filter-btn"
+          data-filter="Money In"
+          type="button"
+        >
+          Money In
+        </button>
+
+        <button
+          class="filter-btn"
+          data-filter="Money Out"
+          type="button"
+        >
+          Money Out
+        </button>
+
+      </div>
+
+      <div id="all">
+
+        <div class="empty">
+          No transactions yet.
+        </div>
+
+      </div>
+
     </div>
 
   </div>
@@ -606,7 +810,14 @@ nav button.active{
 
   <div class="card">
 
-    <input id="mp" type="month">
+    <label class="field-label">
+      Month
+    </label>
+
+    <input
+      id="mp"
+      type="month"
+    >
 
     <div id="ms"></div>
 
@@ -623,7 +834,11 @@ nav button.active{
 
   <div class="card">
 
-    <input id="yp" type="number" min="2000" max="2100">
+    <label class="field-label">
+      Year
+    </label>
+
+    <select id="yp"></select>
 
     <div id="ys"></div>
 
@@ -638,177 +853,185 @@ nav button.active{
 
   <h1>Settings</h1>
 
+  <div class="settings-grid">
 
-  <div class="card">
+    <div class="card">
 
-    <h2 class="setting-title">Names</h2>
+      <h2 class="setting-title">
+        Names
+      </h2>
 
-    <label class="field-label">App title</label>
+      <p class="setting-description">
+        Personalize your tracker.
+      </p>
 
-    <input id="appTitleInput" maxlength="40" placeholder="Savings Tracker">
+      <label class="field-label">
+        App title
+      </label>
 
-    <label class="field-label">Profile name</label>
+      <input
+        id="appTitleInput"
+        maxlength="40"
+        placeholder="Savings Tracker"
+      >
 
-    <input id="profileInput" maxlength="50" placeholder="Faith & JJ Savings">
+      <label class="field-label">
+        Profile name
+      </label>
 
-    <button id="saveNames" class="primary" type="button">
-      Save Names
-    </button>
+      <input
+        id="profileInput"
+        maxlength="50"
+        placeholder="Faith & JJ Savings"
+      >
 
-    <div id="nameMsg" class="msg success"></div>
-
-  </div>
-
-
-  <div class="card">
-
-    <h2 class="setting-title">Accent color</h2>
-
-    <p class="setting-description">
-      Changes buttons and selected items.
-    </p>
-
-    <div class="option-grid" id="accentChoices">
-
-      <button class="choice" data-accent="black" type="button">
-        <span class="dot black"></span>Black
+      <button
+        id="saveNames"
+        class="primary"
+        type="button"
+      >
+        Save Names
       </button>
 
-      <button class="choice" data-accent="pink" type="button">
-        <span class="dot pink"></span>Pink
-      </button>
-
-      <button class="choice" data-accent="purple" type="button">
-        <span class="dot purple"></span>Purple
-      </button>
-
-      <button class="choice" data-accent="blue" type="button">
-        <span class="dot blue"></span>Blue
-      </button>
-
-      <button class="choice" data-accent="green" type="button">
-        <span class="dot greenDot"></span>Green
-      </button>
-
-      <button class="choice" data-accent="orange" type="button">
-        <span class="dot orange"></span>Orange
-      </button>
+      <div
+        id="nameMsg"
+        class="msg success"
+      ></div>
 
     </div>
 
-  </div>
 
+    <div class="card">
 
-  <div class="card">
+      <h2 class="setting-title">
+        Theme
+      </h2>
 
-    <h2 class="setting-title">Background</h2>
+      <p class="setting-description">
+        One theme changes the background, cards and buttons together.
+      </p>
 
-    <div class="option-grid" id="backgroundChoices">
+      <select id="themeSelect">
 
-      <button class="choice" data-bg="white" type="button">
-        <span class="dot bg-white"></span>White
-      </button>
+        <option value="pink">
+          🌸 Pink
+        </option>
 
-      <button class="choice" data-bg="gray" type="button">
-        <span class="dot bg-gray"></span>Gray
-      </button>
+        <option value="rose">
+          🌹 Rose
+        </option>
 
-      <button class="choice" data-bg="pink" type="button">
-        <span class="dot bg-pink"></span>Soft Pink
-      </button>
+        <option value="lavender">
+          💜 Lavender
+        </option>
 
-      <button class="choice" data-bg="lavender" type="button">
-        <span class="dot bg-lavender"></span>Lavender
-      </button>
+        <option value="purpleDark">
+          🌙 Purple Dark
+        </option>
 
-      <button class="choice" data-bg="blue" type="button">
-        <span class="dot bg-blue"></span>Soft Blue
-      </button>
+        <option value="ocean">
+          🌊 Ocean Blue
+        </option>
 
-      <button class="choice" data-bg="sage" type="button">
-        <span class="dot bg-sage"></span>Sage
-      </button>
+        <option value="sky">
+          🩵 Sky
+        </option>
 
-    </div>
+        <option value="sage">
+          🌿 Sage
+        </option>
 
-  </div>
+        <option value="forest">
+          🌲 Forest
+        </option>
 
+        <option value="mint">
+          🍃 Mint
+        </option>
 
-  <div class="card">
+        <option value="peach">
+          🍑 Peach
+        </option>
 
-    <h2 class="setting-title">Card color</h2>
+        <option value="sunset">
+          🌅 Sunset
+        </option>
 
-    <div class="option-grid" id="cardChoices">
+        <option value="cream">
+          🤍 Cream
+        </option>
 
-      <button class="choice" data-card="white" type="button">
-        <span class="dot card-white"></span>White
-      </button>
+        <option value="mocha">
+          🤎 Mocha
+        </option>
 
-      <button class="choice" data-card="pink" type="button">
-        <span class="dot card-pink"></span>Soft Pink
-      </button>
+        <option value="neutral">
+          🩶 Neutral
+        </option>
 
-      <button class="choice" data-card="gray" type="button">
-        <span class="dot card-gray"></span>Gray
-      </button>
+        <option value="midnight">
+          🌑 Midnight
+        </option>
 
-      <button class="choice" data-card="dark" type="button">
-        <span class="dot card-dark"></span>Dark
-      </button>
+      </select>
 
-    </div>
-
-  </div>
-
-
-  <div class="card">
-
-    <h2 class="setting-title">Mode</h2>
-
-    <div class="grid">
-
-      <button id="lightMode" type="button">
-        ☀️ Light
-      </button>
-
-      <button id="darkMode" type="button">
-        🌙 Dark
-      </button>
+      <div class="theme-preview"></div>
 
     </div>
 
-  </div>
+
+    <div class="card">
+
+      <h2 class="setting-title">
+        Currency
+      </h2>
+
+      <p class="setting-description">
+        Changes how amounts are displayed.
+      </p>
+
+      <select id="currencySelect">
+
+        <option value="CAD">
+          🇨🇦 CAD — $
+        </option>
+
+        <option value="USD">
+          🇺🇸 USD — $
+        </option>
+
+        <option value="PHP">
+          🇵🇭 PHP — ₱
+        </option>
+
+      </select>
+
+    </div>
 
 
-  <div class="card">
+    <div class="card">
 
-    <h2 class="setting-title">Currency</h2>
+      <h2 class="setting-title">
+        Account
+      </h2>
 
-    <select id="currencySelect">
+      <p
+        id="accountEmail"
+        class="setting-description"
+      ></p>
 
-      <option value="CAD">🇨🇦 CAD — $</option>
-      <option value="USD">🇺🇸 USD — $</option>
-      <option value="PHP">🇵🇭 PHP — ₱</option>
+      <button
+        id="settingsLogout"
+        type="button"
+      >
+        Sign out
+      </button>
 
-    </select>
-
-  </div>
-
-
-  <div class="card">
-
-    <h2 class="setting-title">Account</h2>
-
-    <p id="accountEmail" class="setting-description"></p>
-
-    <button id="settingsLogout" type="button">
-      Sign out
-    </button>
+    </div>
 
   </div>
 
 </section>
-
 
 </div>
 
@@ -819,27 +1042,38 @@ nav button.active{
 
 <nav id="nav">
 
-  <button class="active" data-v="home">
+  <button
+    class="active"
+    data-v="home"
+  >
     <span class="nav-icon">⌂</span>
     Home
   </button>
 
-  <button data-v="transactions">
+  <button
+    data-v="transactions"
+  >
     <span class="nav-icon">＋</span>
     Transactions
   </button>
 
-  <button data-v="monthly">
+  <button
+    data-v="monthly"
+  >
     <span class="nav-icon">▦</span>
     Monthly
   </button>
 
-  <button data-v="yearly">
+  <button
+    data-v="yearly"
+  >
     <span class="nav-icon">▥</span>
     Yearly
   </button>
 
-  <button data-v="settings">
+  <button
+    data-v="settings"
+  >
     <span class="nav-icon">⚙︎</span>
     Settings
   </button>
@@ -894,10 +1128,7 @@ document.getElementById(id);
 const defaults = {
   title:"Savings Tracker",
   profile:"My Savings",
-  accent:"black",
-  background:"gray",
-  card:"white",
-  mode:"light",
+  theme:"neutral",
   currency:"CAD"
 };
 
@@ -911,7 +1142,9 @@ function settingKey(name){
 function getSetting(name){
 
   return (
-    localStorage.getItem(settingKey(name)) ||
+    localStorage.getItem(
+      settingKey(name)
+    ) ||
     defaults[name]
   );
 }
@@ -926,34 +1159,302 @@ function saveSetting(name,value){
 
 
 /* ==============================
+   THEMES
+============================== */
+
+const themes = {
+
+  pink:{
+    accent:"#e85d8f",
+    accentText:"#ffffff",
+    bg:"#fff3f7",
+    card:"#ffffff",
+    card2:"#ffe9f1",
+    text:"#2b2025",
+    muted:"#876f78",
+    border:"#f2dce4",
+    nav:"#fffafd"
+  },
+
+  rose:{
+    accent:"#c94f6d",
+    accentText:"#ffffff",
+    bg:"#fff4f5",
+    card:"#ffffff",
+    card2:"#fbe5e9",
+    text:"#302124",
+    muted:"#876e73",
+    border:"#efdadd",
+    nav:"#fffafa"
+  },
+
+  lavender:{
+    accent:"#8663c7",
+    accentText:"#ffffff",
+    bg:"#f6f2ff",
+    card:"#ffffff",
+    card2:"#eee7fb",
+    text:"#272231",
+    muted:"#777083",
+    border:"#e4dcf1",
+    nav:"#fbf9ff"
+  },
+
+  purpleDark:{
+    accent:"#a882ff",
+    accentText:"#20172f",
+    bg:"#171224",
+    card:"#241b35",
+    card2:"#302344",
+    text:"#f8f4ff",
+    muted:"#bdb1cf",
+    border:"#3d3150",
+    nav:"#21182f"
+  },
+
+  ocean:{
+    accent:"#397fc5",
+    accentText:"#ffffff",
+    bg:"#eef7ff",
+    card:"#ffffff",
+    card2:"#e2f0fc",
+    text:"#172635",
+    muted:"#6f8191",
+    border:"#d6e5f1",
+    nav:"#f8fcff"
+  },
+
+  sky:{
+    accent:"#5aa6df",
+    accentText:"#ffffff",
+    bg:"#f0f9ff",
+    card:"#ffffff",
+    card2:"#e5f4fd",
+    text:"#1d2932",
+    muted:"#71818c",
+    border:"#d8e9f3",
+    nav:"#f9fdff"
+  },
+
+  sage:{
+    accent:"#6d8e6a",
+    accentText:"#ffffff",
+    bg:"#f2f5ee",
+    card:"#fbfcf9",
+    card2:"#e8eee2",
+    text:"#263026",
+    muted:"#747d70",
+    border:"#dce4d7",
+    nav:"#fafcf8"
+  },
+
+  forest:{
+    accent:"#28634c",
+    accentText:"#ffffff",
+    bg:"#edf5f0",
+    card:"#ffffff",
+    card2:"#dfeee6",
+    text:"#172820",
+    muted:"#687b71",
+    border:"#d3e3da",
+    nav:"#f7fbf9"
+  },
+
+  mint:{
+    accent:"#4a9a83",
+    accentText:"#ffffff",
+    bg:"#effaf6",
+    card:"#ffffff",
+    card2:"#dff4ed",
+    text:"#1e2e29",
+    muted:"#6f807b",
+    border:"#d4eae3",
+    nav:"#f8fdfa"
+  },
+
+  peach:{
+    accent:"#dc805d",
+    accentText:"#ffffff",
+    bg:"#fff5ef",
+    card:"#ffffff",
+    card2:"#fce8dc",
+    text:"#31251f",
+    muted:"#89766c",
+    border:"#f0ddd2",
+    nav:"#fffaf7"
+  },
+
+  sunset:{
+    accent:"#d56f56",
+    accentText:"#ffffff",
+    bg:"#fff3ec",
+    card:"#ffffff",
+    card2:"#fbe2d6",
+    text:"#32231f",
+    muted:"#88736b",
+    border:"#efd8cd",
+    nav:"#fff9f5"
+  },
+
+  cream:{
+    accent:"#8e7556",
+    accentText:"#ffffff",
+    bg:"#faf6ed",
+    card:"#fffdf8",
+    card2:"#f3eadb",
+    text:"#2d2922",
+    muted:"#80786c",
+    border:"#e8dfd0",
+    nav:"#fffdf8"
+  },
+
+  mocha:{
+    accent:"#876348",
+    accentText:"#ffffff",
+    bg:"#f5eee8",
+    card:"#fffaf6",
+    card2:"#eaded4",
+    text:"#30261f",
+    muted:"#7e7065",
+    border:"#e0d3c8",
+    nav:"#fcf7f3"
+  },
+
+  neutral:{
+    accent:"#56606c",
+    accentText:"#ffffff",
+    bg:"#f5f6f8",
+    card:"#ffffff",
+    card2:"#eef0f3",
+    text:"#17191e",
+    muted:"#7b818c",
+    border:"#e1e3e8",
+    nav:"#ffffff"
+  },
+
+  midnight:{
+    accent:"#83a9ff",
+    accentText:"#101725",
+    bg:"#0f141d",
+    card:"#19202b",
+    card2:"#232c39",
+    text:"#f5f7fb",
+    muted:"#a7b0bd",
+    border:"#303a47",
+    nav:"#171e28"
+  }
+
+};
+
+
+function applyTheme(name){
+
+  const t =
+  themes[name] ||
+  themes.neutral;
+
+  const root =
+  document.documentElement.style;
+
+  root.setProperty(
+    "--accent",
+    t.accent
+  );
+
+  root.setProperty(
+    "--accentText",
+    t.accentText
+  );
+
+  root.setProperty(
+    "--bg",
+    t.bg
+  );
+
+  root.setProperty(
+    "--card",
+    t.card
+  );
+
+  root.setProperty(
+    "--card2",
+    t.card2
+  );
+
+  root.setProperty(
+    "--text",
+    t.text
+  );
+
+  root.setProperty(
+    "--muted",
+    t.muted
+  );
+
+  root.setProperty(
+    "--border",
+    t.border
+  );
+
+  root.setProperty(
+    "--nav",
+    t.nav
+  );
+
+  $("themeMeta")
+  .setAttribute(
+    "content",
+    t.bg
+  );
+
+  if($("themeSelect")){
+    $("themeSelect").value =
+    name;
+  }
+}
+
+
+/* ==============================
    CURRENCY
 ============================== */
 
 function currency(){
 
-  return getSetting("currency");
+  return getSetting(
+    "currency"
+  );
 }
 
 function currencySymbol(){
 
-  const c = currency();
-
-  if(c === "PHP") return "₱";
+  if(currency()==="PHP"){
+    return "₱";
+  }
 
   return "$";
 }
 
 function money(n){
 
+  const c =
+  currency();
+
+  const locale =
+  c==="PHP"
+  ? "en-PH"
+  : c==="USD"
+  ? "en-US"
+  : "en-CA";
+
   return new Intl.NumberFormat(
-    currency() === "PHP"
-    ? "en-PH"
-    : "en-CA",
+    locale,
     {
       style:"currency",
-      currency:currency()
+      currency:c
     }
-  ).format(Number(n || 0));
+  ).format(
+    Number(n || 0)
+  );
 }
 
 
@@ -978,33 +1479,8 @@ function esc(v){
 
 
 /* ==============================
-   APPEARANCE
+   APPLY SETTINGS
 ============================== */
-
-const accents = {
-  black:"#17191e",
-  pink:"#d85c8b",
-  purple:"#7957c8",
-  blue:"#3977c5",
-  green:"#388267",
-  orange:"#c76d31"
-};
-
-const backgrounds = {
-  white:"#ffffff",
-  gray:"#f5f6f8",
-  pink:"#fff1f5",
-  lavender:"#f4f0ff",
-  blue:"#eef7ff",
-  sage:"#eff7f1"
-};
-
-const cards = {
-  white:"#ffffff",
-  pink:"#fff7fa",
-  gray:"#f0f1f3",
-  dark:"#25272c"
-};
 
 function applySettings(){
 
@@ -1014,152 +1490,49 @@ function applySettings(){
   const profile =
   getSetting("profile");
 
-  const accent =
-  getSetting("accent");
+  const theme =
+  getSetting("theme");
 
-  const background =
-  getSetting("background");
-
-  const card =
-  getSetting("card");
-
-  const mode =
-  getSetting("mode");
-
-
-  document.title = title;
-
-  document
-  .querySelectorAll(".app-title")
-  .forEach(x=>{
-    x.textContent=title;
-  });
-
-  $("homeProfile").textContent =
-  profile;
-
-  $("appTitleInput").value =
+  document.title =
   title;
 
-  $("profileInput").value =
-  profile;
-
-  $("currencySelect").value =
-  currency();
-
-  $("amountSymbol").textContent =
-  currencySymbol();
-
-
-  document.documentElement
-  .style
-  .setProperty(
-    "--accent",
-    accents[accent] || accents.black
+  document
+  .querySelectorAll(
+    ".app-title"
+  )
+  .forEach(
+    x=>{
+      x.textContent =
+      title;
+    }
   );
 
-
-  if(mode === "dark"){
-
-    document.documentElement.style
-    .setProperty("--bg","#111318");
-
-    document.documentElement.style
-    .setProperty("--card","#1e2127");
-
-    document.documentElement.style
-    .setProperty("--text","#f6f7f8");
-
-    document.documentElement.style
-    .setProperty("--muted","#a7adb7");
-
-    document.documentElement.style
-    .setProperty("--border","#343841");
-
-  }else{
-
-    document.documentElement.style
-    .setProperty(
-      "--bg",
-      backgrounds[background] ||
-      backgrounds.gray
-    );
-
-    document.documentElement.style
-    .setProperty(
-      "--card",
-      cards[card] ||
-      cards.white
-    );
-
-    const darkCard =
-    card === "dark";
-
-    document.documentElement.style
-    .setProperty(
-      "--text",
-      darkCard
-      ? "#f6f7f8"
-      : "#17191e"
-    );
-
-    document.documentElement.style
-    .setProperty(
-      "--muted",
-      darkCard
-      ? "#b2b6bf"
-      : "#7b818c"
-    );
-
-    document.documentElement.style
-    .setProperty(
-      "--border",
-      darkCard
-      ? "#3a3d44"
-      : "#e1e3e8"
-    );
+  if($("homeProfile")){
+    $("homeProfile").textContent =
+    profile;
   }
 
+  if($("appTitleInput")){
+    $("appTitleInput").value =
+    title;
+  }
 
-  $("themeMeta")
-  .setAttribute(
-    "content",
-    mode === "dark"
-    ? "#111318"
-    : (
-      backgrounds[background] ||
-      backgrounds.gray
-    )
-  );
+  if($("profileInput")){
+    $("profileInput").value =
+    profile;
+  }
 
+  if($("currencySelect")){
+    $("currencySelect").value =
+    currency();
+  }
 
-  document
-  .querySelectorAll("[data-accent]")
-  .forEach(
-    b=>b.classList.toggle(
-      "selected",
-      b.dataset.accent === accent
-    )
-  );
+  if($("amountSymbol")){
+    $("amountSymbol").textContent =
+    currencySymbol();
+  }
 
-  document
-  .querySelectorAll("[data-bg]")
-  .forEach(
-    b=>b.classList.toggle(
-      "selected",
-      b.dataset.bg === background
-    )
-  );
-
-  document
-  .querySelectorAll("[data-card]")
-  .forEach(
-    b=>b.classList.toggle(
-      "selected",
-      b.dataset.card === card
-    )
-  );
-
+  applyTheme(theme);
 
   if(T.length){
     render();
@@ -1168,18 +1541,21 @@ function applySettings(){
 
 
 /* ==============================
-   NAME SETTINGS
+   SAVE NAMES
 ============================== */
 
 $("saveNames").onclick =
 ()=>{
 
   const title =
-  $("appTitleInput").value.trim();
+  $("appTitleInput")
+  .value
+  .trim();
 
   const profile =
-  $("profileInput").value.trim();
-
+  $("profileInput")
+  .value
+  .trim();
 
   if(!title || !profile){
 
@@ -1192,19 +1568,23 @@ $("saveNames").onclick =
     return;
   }
 
+  saveSetting(
+    "title",
+    title
+  );
 
-  saveSetting("title",title);
-  saveSetting("profile",profile);
+  saveSetting(
+    "profile",
+    profile
+  );
 
   applySettings();
-
 
   $("nameMsg").className =
   "msg success";
 
   $("nameMsg").textContent =
   "Names saved ✓";
-
 
   setTimeout(
     ()=>{
@@ -1216,76 +1596,20 @@ $("saveNames").onclick =
 
 
 /* ==============================
-   COLOR BUTTONS
+   THEME / CURRENCY
 ============================== */
 
-document
-.querySelectorAll("[data-accent]")
-.forEach(
-  b=>b.onclick=()=>{
-
-    saveSetting(
-      "accent",
-      b.dataset.accent
-    );
-
-    applySettings();
-  }
-);
-
-document
-.querySelectorAll("[data-bg]")
-.forEach(
-  b=>b.onclick=()=>{
-
-    saveSetting(
-      "background",
-      b.dataset.bg
-    );
-
-    saveSetting(
-      "mode",
-      "light"
-    );
-
-    applySettings();
-  }
-);
-
-document
-.querySelectorAll("[data-card]")
-.forEach(
-  b=>b.onclick=()=>{
-
-    saveSetting(
-      "card",
-      b.dataset.card
-    );
-
-    saveSetting(
-      "mode",
-      "light"
-    );
-
-    applySettings();
-  }
-);
-
-$("lightMode").onclick =
+$("themeSelect").onchange =
 ()=>{
 
-  saveSetting("mode","light");
+  saveSetting(
+    "theme",
+    $("themeSelect").value
+  );
 
   applySettings();
 };
 
-$("darkMode").onclick =
-()=>{
-
-  saveSetting("mode","dark");
-
-  applySettings();
-};
 
 $("currencySelect").onchange =
 ()=>{
@@ -1365,20 +1689,26 @@ const moneyOutCategories = [
 ];
 
 
-function fillSelect(element,options){
+function fillSelect(
+  element,
+  options
+){
 
   element.innerHTML =
-  options.map(
+  options
+  .map(
     x=>
     `<option value="${esc(x)}">${esc(x)}</option>`
-  ).join("");
+  )
+  .join("");
 }
 
 
 function updateTransactionOptions(){
 
   const isIn =
-  $("typ").value === "Money In";
+  $("typ").value ===
+  "Money In";
 
   fillSelect(
     $("desSelect"),
@@ -1394,8 +1724,13 @@ function updateTransactionOptions(){
     : moneyOutCategories
   );
 
-  $("desOther").style.display="none";
-  $("catOther").style.display="none";
+  $("desOther")
+  .style.display =
+  "none";
+
+  $("catOther")
+  .style.display =
+  "none";
 
   $("desOther").value="";
   $("catOther").value="";
@@ -1409,8 +1744,9 @@ updateTransactionOptions;
 $("desSelect").onchange =
 ()=>{
 
-  $("desOther").style.display =
-  $("desSelect").value === "Other"
+  $("desOther")
+  .style.display =
+  $("desSelect").value==="Other"
   ? "block"
   : "none";
 };
@@ -1419,8 +1755,9 @@ $("desSelect").onchange =
 $("catSelect").onchange =
 ()=>{
 
-  $("catOther").style.display =
-  $("catSelect").value === "Other"
+  $("catOther")
+  .style.display =
+  $("catSelect").value==="Other"
   ? "block"
   : "none";
 };
@@ -1432,12 +1769,21 @@ $("catSelect").onchange =
 
 function showLogin(){
 
-  if(recoveryMode) return;
+  if(recoveryMode){
+    return;
+  }
 
-  $("login").style.display="block";
-  $("resetPage").style.display="none";
-  $("app").style.display="none";
-  $("nav").style.display="none";
+  $("login").style.display =
+  "block";
+
+  $("resetPage").style.display =
+  "none";
+
+  $("app").style.display =
+  "none";
+
+  $("nav").style.display =
+  "none";
 
   applySettings();
 }
@@ -1445,10 +1791,17 @@ function showLogin(){
 
 function showReset(){
 
-  $("login").style.display="none";
-  $("app").style.display="none";
-  $("nav").style.display="none";
-  $("resetPage").style.display="block";
+  $("login").style.display =
+  "none";
+
+  $("app").style.display =
+  "none";
+
+  $("nav").style.display =
+  "none";
+
+  $("resetPage").style.display =
+  "block";
 
   applySettings();
 }
@@ -1462,16 +1815,24 @@ function showApp(){
     return;
   }
 
-  $("login").style.display="none";
-  $("resetPage").style.display="none";
-  $("app").style.display="block";
-  $("nav").style.display="grid";
+  $("login").style.display =
+  "none";
+
+  $("resetPage").style.display =
+  "none";
+
+  $("app").style.display =
+  "block";
+
+  $("nav").style.display =
+  "grid";
 
   applySettings();
 
   if(user){
 
-    $("accountEmail").textContent =
+    $("accountEmail")
+    .textContent =
     user.email || "";
   }
 }
@@ -1489,10 +1850,18 @@ function totals(a=T){
   a.forEach(
     x=>{
 
-      if(x.transaction_type==="Money In"){
-        i += Number(x.amount);
+      if(
+        x.transaction_type ===
+        "Money In"
+      ){
+
+        i +=
+        Number(x.amount);
+
       }else{
-        o += Number(x.amount);
+
+        o +=
+        Number(x.amount);
       }
 
     }
@@ -1505,6 +1874,10 @@ function totals(a=T){
   };
 }
 
+
+/* ==============================
+   TRANSACTION ROW
+============================== */
 
 function txrow(x){
 
@@ -1520,29 +1893,39 @@ function txrow(x){
         </div>
 
         <div class="meta">
+
           ${esc(x.transaction_date)}
+
           ${
             x.category
-            ? " · " + esc(x.category)
+            ? " · " +
+              esc(x.category)
             : ""
           }
+
         </div>
 
       </div>
 
-      <div class="amt ${
-        x.transaction_type==="Money In"
-        ? "green"
-        : "red"
-      }">
+      <div
+        class="amt ${
+          x.transaction_type ===
+          "Money In"
+          ? "green"
+          : "red"
+        }"
+      >
 
         ${
-          x.transaction_type==="Money In"
+          x.transaction_type ===
+          "Money In"
           ? "+"
           : "−"
         }
 
-        ${money(Number(x.amount))}
+        ${money(
+          Number(x.amount)
+        )}
 
       </div>
 
@@ -1573,26 +1956,39 @@ function txrow(x){
 }
 
 
+/* ==============================
+   SUMMARY
+============================== */
+
 function summary(t){
 
   return `
     <h2>Summary</h2>
 
-    <div class="label">Money in</div>
+    <div class="label">
+      Money in
+    </div>
+
     <div class="value green">
       ${money(t.i)}
     </div>
 
     <br>
 
-    <div class="label">Money out</div>
+    <div class="label">
+      Money out
+    </div>
+
     <div class="value red">
       ${money(t.o)}
     </div>
 
     <br>
 
-    <div class="label">Net change</div>
+    <div class="label">
+      Net change
+    </div>
+
     <div class="value">
       ${money(t.n)}
     </div>
@@ -1607,7 +2003,8 @@ function summary(t){
 function filteredTransactions(){
 
   const q =
-  $("searchTx").value
+  $("searchTx")
+  .value
   .trim()
   .toLowerCase();
 
@@ -1615,8 +2012,9 @@ function filteredTransactions(){
     x=>{
 
       const matchesFilter =
-      currentFilter === "All" ||
-      x.transaction_type === currentFilter;
+      currentFilter==="All" ||
+      x.transaction_type===
+      currentFilter;
 
       const haystack =
       [
@@ -1632,7 +2030,7 @@ function filteredTransactions(){
       !q ||
       haystack.includes(q);
 
-      return (
+      return(
         matchesFilter &&
         matchesSearch
       );
@@ -1665,17 +2063,24 @@ renderAll;
 
 
 document
-.querySelectorAll(".filter-btn")
+.querySelectorAll(
+  ".filter-btn"
+)
 .forEach(
-  b=>b.onclick=()=>{
+  b=>
+  b.onclick=
+  ()=>{
 
     currentFilter =
     b.dataset.filter;
 
     document
-    .querySelectorAll(".filter-btn")
+    .querySelectorAll(
+      ".filter-btn"
+    )
     .forEach(
-      x=>x.classList.remove(
+      x=>
+      x.classList.remove(
         "active-filter"
       )
     );
@@ -1721,7 +2126,10 @@ function render(){
 
   $("recent").innerHTML =
   s.length
-  ? s.slice(0,5).map(txrow).join("")
+  ? s
+    .slice(0,5)
+    .map(txrow)
+    .join("")
   : '<div class="empty">No transactions yet.</div>';
 
   renderAll();
@@ -1731,21 +2139,28 @@ function render(){
 
 
 /* ==============================
-   LOAD
+   LOAD TRANSACTIONS
 ============================== */
 
 async function load(){
 
-  if(!user) return;
+  if(!user){
+    return;
+  }
 
   const r =
   await sb
   .from("transactions")
   .select("*")
-  .eq("user_id",user.id)
+  .eq(
+    "user_id",
+    user.id
+  )
   .order(
     "transaction_date",
-    {ascending:false}
+    {
+      ascending:false
+    }
   );
 
   if(r.error){
@@ -1761,6 +2176,8 @@ async function load(){
   T =
   r.data || [];
 
+  populateYears();
+
   render();
 }
 
@@ -1774,39 +2191,42 @@ function(id){
 
   const x =
   T.find(
-    t=>String(t.id)===String(id)
+    t=>
+    String(t.id)===
+    String(id)
   );
 
-  if(!x) return;
-
+  if(!x){
+    return;
+  }
 
   editingId =
   x.id;
 
-
   $("typ").value =
   x.transaction_type;
 
-
   updateTransactionOptions();
-
 
   $("amt").value =
   x.amount;
 
-
   const descriptions =
-  x.transaction_type === "Money In"
+  x.transaction_type==="Money In"
   ? moneyInDescriptions
   : moneyOutDescriptions;
 
-
-  if(descriptions.includes(x.description)){
+  if(
+    descriptions.includes(
+      x.description
+    )
+  ){
 
     $("desSelect").value =
     x.description;
 
-    $("desOther").style.display =
+    $("desOther")
+    .style.display =
     "none";
 
   }else{
@@ -1814,29 +2234,31 @@ function(id){
     $("desSelect").value =
     "Other";
 
-    $("desOther").style.display =
+    $("desOther")
+    .style.display =
     "block";
 
     $("desOther").value =
     x.description || "";
   }
 
-
   const categories =
-  x.transaction_type === "Money In"
+  x.transaction_type==="Money In"
   ? moneyInCategories
   : moneyOutCategories;
 
-
   if(
     x.category &&
-    categories.includes(x.category)
+    categories.includes(
+      x.category
+    )
   ){
 
     $("catSelect").value =
     x.category;
 
-    $("catOther").style.display =
+    $("catOther")
+    .style.display =
     "none";
 
   }else if(x.category){
@@ -1844,40 +2266,35 @@ function(id){
     $("catSelect").value =
     "Other";
 
-    $("catOther").style.display =
+    $("catOther")
+    .style.display =
     "block";
 
     $("catOther").value =
     x.category;
-
   }
-
 
   $("dat").value =
   x.transaction_date;
 
-
   $("notes").value =
   x.notes || "";
-
 
   $("submitTransaction")
   .textContent =
   "Save Changes";
 
-
   $("editBanner")
   .style.display =
   "block";
-
 
   $("cancelEdit")
   .style.display =
   "block";
 
-
-  openView("transactions");
-
+  openView(
+    "transactions"
+  );
 
   window.scrollTo({
     top:0,
@@ -1923,7 +2340,7 @@ cancelEditing;
 
 
 /* ==============================
-   DELETE TRANSACTION
+   DELETE
 ============================== */
 
 window.deleteTransaction =
@@ -1931,11 +2348,14 @@ async function(id){
 
   const x =
   T.find(
-    t=>String(t.id)===String(id)
+    t=>
+    String(t.id)===
+    String(id)
   );
 
-  if(!x) return;
-
+  if(!x){
+    return;
+  }
 
   const yes =
   confirm(
@@ -1946,17 +2366,22 @@ async function(id){
     "?\n\nThis cannot be undone."
   );
 
-
-  if(!yes) return;
-
+  if(!yes){
+    return;
+  }
 
   const r =
   await sb
   .from("transactions")
   .delete()
-  .eq("id",x.id)
-  .eq("user_id",user.id);
-
+  .eq(
+    "id",
+    x.id
+  )
+  .eq(
+    "user_id",
+    user.id
+  );
 
   if(r.error){
 
@@ -1968,28 +2393,26 @@ async function(id){
     return;
   }
 
-
   if(
-    String(editingId) ===
+    String(editingId)===
     String(x.id)
   ){
+
     cancelEditing();
   }
-
 
   await load();
 };
 
 
 /* ==============================
-   ADD / UPDATE TRANSACTION
+   ADD / UPDATE
 ============================== */
 
 $("form").onsubmit =
 async e=>{
 
   e.preventDefault();
-
 
   if(!user){
 
@@ -2000,14 +2423,14 @@ async e=>{
     return;
   }
 
-
   const amount =
-  Number($("amt").value);
-
+  Number(
+    $("amt").value
+  );
 
   if(
     !Number.isFinite(amount) ||
-    amount <= 0
+    amount<=0
   ){
 
     alert(
@@ -2017,19 +2440,18 @@ async e=>{
     return;
   }
 
-
   let description =
   $("desSelect").value;
 
-
-  if(description==="Other"){
+  if(
+    description==="Other"
+  ){
 
     description =
     $("desOther")
     .value
     .trim();
   }
-
 
   if(!description){
 
@@ -2040,19 +2462,18 @@ async e=>{
     return;
   }
 
-
   let category =
   $("catSelect").value;
 
-
-  if(category==="Other"){
+  if(
+    category==="Other"
+  ){
 
     category =
     $("catOther")
     .value
     .trim();
   }
-
 
   const values = {
 
@@ -2081,9 +2502,7 @@ async e=>{
 
   };
 
-
   let r;
-
 
   if(editingId){
 
@@ -2091,8 +2510,14 @@ async e=>{
     await sb
     .from("transactions")
     .update(values)
-    .eq("id",editingId)
-    .eq("user_id",user.id);
+    .eq(
+      "id",
+      editingId
+    )
+    .eq(
+      "user_id",
+      user.id
+    );
 
   }else{
 
@@ -2101,7 +2526,6 @@ async e=>{
     .from("transactions")
     .insert(values);
   }
-
 
   if(r.error){
 
@@ -2115,7 +2539,6 @@ async e=>{
 
     return;
   }
-
 
   cancelEditing();
 
@@ -2153,13 +2576,105 @@ function renderYear(){
         x=>
         x.transaction_date
         .startsWith(
-          $("yp").value + "-"
+          $("yp").value +
+          "-"
         )
       )
     )
   );
 }
 
+
+/* YEAR DROPDOWN */
+
+function populateYears(){
+
+  const currentYear =
+  new Date()
+  .getFullYear();
+
+  const transactionYears =
+  T
+  .map(
+    x=>
+    Number(
+      String(
+        x.transaction_date
+      ).slice(0,4)
+    )
+  )
+  .filter(
+    y=>
+    Number.isFinite(y)
+  );
+
+  const earliest =
+  transactionYears.length
+  ? Math.min(
+      ...transactionYears,
+      currentYear
+    )
+  : currentYear-10;
+
+  const startYear =
+  Math.min(
+    earliest,
+    currentYear-10
+  );
+
+  const endYear =
+  currentYear+5;
+
+  const previous =
+  $("yp").value;
+
+  $("yp").innerHTML="";
+
+  for(
+    let y=endYear;
+    y>=startYear;
+    y--
+  ){
+
+    const option =
+    document.createElement(
+      "option"
+    );
+
+    option.value =
+    y;
+
+    option.textContent =
+    y;
+
+    $("yp").appendChild(
+      option
+    );
+  }
+
+  if(
+    previous &&
+    [...$("yp").options]
+    .some(
+      o=>
+      o.value===previous
+    )
+  ){
+
+    $("yp").value =
+    previous;
+
+  }else{
+
+    $("yp").value =
+    String(currentYear);
+  }
+}
+
+
+/* ==============================
+   DATE
+============================== */
 
 function localDateString(){
 
@@ -2172,14 +2687,26 @@ function localDateString(){
   const m =
   String(
     d.getMonth()+1
-  ).padStart(2,"0");
+  ).padStart(
+    2,
+    "0"
+  );
 
   const day =
   String(
     d.getDate()
-  ).padStart(2,"0");
+  ).padStart(
+    2,
+    "0"
+  );
 
-  return `${y}-${m}-${day}`;
+  return(
+    y +
+    "-" +
+    m +
+    "-" +
+    day
+  );
 }
 
 
@@ -2194,15 +2721,22 @@ d.getFullYear() +
 "-" +
 String(
   d.getMonth()+1
-).padStart(2,"0");
+).padStart(
+  2,
+  "0"
+);
+
+populateYears();
 
 $("yp").value =
-d.getFullYear();
+String(
+  d.getFullYear()
+);
 
 $("mp").onchange =
 renderMonth;
 
-$("yp").oninput =
+$("yp").onchange =
 renderYear;
 
 
@@ -2221,13 +2755,11 @@ async()=>{
   const p =
   $("password").value;
 
-
   $("loginMsg").className =
   "msg error";
 
   $("loginMsg").textContent =
   "";
-
 
   if(!e || !p){
 
@@ -2237,13 +2769,11 @@ async()=>{
     return;
   }
 
-
   $("signin").disabled =
   true;
 
   $("signin").textContent =
   "Signing in…";
-
 
   const r =
   await sb.auth
@@ -2252,13 +2782,11 @@ async()=>{
     password:p
   });
 
-
   $("signin").disabled =
   false;
 
   $("signin").textContent =
   "Sign in";
-
 
   if(r.error){
 
@@ -2268,10 +2796,8 @@ async()=>{
     return;
   }
 
-
   user =
   r.data.user;
-
 
   showApp();
 
@@ -2291,13 +2817,11 @@ async()=>{
   .value
   .trim();
 
-
   $("loginMsg").className =
   "msg error";
 
   $("loginMsg").textContent =
   "";
-
 
   if(!e){
 
@@ -2307,13 +2831,11 @@ async()=>{
     return;
   }
 
-
   $("forgot").disabled =
   true;
 
   $("forgot").textContent =
   "Sending reset email…";
-
 
   const r =
   await sb.auth
@@ -2325,13 +2847,11 @@ async()=>{
     }
   );
 
-
   $("forgot").disabled =
   false;
 
   $("forgot").textContent =
   "Forgot password?";
-
 
   if(r.error){
 
@@ -2341,7 +2861,6 @@ async()=>{
 
     return;
   }
-
 
   $("loginMsg").className =
   "msg success";
@@ -2364,22 +2883,19 @@ async()=>{
   const c =
   $("confirmPassword").value;
 
-
   $("resetMsg").className =
   "msg error";
 
   $("resetMsg").textContent =
   "";
 
-
-  if(p.length < 6){
+  if(p.length<6){
 
     $("resetMsg").textContent =
     "Password must be at least 6 characters.";
 
     return;
   }
-
 
   if(p!==c){
 
@@ -2389,17 +2905,14 @@ async()=>{
     return;
   }
 
-
   $("savePassword").disabled =
   true;
 
   $("savePassword").textContent =
   "Saving…";
 
-
   const sessionResult =
   await sb.auth.getSession();
-
 
   if(
     sessionResult.error ||
@@ -2418,12 +2931,10 @@ async()=>{
     return;
   }
 
-
   const r =
   await sb.auth.updateUser({
     password:p
   });
-
 
   if(r.error){
 
@@ -2440,13 +2951,11 @@ async()=>{
     return;
   }
 
-
   $("resetMsg").className =
   "msg success";
 
   $("resetMsg").textContent =
   "Password changed successfully! Returning to sign in…";
-
 
   setTimeout(
     async()=>{
@@ -2500,14 +3009,14 @@ function openView(id){
     )
   );
 
-
   const view =
   $(id);
 
   if(view){
-    view.classList.add("active");
+    view.classList.add(
+      "active"
+    );
   }
-
 
   const button =
   document.querySelector(
@@ -2515,16 +3024,21 @@ function openView(id){
   );
 
   if(button){
-    button.classList.add("active");
+    button.classList.add(
+      "active"
+    );
   }
 }
 
 
 document
-.querySelectorAll("nav button")
+.querySelectorAll(
+  "nav button"
+)
 .forEach(
   b=>
-  b.onclick=()=>{
+  b.onclick=
+  ()=>{
 
     openView(
       b.dataset.v
@@ -2546,22 +3060,23 @@ sb.auth.onAuthStateChange(
   (event,session)=>{
 
     if(
-      event ===
+      event===
       "PASSWORD_RECOVERY"
     ){
 
       showReset();
+
       return;
     }
 
-
     if(
-      event ===
+      event===
       "SIGNED_OUT" &&
       !recoveryMode
     ){
 
       user=null;
+
       showLogin();
     }
 
@@ -2577,22 +3092,21 @@ sb.auth.onAuthStateChange(
 
   updateTransactionOptions();
 
-  applySettings();
+  populateYears();
 
+  applySettings();
 
   if(recoveryMode){
 
     showReset();
+
     return;
   }
 
-
   showLogin();
-
 
   const s =
   await sb.auth.getSession();
-
 
   if(
     s.data &&
