@@ -320,7 +320,10 @@ button:disabled{opacity:.55}
  font-weight:750;
 }
 
-.history-amount{margin-top:4px;font-weight:750}
+.history-amount{
+ margin-top:4px;
+ font-weight:750;
+}
 
 .settings-intro{
  margin:8px 0 25px;
@@ -342,17 +345,19 @@ button:disabled{opacity:.55}
  display:flex;
  align-items:center;
  justify-content:space-between;
+ gap:12px;
+ margin:10px 0 20px;
  padding:15px 16px;
- margin:10px 0 18px;
  border:1px solid var(--border);
  border-radius:15px;
  background:var(--card2);
- font-weight:750;
+ font-weight:800;
 }
 
 .lock-badge{
- font-size:12px;
+ white-space:nowrap;
  color:var(--muted);
+ font-size:12px;
 }
 
 .theme-display{
@@ -430,6 +435,38 @@ button:disabled{opacity:.55}
  border-radius:13px;
  background:var(--card2);
  font-size:19px;
+}
+
+.password-modal{
+ position:fixed;
+ inset:0;
+ z-index:100;
+ display:none;
+ align-items:center;
+ justify-content:center;
+ padding:20px;
+ background:rgba(0,0,0,.45);
+}
+
+.password-modal.show{display:flex}
+
+.password-box{
+ width:100%;
+ max-width:420px;
+ padding:23px;
+ border:1px solid var(--border);
+ border-radius:25px;
+ background:var(--card);
+ box-shadow:0 20px 60px rgba(0,0,0,.22);
+}
+
+.password-box h2{margin:0 0 8px}
+.password-box p{color:var(--muted);line-height:1.4}
+
+.modal-buttons{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:9px;
 }
 
 nav{
@@ -525,10 +562,13 @@ nav button.active{
 
  <div class="card">
   <h2 style="margin-top:0">Private sign in</h2>
+
   <input id="email" type="email" autocomplete="username" placeholder="Email">
   <input id="password" type="password" autocomplete="current-password" placeholder="Password">
+
   <button id="signin" class="primary" type="button">Sign in</button>
   <button id="forgot" type="button">Forgot password?</button>
+
   <div id="loginMsg" class="msg error"></div>
  </div>
 </section>
@@ -583,9 +623,11 @@ nav button.active{
    </div>
 
   </div>
+
  </div>
 
  <h2>Recent transactions</h2>
+
  <div id="recent" class="card">
   <div class="empty">No transactions yet.</div>
  </div>
@@ -636,6 +678,7 @@ nav button.active{
     <button id="cancelEdit" class="cancel-edit" type="button">Cancel Edit</button>
 
    </form>
+
   </div>
 
   <div class="card">
@@ -648,10 +691,14 @@ nav button.active{
     <button class="filter-btn" data-filter="Money Out" type="button">Money Out</button>
    </div>
 
-   <div id="all"><div class="empty">No transactions yet.</div></div>
+   <div id="all">
+    <div class="empty">No transactions yet.</div>
+   </div>
 
   </div>
+
  </div>
+
 </section>
 
 <section id="monthly" class="view">
@@ -736,8 +783,10 @@ nav button.active{
    <h2>Profile</h2>
 
    <p class="setting-description">
-    Savings Tracker is your permanent app name. You can customize your profile name below.
+    The app name is permanent. Only your profile name can be changed.
    </p>
+
+   <label class="field-label">App title</label>
 
    <div class="locked-title">
     <span>Savings Tracker</span>
@@ -746,26 +795,22 @@ nav button.active{
 
    <label class="field-label">Profile name</label>
 
-   <input
-    id="profileInput"
-    maxlength="50"
-    placeholder="Faith & JJ Savings"
-   >
+   <input id="profileInput" maxlength="50" placeholder="Faith & JJ Savings">
 
-   <button id="saveNames" class="primary" type="button">
+   <button id="saveProfile" class="primary" type="button">
     Save Profile Name
    </button>
 
-   <div id="nameMsg" class="msg success"></div>
+   <div id="profileMsg" class="msg"></div>
 
   </div>
 
-  <div id="themeCard" class="card setting-card">
+  <div class="card setting-card">
 
    <h2>Theme</h2>
 
    <p class="setting-description">
-    One choice changes the whole look — background, cards and buttons.
+    One theme changes the background, cards and buttons together.
    </p>
 
    <label class="field-label">Choose theme</label>
@@ -796,7 +841,7 @@ nav button.active{
 
   </div>
 
-  <div id="currencyCard" class="card setting-card">
+  <div class="card setting-card">
 
    <h2>Currency</h2>
 
@@ -822,21 +867,13 @@ nav button.active{
 
    <label class="field-label">Viewer email</label>
 
-   <input
-    id="viewerEmail"
-    type="email"
-    placeholder="viewer@email.com"
-   >
+   <input id="viewerEmail" type="email" placeholder="viewer@email.com">
 
-   <button id="addViewer" class="primary" type="button">
-    Add Viewer
-   </button>
+   <button id="addViewer" class="primary" type="button">Add Viewer</button>
 
    <div id="viewerMsg" class="msg"></div>
 
-   <h2 style="font-size:18px;margin-top:25px">
-    Current viewers
-   </h2>
+   <h2 style="font-size:18px;margin-top:25px">Current viewers</h2>
 
    <div id="viewerList">
     <div class="empty">No viewers yet.</div>
@@ -850,13 +887,12 @@ nav button.active{
 
    <p id="accountEmail" class="setting-description"></p>
 
-   <button id="settingsLogout" type="button">
-    Sign out
-   </button>
+   <button id="settingsLogout" type="button">Sign out</button>
 
   </div>
 
  </div>
+
 </section>
 
 </div>
@@ -891,7 +927,32 @@ nav button.active{
 
 </nav>
 
+<div id="deleteModal" class="password-modal">
+
+ <div class="password-box">
+
+  <h2>🔐 Confirm Delete</h2>
+
+  <p id="deleteDescription">
+   Enter your Savings Tracker password to delete this transaction.
+  </p>
+
+  <input id="deletePassword" type="password" autocomplete="current-password" placeholder="Password">
+
+  <div id="deleteMsg" class="msg error"></div>
+
+  <div class="modal-buttons">
+   <button id="cancelDelete" type="button">Cancel</button>
+   <button id="confirmDelete" class="primary" type="button">Delete</button>
+  </div>
+
+ </div>
+
+</div>
+
 <script>
+
+const APP_TITLE="Savings Tracker";
 
 const SUPABASE_URL="https://nscgbqeyyninunvhlkas.supabase.co";
 const SUPABASE_KEY="sb_publishable_noeKmKCYmGqETcdSSlPxRw_T9NdIAD_";
@@ -908,14 +969,15 @@ let ownerId=null;
 let isViewer=false;
 let editingId=null;
 let currentFilter="All";
+let pendingDeleteId=null;
 
 const $=id=>document.getElementById(id);
 
-const url=new URL(window.location.href);
+const pageURL=new URL(window.location.href);
 
 const recoveryMode=
- url.searchParams.get("recovery")==="1" ||
- url.hash.includes("type=recovery");
+ pageURL.searchParams.get("recovery")==="1" ||
+ pageURL.hash.includes("type=recovery");
 
 const defaults={
  profile:"My Savings",
@@ -923,114 +985,62 @@ const defaults={
  currency:"CAD"
 };
 
+const themes={
+ pink:{name:"Pink",bg:"#fff1f6",card:"#fffafd",card2:"#fde7ef",accent:"#d65f8c",accentText:"#fff",text:"#211b1e",muted:"#89777e",border:"#edd9e0",positive:"#4f8b70",negative:"#b75e64",nav:"#fffafd"},
+ rose:{name:"Rose",bg:"#fff2f3",card:"#fffafa",card2:"#fae3e6",accent:"#c7546c",accentText:"#fff",text:"#271d20",muted:"#88757a",border:"#ecd8dc",positive:"#4f8b70",negative:"#bd5260",nav:"#fffafa"},
+ lavender:{name:"Lavender",bg:"#f3f0ff",card:"#fdfbff",card2:"#eae3fb",accent:"#8164c7",accentText:"#fff",text:"#211d29",muted:"#7c7588",border:"#ded8ec",positive:"#4f8b70",negative:"#b75e64",nav:"#fdfbff"},
+ purple:{name:"Purple Dark",bg:"#181322",card:"#241c31",card2:"#30253f",accent:"#a985ff",accentText:"#1d1429",text:"#f8f5fc",muted:"#b9afc5",border:"#3d324a",positive:"#75c89d",negative:"#f08d93",nav:"#21192d"},
+ ocean:{name:"Ocean Blue",bg:"#eef7ff",card:"#fbfdff",card2:"#e1effb",accent:"#397fc5",accentText:"#fff",text:"#182631",muted:"#72818d",border:"#d7e5ef",positive:"#3f8d72",negative:"#bd6262",nav:"#fbfdff"},
+ sky:{name:"Sky Blue",bg:"#eff9ff",card:"#fff",card2:"#e2f3fc",accent:"#58a4dc",accentText:"#fff",text:"#1b2932",muted:"#73828b",border:"#d6e8f1",positive:"#408c71",negative:"#b85d62",nav:"#fff"},
+ sage:{name:"Sage",bg:"#f1f4ed",card:"#fffdf9",card2:"#e7eee2",accent:"#4f8b70",accentText:"#fff",text:"#1c2520",muted:"#798078",border:"#dce2d8",positive:"#4f8b70",negative:"#b75e64",nav:"#fffdf9"},
+ mint:{name:"Mint",bg:"#eef9f5",card:"#fbfffd",card2:"#dff2ea",accent:"#49927d",accentText:"#fff",text:"#1d2925",muted:"#718079",border:"#d5e8e1",positive:"#438c72",negative:"#b65e63",nav:"#fbfffd"},
+ cream:{name:"Cream",bg:"#faf6ec",card:"#fffdf8",card2:"#f2eadb",accent:"#8c7558",accentText:"#fff",text:"#2b2721",muted:"#827a6f",border:"#e8dfd0",positive:"#56826a",negative:"#af625d",nav:"#fffdf8"},
+ mocha:{name:"Mocha",bg:"#f4ede7",card:"#fffaf6",card2:"#eaded4",accent:"#86634b",accentText:"#fff",text:"#30261f",muted:"#806f63",border:"#dfd2c7",positive:"#5e836c",negative:"#ae625c",nav:"#fffaf6"},
+ neutral:{name:"Neutral",bg:"#f5f6f8",card:"#fff",card2:"#eef0f3",accent:"#555f6b",accentText:"#fff",text:"#17191e",muted:"#7b818c",border:"#e1e3e8",positive:"#4f8b70",negative:"#b75e64",nav:"#fff"},
+ midnight:{name:"Midnight",bg:"#0f141d",card:"#19202b",card2:"#232c39",accent:"#84a9ff",accentText:"#101725",text:"#f6f7fa",muted:"#a7b0bd",border:"#303a47",positive:"#72c59c",negative:"#ed898f",nav:"#171e28"}
+};
+
 function settingKey(name){
  return user
-  ?"savings-"+user.id+"-"+name
-  :"savings-"+name;
+  ?`savings-${user.id}-${name}`
+  :`savings-${name}`;
 }
 
 function getSetting(name){
- return localStorage.getItem(settingKey(name))||defaults[name];
+ return localStorage.getItem(settingKey(name)) || defaults[name];
 }
 
 function saveSetting(name,value){
  localStorage.setItem(settingKey(name),value);
 }
 
-const themes={
+/* Permanently remove old editable-title values */
+function removeOldTitleSettings(){
+ try{
+  localStorage.removeItem("savings-title");
 
- pink:{
-  name:"Pink",bg:"#fff1f6",card:"#fffafd",card2:"#fde7ef",
-  accent:"#d65f8c",accentText:"#fff",text:"#211b1e",
-  muted:"#89777e",border:"#edd9e0",positive:"#4f8b70",
-  negative:"#b75e64",nav:"#fffafd"
- },
+  if(user){
+   localStorage.removeItem(`savings-${user.id}-title`);
+  }
+ }catch(e){}
+}
 
- rose:{
-  name:"Rose",bg:"#fff2f3",card:"#fffafa",card2:"#fae3e6",
-  accent:"#c7546c",accentText:"#fff",text:"#271d20",
-  muted:"#88757a",border:"#ecd8dc",positive:"#4f8b70",
-  negative:"#bd5260",nav:"#fffafa"
- },
+function lockAppTitle(){
+ document.title=APP_TITLE;
 
- lavender:{
-  name:"Lavender",bg:"#f3f0ff",card:"#fdfbff",card2:"#eae3fb",
-  accent:"#8164c7",accentText:"#fff",text:"#211d29",
-  muted:"#7c7588",border:"#ded8ec",positive:"#4f8b70",
-  negative:"#b75e64",nav:"#fdfbff"
- },
+ document.querySelectorAll(".app-title").forEach(el=>{
+  el.textContent=APP_TITLE;
+ });
 
- purple:{
-  name:"Purple Dark",bg:"#181322",card:"#241c31",card2:"#30253f",
-  accent:"#a985ff",accentText:"#1d1429",text:"#f8f5fc",
-  muted:"#b9afc5",border:"#3d324a",positive:"#75c89d",
-  negative:"#f08d93",nav:"#21192d"
- },
-
- ocean:{
-  name:"Ocean Blue",bg:"#eef7ff",card:"#fbfdff",card2:"#e1effb",
-  accent:"#397fc5",accentText:"#fff",text:"#182631",
-  muted:"#72818d",border:"#d7e5ef",positive:"#3f8d72",
-  negative:"#bd6262",nav:"#fbfdff"
- },
-
- sky:{
-  name:"Sky Blue",bg:"#eff9ff",card:"#fff",card2:"#e2f3fc",
-  accent:"#58a4dc",accentText:"#fff",text:"#1b2932",
-  muted:"#73828b",border:"#d6e8f1",positive:"#408c71",
-  negative:"#b85d62",nav:"#fff"
- },
-
- sage:{
-  name:"Sage",bg:"#f1f4ed",card:"#fffdf9",card2:"#e7eee2",
-  accent:"#4f8b70",accentText:"#fff",text:"#1c2520",
-  muted:"#798078",border:"#dce2d8",positive:"#4f8b70",
-  negative:"#b75e64",nav:"#fffdf9"
- },
-
- mint:{
-  name:"Mint",bg:"#eef9f5",card:"#fbfffd",card2:"#dff2ea",
-  accent:"#49927d",accentText:"#fff",text:"#1d2925",
-  muted:"#718079",border:"#d5e8e1",positive:"#438c72",
-  negative:"#b65e63",nav:"#fbfffd"
- },
-
- cream:{
-  name:"Cream",bg:"#faf6ec",card:"#fffdf8",card2:"#f2eadb",
-  accent:"#8c7558",accentText:"#fff",text:"#2b2721",
-  muted:"#827a6f",border:"#e8dfd0",positive:"#56826a",
-  negative:"#af625d",nav:"#fffdf8"
- },
-
- mocha:{
-  name:"Mocha",bg:"#f4ede7",card:"#fffaf6",card2:"#eaded4",
-  accent:"#86634b",accentText:"#fff",text:"#30261f",
-  muted:"#806f63",border:"#dfd2c7",positive:"#5e836c",
-  negative:"#ae625c",nav:"#fffaf6"
- },
-
- neutral:{
-  name:"Neutral",bg:"#f5f6f8",card:"#fff",card2:"#eef0f3",
-  accent:"#555f6b",accentText:"#fff",text:"#17191e",
-  muted:"#7b818c",border:"#e1e3e8",positive:"#4f8b70",
-  negative:"#b75e64",nav:"#fff"
- },
-
- midnight:{
-  name:"Midnight",bg:"#0f141d",card:"#19202b",card2:"#232c39",
-  accent:"#84a9ff",accentText:"#101725",text:"#f6f7fa",
-  muted:"#a7b0bd",border:"#303a47",positive:"#72c59c",
-  negative:"#ed898f",nav:"#171e28"
- }
-
-};
+ removeOldTitleSettings();
+}
 
 function applyTheme(themeName){
 
- const theme=themes[themeName]||themes.sage;
+ const theme=themes[themeName] || themes.sage;
  const root=document.documentElement.style;
 
- const vars={
+ const values={
   "--bg":theme.bg,
   "--card":theme.card,
   "--card2":theme.card2,
@@ -1044,13 +1054,19 @@ function applyTheme(themeName){
   "--nav":theme.nav
  };
 
- Object.entries(vars).forEach(([k,v])=>root.setProperty(k,v));
+ Object.entries(values).forEach(([key,value])=>{
+  root.setProperty(key,value);
+ });
 
  $("themeMeta").setAttribute("content",theme.bg);
 
- if($("themeSelect"))$("themeSelect").value=themeName;
- if($("themeName"))$("themeName").textContent=theme.name;
+ if($("themeSelect")){
+  $("themeSelect").value=themeName;
+ }
 
+ if($("themeName")){
+  $("themeName").textContent=theme.name;
+ }
 }
 
 function currency(){
@@ -1058,58 +1074,41 @@ function currency(){
 }
 
 function currencySymbol(){
- return currency()==="PHP"?"₱":"$";
+ return currency()==="PHP" ? "₱" : "$";
 }
 
-function money(n){
+function money(value){
 
- const c=currency();
+ const code=currency();
 
  const locale=
-  c==="PHP"
+  code==="PHP"
    ?"en-PH"
-   :c==="USD"
+   :code==="USD"
    ?"en-US"
    :"en-CA";
 
- return new Intl.NumberFormat(
-  locale,
-  {
-   style:"currency",
-   currency:c
-  }
- ).format(Number(n||0));
-
+ return new Intl.NumberFormat(locale,{
+  style:"currency",
+  currency:code
+ }).format(Number(value||0));
 }
 
-function esc(v){
-
- return String(v??"").replace(
-  /[&<>"']/g,
-  c=>({
-   "&":"&amp;",
-   "<":"&lt;",
-   ">":"&gt;",
-   '"':"&quot;",
-   "'":"&#39;"
-  }[c])
- );
-
+function esc(value){
+ return String(value??"").replace(/[&<>"']/g,char=>({
+  "&":"&amp;",
+  "<":"&lt;",
+  ">":"&gt;",
+  '"':"&quot;",
+  "'":"&#39;"
+ }[char]));
 }
-
-/* SAVINGS TRACKER IS PERMANENTLY LOCKED */
 
 function applySettings(){
 
+ lockAppTitle();
+
  const profile=getSetting("profile");
-
- document.title="Savings Tracker";
-
- document
-  .querySelectorAll(".app-title")
-  .forEach(x=>{
-   x.textContent="Savings Tracker";
-  });
 
  if($("homeProfile")){
   $("homeProfile").textContent=profile;
@@ -1129,60 +1128,43 @@ function applySettings(){
 
  applyTheme(getSetting("theme"));
 
- if(T.length)render();
-
+ if(T.length){
+  render();
+ }
 }
 
-/* ONLY PROFILE NAME CAN CHANGE */
-
-$("saveNames").onclick=()=>{
+$("saveProfile").onclick=()=>{
 
  if(isViewer)return;
 
  const profile=$("profileInput").value.trim();
 
  if(!profile){
-
-  $("nameMsg").className="msg error";
-  $("nameMsg").textContent="Enter a profile name.";
-
+  $("profileMsg").className="msg error";
+  $("profileMsg").textContent="Enter a profile name.";
   return;
-
  }
 
  saveSetting("profile",profile);
 
  applySettings();
 
- $("nameMsg").className="msg success";
- $("nameMsg").textContent="Profile name saved ✓";
+ $("profileMsg").className="msg success";
+ $("profileMsg").textContent="Profile name saved ✓";
 
  setTimeout(()=>{
-  $("nameMsg").textContent="";
+  $("profileMsg").textContent="";
  },1500);
-
 };
 
 $("themeSelect").onchange=()=>{
-
- saveSetting(
-  "theme",
-  $("themeSelect").value
- );
-
+ saveSetting("theme",$("themeSelect").value);
  applySettings();
-
 };
 
 $("currencySelect").onchange=()=>{
-
- saveSetting(
-  "currency",
-  $("currencySelect").value
- );
-
+ saveSetting("currency",$("currencySelect").value);
  applySettings();
-
 };
 
 const moneyInDescriptions=[
@@ -1247,32 +1229,23 @@ const moneyOutCategories=[
 ];
 
 function fillSelect(element,options){
-
- element.innerHTML=
-  options
-   .map(
-    x=>`<option value="${esc(x)}">${esc(x)}</option>`
-   )
-   .join("");
-
+ element.innerHTML=options
+  .map(option=>`<option value="${esc(option)}">${esc(option)}</option>`)
+  .join("");
 }
 
 function updateTransactionOptions(){
 
- const isIn=$("typ").value==="Money In";
+ const isMoneyIn=$("typ").value==="Money In";
 
  fillSelect(
   $("desSelect"),
-  isIn
-   ?moneyInDescriptions
-   :moneyOutDescriptions
+  isMoneyIn ? moneyInDescriptions : moneyOutDescriptions
  );
 
  fillSelect(
   $("catSelect"),
-  isIn
-   ?moneyInCategories
-   :moneyOutCategories
+  isMoneyIn ? moneyInCategories : moneyOutCategories
  );
 
  $("desOther").style.display="none";
@@ -1280,27 +1253,22 @@ function updateTransactionOptions(){
 
  $("desOther").value="";
  $("catOther").value="";
-
 }
 
 $("typ").onchange=updateTransactionOptions;
 
 $("desSelect").onchange=()=>{
-
  $("desOther").style.display=
   $("desSelect").value==="Other"
    ?"block"
    :"none";
-
 };
 
 $("catSelect").onchange=()=>{
-
  $("catOther").style.display=
   $("catSelect").value==="Other"
    ?"block"
    :"none";
-
 };
 
 function showLogin(){
@@ -1313,7 +1281,6 @@ function showLogin(){
  $("nav").style.display="none";
 
  applySettings();
-
 }
 
 function showReset(){
@@ -1324,7 +1291,6 @@ function showReset(){
  $("resetPage").style.display="block";
 
  applySettings();
-
 }
 
 function showApp(){
@@ -1339,123 +1305,109 @@ function showApp(){
  $("app").style.display="block";
  $("nav").style.display="grid";
 
- $("accountEmail").textContent=
-  user?.email||"";
+ $("accountEmail").textContent=user?.email || "";
 
+ removeOldTitleSettings();
  applySettings();
  applyRoleUI();
-
 }
 
 function applyRoleUI(){
 
  $("viewerBanner").style.display=
-  isViewer?"block":"none";
+  isViewer ? "block" : "none";
 
  $("transactionFormCard").style.display=
-  isViewer?"none":"block";
+  isViewer ? "none" : "block";
 
  $("viewerSettings").style.display=
-  isViewer?"none":"block";
+  isViewer ? "none" : "block";
 
  $("namesCard").style.display=
-  isViewer?"none":"block";
+  isViewer ? "none" : "block";
 
  if(isViewer){
   $("homeProfile").textContent="Shared Savings";
  }
-
 }
 
-function totals(a=T){
+function totals(items=T){
 
- let i=0;
- let o=0;
+ let moneyIn=0;
+ let moneyOut=0;
 
- a.forEach(x=>{
-
-  if(x.transaction_type==="Money In"){
-   i+=Number(x.amount);
+ items.forEach(item=>{
+  if(item.transaction_type==="Money In"){
+   moneyIn+=Number(item.amount);
   }else{
-   o+=Number(x.amount);
+   moneyOut+=Number(item.amount);
   }
-
  });
 
  return{
-  i,
-  o,
-  n:i-o
+  i:moneyIn,
+  o:moneyOut,
+  n:moneyIn-moneyOut
  };
-
 }
 
-function transactionIcon(x){
+function transactionIcon(transaction){
 
- const c=
-  String(x.category||"").toLowerCase();
+ const category=
+  String(transaction.category||"").toLowerCase();
 
- const d=
-  String(x.description||"").toLowerCase();
+ const description=
+  String(transaction.description||"").toLowerCase();
 
- if(x.transaction_type==="Money In")return "↓";
+ if(transaction.transaction_type==="Money In")return "↓";
 
  if(
-  c.includes("food")||
-  c.includes("dining")||
-  c.includes("grocer")
+  category.includes("food") ||
+  category.includes("dining") ||
+  category.includes("grocer")
  )return "🍽";
 
  if(
-  c.includes("travel")||
-  c.includes("transport")
+  category.includes("travel") ||
+  category.includes("transport")
  )return "✈️";
 
  if(
-  c.includes("shopping")||
-  d.includes("shopping")
+  category.includes("shopping") ||
+  description.includes("shopping")
  )return "🛍";
 
- if(c.includes("baby"))return "🍼";
- if(c.includes("health"))return "♡";
- if(c.includes("beauty"))return "✨";
+ if(category.includes("baby"))return "🍼";
+ if(category.includes("health"))return "♡";
+ if(category.includes("beauty"))return "✨";
 
  if(
-  c.includes("poker")||
-  d.includes("casino")
+  category.includes("poker") ||
+  description.includes("casino")
  )return "♠";
 
- if(c.includes("housing"))return "⌂";
+ if(category.includes("housing"))return "⌂";
 
  return "↑";
-
 }
 
-function txrow(x){
+function txrow(transaction){
 
- const actions=
-  isViewer
-   ?""
-   :`
+ const actions=isViewer
+  ?""
+  :`
    <div class="tx-actions">
-
-    <button
-     class="edit-btn"
-     type="button"
-     onclick="editTransaction('${esc(x.id)}')"
-    >
+    <button class="edit-btn" type="button"
+     onclick="editTransaction('${esc(transaction.id)}')">
      Edit
     </button>
 
-    <button
-     class="delete-btn"
-     type="button"
-     onclick="deleteTransaction('${esc(x.id)}')"
-    >
+    <button class="delete-btn" type="button"
+     onclick="deleteTransaction('${esc(transaction.id)}')">
      Delete
     </button>
-
-   </div>`;
+   </div>
+  `;
 
  return `
  <div class="tx">
@@ -1465,18 +1417,18 @@ function txrow(x){
    <div class="tx-left">
 
     <div class="tx-icon">
-     ${transactionIcon(x)}
+     ${transactionIcon(transaction)}
     </div>
 
     <div class="tx-info">
 
      <div class="name">
-      ${esc(x.description)}
+      ${esc(transaction.description)}
      </div>
 
      <div class="meta">
-      ${esc(x.transaction_date)}
-      ${x.category?" · "+esc(x.category):""}
+      ${esc(transaction.transaction_date)}
+      ${transaction.category ? " · "+esc(transaction.category) : ""}
      </div>
 
     </div>
@@ -1484,17 +1436,15 @@ function txrow(x){
    </div>
 
    <div class="amt ${
-    x.transaction_type==="Money In"
+    transaction.transaction_type==="Money In"
      ?"green"
      :"red"
    }">
-
     ${
-     x.transaction_type==="Money In"
+     transaction.transaction_type==="Money In"
       ?"+"
       :"−"
-    }${money(x.amount)}
-
+    }${money(transaction.amount)}
    </div>
 
   </div>
@@ -1502,138 +1452,109 @@ function txrow(x){
   ${actions}
 
  </div>`;
-
 }
 
-function summary(t){
+function summary(total){
 
  return `
-
  <h2>Summary</h2>
 
  <div class="stats">
 
   <div class="card stat-card">
    <div class="label">Money in</div>
-   <div class="value green">${money(t.i)}</div>
+   <div class="value green">${money(total.i)}</div>
   </div>
 
   <div class="card stat-card">
    <div class="label">Money out</div>
-   <div class="value red">${money(t.o)}</div>
+   <div class="value red">${money(total.o)}</div>
   </div>
 
  </div>
 
  <div style="margin-top:18px">
   <div class="label">Net change</div>
-  <div class="value">${money(t.n)}</div>
- </div>
-
- `;
-
+  <div class="value">${money(total.n)}</div>
+ </div>`;
 }
 
 function filteredTransactions(){
 
- const q=
-  $("searchTx")
-   .value
-   .trim()
-   .toLowerCase();
+ const query=$("searchTx").value.trim().toLowerCase();
 
- return T.filter(x=>{
+ return T.filter(transaction=>{
 
   const matchesFilter=
-   currentFilter==="All"||
-   x.transaction_type===currentFilter;
+   currentFilter==="All" ||
+   transaction.transaction_type===currentFilter;
 
-  const haystack=[
-   x.description,
-   x.category,
-   x.notes,
-   x.transaction_date
+  const searchable=[
+   transaction.description,
+   transaction.category,
+   transaction.notes,
+   transaction.transaction_date
   ]
   .join(" ")
   .toLowerCase();
 
-  return matchesFilter&&(
-   !q||
-   haystack.includes(q)
+  return matchesFilter && (
+   !query ||
+   searchable.includes(query)
   );
-
  });
-
 }
 
 function renderAll(){
 
- const s=
-  filteredTransactions()
-   .sort(
-    (a,b)=>
-     b.transaction_date.localeCompare(
-      a.transaction_date
-     )
-   );
+ const transactions=filteredTransactions()
+  .sort((a,b)=>
+   b.transaction_date.localeCompare(a.transaction_date)
+  );
 
- $("all").innerHTML=
-  s.length
-   ?s.map(txrow).join("")
-   :'<div class="empty">No matching transactions.</div>';
-
+ $("all").innerHTML=transactions.length
+  ?transactions.map(txrow).join("")
+  :'<div class="empty">No matching transactions.</div>';
 }
 
 $("searchTx").oninput=renderAll;
 
-document
- .querySelectorAll(".filter-btn")
- .forEach(b=>{
+document.querySelectorAll(".filter-btn").forEach(button=>{
 
-  b.onclick=()=>{
+ button.onclick=()=>{
 
-   currentFilter=b.dataset.filter;
+  currentFilter=button.dataset.filter;
 
-   document
-    .querySelectorAll(".filter-btn")
-    .forEach(
-     x=>x.classList.remove("active-filter")
-    );
+  document.querySelectorAll(".filter-btn").forEach(item=>{
+   item.classList.remove("active-filter");
+  });
 
-   b.classList.add("active-filter");
+  button.classList.add("active-filter");
 
-   renderAll();
-
-  };
-
- });
+  renderAll();
+ };
+});
 
 function render(){
 
- const t=totals();
+ const total=totals();
 
- const s=
-  [...T].sort(
-   (a,b)=>
-    b.transaction_date.localeCompare(
-     a.transaction_date
-    )
-  );
+ const transactions=[...T].sort((a,b)=>
+  b.transaction_date.localeCompare(a.transaction_date)
+ );
 
- $("bal").textContent=money(t.n);
- $("net").textContent=money(t.n);
- $("mi").textContent=money(t.i);
- $("mo").textContent=money(t.o);
+ $("bal").textContent=money(total.n);
+ $("net").textContent=money(total.n);
+ $("mi").textContent=money(total.i);
+ $("mo").textContent=money(total.o);
 
- $("recent").innerHTML=
-  s.length
-   ?s.slice(0,5).map(txrow).join("")
-   :'<div class="empty">No transactions yet.</div>';
+ $("recent").innerHTML=transactions.length
+  ?transactions.slice(0,5).map(txrow).join("")
+  :'<div class="empty">No transactions yet.</div>';
 
  renderAll();
  renderMonth();
  renderYear();
-
 }
 
 async function determineAccess(){
@@ -1641,24 +1562,20 @@ async function determineAccess(){
  isViewer=false;
  ownerId=user.id;
 
- const r=
-  await sb
-   .from("ledger_access")
-   .select("owner_user_id,viewer_user_id,role")
-   .eq("viewer_user_id",user.id)
-   .limit(1);
+ const result=await sb
+  .from("ledger_access")
+  .select("owner_user_id,viewer_user_id,role")
+  .eq("viewer_user_id",user.id)
+  .limit(1);
 
  if(
-  !r.error&&
-  r.data&&
-  r.data.length
+  !result.error &&
+  result.data &&
+  result.data.length
  ){
-
   isViewer=true;
-  ownerId=r.data[0].owner_user_id;
-
+  ownerId=result.data[0].owner_user_id;
  }
-
 }
 
 async function load(){
@@ -1669,28 +1586,21 @@ async function load(){
 
  applyRoleUI();
 
- const r=
-  await sb
-   .from("transactions")
-   .select("*")
-   .eq("user_id",ownerId)
-   .order(
-    "transaction_date",
-    {ascending:false}
-   );
+ const result=await sb
+  .from("transactions")
+  .select("*")
+  .eq("user_id",ownerId)
+  .order("transaction_date",{ascending:false});
 
- if(r.error){
-
+ if(result.error){
   alert(
    "Transactions could not load: "+
-   r.error.message
+   result.error.message
   );
-
   return;
-
  }
 
- T=r.data||[];
+ T=result.data || [];
 
  populateYears();
  render();
@@ -1700,74 +1610,67 @@ async function load(){
  if(!isViewer){
   await loadViewers();
  }
-
 }
 
-window.editTransaction=
-function(id){
+window.editTransaction=function(id){
 
  if(isViewer)return;
 
- const x=
-  T.find(
-   t=>String(t.id)===String(id)
-  );
+ const transaction=T.find(item=>
+  String(item.id)===String(id)
+ );
 
- if(!x)return;
+ if(!transaction)return;
 
- editingId=x.id;
+ editingId=transaction.id;
 
- $("typ").value=x.transaction_type;
+ $("typ").value=transaction.transaction_type;
 
  updateTransactionOptions();
 
- $("amt").value=x.amount;
+ $("amt").value=transaction.amount;
 
  const descriptions=
-  x.transaction_type==="Money In"
+  transaction.transaction_type==="Money In"
    ?moneyInDescriptions
    :moneyOutDescriptions;
 
- if(descriptions.includes(x.description)){
+ if(descriptions.includes(transaction.description)){
 
-  $("desSelect").value=x.description;
+  $("desSelect").value=transaction.description;
   $("desOther").style.display="none";
 
  }else{
 
   $("desSelect").value="Other";
   $("desOther").style.display="block";
-  $("desOther").value=x.description||"";
-
+  $("desOther").value=transaction.description || "";
  }
 
  const categories=
-  x.transaction_type==="Money In"
+  transaction.transaction_type==="Money In"
    ?moneyInCategories
    :moneyOutCategories;
 
  if(
-  x.category&&
-  categories.includes(x.category)
+  transaction.category &&
+  categories.includes(transaction.category)
  ){
 
-  $("catSelect").value=x.category;
+  $("catSelect").value=transaction.category;
   $("catOther").style.display="none";
 
- }else if(x.category){
+ }else if(transaction.category){
 
   $("catSelect").value="Other";
   $("catOther").style.display="block";
-  $("catOther").value=x.category;
-
+  $("catOther").value=transaction.category;
  }
 
- $("dat").value=x.transaction_date;
- $("notes").value=x.notes||"";
+ $("dat").value=transaction.transaction_date;
+ $("notes").value=transaction.notes || "";
 
- $("submitTransaction").textContent=
-  "Save Changes";
-
+ $("submitTransaction").textContent="Save Changes";
  $("editBanner").style.display="block";
  $("cancelEdit").style.display="block";
 
@@ -1777,7 +1680,6 @@ function(id){
   top:0,
   behavior:"smooth"
  });
-
 };
 
 function cancelEditing(){
@@ -1790,232 +1692,201 @@ function cancelEditing(){
 
  updateTransactionOptions();
 
- $("dat").value=
-  localDateString();
+ $("dat").value=localDateString();
 
- $("submitTransaction").textContent=
-  "＋ Add Transaction";
-
+ $("submitTransaction").textContent="＋ Add Transaction";
  $("editBanner").style.display="none";
  $("cancelEdit").style.display="none";
-
 }
 
-$("cancelEdit").onclick=
- cancelEditing;
+$("cancelEdit").onclick=cancelEditing;
 
-/* PASSWORD REQUIRED BEFORE DELETE */
+/* SECURE PASSWORD DELETE MODAL */
 
-window.deleteTransaction=
-async function(id){
+window.deleteTransaction=function(id){
 
  if(isViewer)return;
 
- const x=
-  T.find(
-   t=>String(t.id)===String(id)
-  );
+ const transaction=T.find(item=>
+  String(item.id)===String(id)
+ );
 
- if(!x)return;
+ if(!transaction)return;
 
- const yes=
-  confirm(
-   'Delete "'+
-   x.description+
-   '" for '+
-   money(x.amount)+
-   "?\n\nYou will need your password to confirm."
-  );
+ pendingDeleteId=transaction.id;
 
- if(!yes)return;
+ $("deleteDescription").textContent=
+  `Enter your password to delete "${transaction.description}" for ${money(transaction.amount)}.`;
 
- const password=
-  prompt(
-   "🔐 Enter your Savings Tracker password to delete this transaction:"
-  );
+ $("deletePassword").value="";
+ $("deleteMsg").textContent="";
 
- if(password===null)return;
+ $("deleteModal").classList.add("show");
+
+ setTimeout(()=>{
+  $("deletePassword").focus();
+ },100);
+};
+
+function closeDeleteModal(){
+
+ pendingDeleteId=null;
+
+ $("deletePassword").value="";
+ $("deleteMsg").textContent="";
+ $("deleteModal").classList.remove("show");
+}
+
+$("cancelDelete").onclick=closeDeleteModal;
+
+$("confirmDelete").onclick=async()=>{
+
+ if(!pendingDeleteId || isViewer)return;
+
+ const password=$("deletePassword").value;
 
  if(!password){
-
-  alert(
-   "Password is required. Nothing was deleted."
-  );
-
+  $("deleteMsg").textContent="Enter your password.";
   return;
-
  }
 
- const verify=
-  await sb.auth
-   .signInWithPassword({
-    email:user.email,
-    password
-   });
+ $("confirmDelete").disabled=true;
+ $("confirmDelete").textContent="Checking…";
+ $("deleteMsg").textContent="";
 
- if(verify.error){
+ const verification=await sb.auth.signInWithPassword({
+  email:user.email,
+  password
+ });
 
-  alert(
-   "Incorrect password. Transaction was NOT deleted."
-  );
+ if(verification.error){
 
-  return;
-
- }
-
- const r=
-  await sb
-   .from("transactions")
-   .delete()
-   .eq("id",x.id)
-   .eq("user_id",user.id);
-
- if(r.error){
-
-  alert(
-   "Transaction could not be deleted: "+
-   r.error.message
-  );
+  $("confirmDelete").disabled=false;
+  $("confirmDelete").textContent="Delete";
+  $("deleteMsg").textContent="Incorrect password. Nothing was deleted.";
 
   return;
-
  }
 
- if(
-  String(editingId)===
-  String(x.id)
- ){
+ const id=pendingDeleteId;
+
+ const result=await sb
+  .from("transactions")
+  .delete()
+  .eq("id",id)
+  .eq("user_id",user.id);
+
+ $("confirmDelete").disabled=false;
+ $("confirmDelete").textContent="Delete";
+
+ if(result.error){
+  $("deleteMsg").textContent=
+   "Could not delete: "+result.error.message;
+  return;
+ }
+
+ if(String(editingId)===String(id)){
   cancelEditing();
  }
 
- alert(
-  "Transaction deleted. It is still recorded in History."
- );
+ closeDeleteModal();
 
  await load();
 
+ alert(
+  "Transaction deleted. It is still saved in History."
+ );
 };
 
-$("form").onsubmit=
-async e=>{
+$("deletePassword").addEventListener("keydown",event=>{
+ if(event.key==="Enter"){
+  event.preventDefault();
+  $("confirmDelete").click();
+ }
+});
 
- e.preventDefault();
+$("form").onsubmit=async event=>{
+
+ event.preventDefault();
 
  if(isViewer){
-
-  alert(
-   "View-only accounts cannot change transactions."
-  );
-
+  alert("View-only accounts cannot change transactions.");
   return;
-
  }
 
  if(!user){
-
   alert("Please sign in again.");
   return;
-
  }
 
- const amount=
-  Number($("amt").value);
+ const amount=Number($("amt").value);
 
  if(
-  !Number.isFinite(amount)||
+  !Number.isFinite(amount) ||
   amount<=0
  ){
-
   alert("Enter a valid amount.");
   return;
-
  }
 
- let description=
-  $("desSelect").value;
+ let description=$("desSelect").value;
 
  if(description==="Other"){
-
-  description=
-   $("desOther").value.trim();
-
+  description=$("desOther").value.trim();
  }
 
  if(!description){
-
   alert("Enter a description.");
   return;
-
  }
 
- let category=
-  $("catSelect").value;
+ let category=$("catSelect").value;
 
  if(category==="Other"){
-
-  category=
-   $("catOther").value.trim();
-
+  category=$("catOther").value.trim();
  }
 
  const values={
-
   user_id:user.id,
-
-  transaction_date:
-   $("dat").value,
-
+  transaction_date:$("dat").value,
   description,
-
-  transaction_type:
-   $("typ").value,
-
+  transaction_type:$("typ").value,
   amount,
-
-  category:
-   category||null,
-
-  notes:
-   $("notes").value.trim()||null
-
+  category:category || null,
+  notes:$("notes").value.trim() || null
  };
 
- let r;
+ let result;
 
  if(editingId){
 
-  r=
-   await sb
-    .from("transactions")
-    .update(values)
-    .eq("id",editingId)
-    .eq("user_id",user.id);
+  result=await sb
+   .from("transactions")
+   .update(values)
+   .eq("id",editingId)
+   .eq("user_id",user.id);
 
  }else{
 
-  r=
-   await sb
-    .from("transactions")
-    .insert(values);
-
+  result=await sb
+   .from("transactions")
+   .insert(values);
  }
 
- if(r.error){
+ if(result.error){
 
   alert(
    editingId
-    ?"Changes could not be saved: "+r.error.message
-    :"Transaction could not be saved: "+r.error.message
+    ?"Changes could not be saved: "+result.error.message
+    :"Transaction could not be saved: "+result.error.message
   );
 
   return;
-
  }
 
  cancelEditing();
 
  await load();
-
 };
 
 /* HISTORY */
@@ -2024,30 +1895,24 @@ async function loadHistory(){
 
  if(!ownerId)return;
 
- const r=
-  await sb
-   .from("transaction_history")
-   .select("*")
-   .eq("owner_user_id",ownerId)
-   .order(
-    "created_at",
-    {ascending:false}
-   )
-   .limit(200);
+ const result=await sb
+  .from("transaction_history")
+  .select("*")
+  .eq("owner_user_id",ownerId)
+  .order("created_at",{ascending:false})
+  .limit(200);
 
- if(r.error){
+ if(result.error){
 
   $("historyList").innerHTML=
-   '<div class="empty">History could not load.</div>';
+   `<div class="empty">History could not load: ${esc(result.error.message)}</div>`;
 
   return;
-
  }
 
- H=r.data||[];
+ H=result.data || [];
 
  renderHistory();
-
 }
 
 function renderHistory(){
@@ -2058,178 +1923,129 @@ function renderHistory(){
    '<div class="empty">No history yet. New changes will appear here.</div>';
 
   return;
-
  }
 
- $("historyList").innerHTML=
-  H.map(h=>{
+ $("historyList").innerHTML=H.map(item=>{
 
-   const when=
-    new Date(
-     h.created_at
-    ).toLocaleString();
+  const when=new Date(item.created_at).toLocaleString();
 
-   const actionIcon=
-    h.action==="ADDED"
-     ?"＋"
-     :h.action==="EDITED"
-     ?"✏️"
-     :"🗑️";
+  const actionIcon=
+   item.action==="ADDED"
+    ?"＋"
+    :item.action==="EDITED"
+    ?"✏️"
+    :"🗑️";
 
-   return `
+  return `
+  <div class="history-item">
 
-   <div class="history-item">
+   <div class="history-top">
 
-    <div class="history-top">
+    <span class="history-action">
+     ${actionIcon} ${esc(item.action)}
+    </span>
 
-     <span class="history-action">
-      ${actionIcon} ${esc(h.action)}
-     </span>
-
-     <span class="meta">
-      ${esc(when)}
-     </span>
-
-    </div>
-
-    <div class="history-name">
-     ${esc(h.description||"Transaction")}
-    </div>
-
-    <div class="history-amount">
-     ${
-      h.transaction_type==="Money In"
-       ?"+"
-       :"−"
-     }${money(h.amount)}
-    </div>
-
-    <div class="meta">
-     ${esc(h.transaction_date||"")}
-     ${
-      h.category
-       ?" · "+esc(h.category)
-       :""
-     }
-    </div>
+    <span class="meta">
+     ${esc(when)}
+    </span>
 
    </div>
 
-   `;
+   <div class="history-name">
+    ${esc(item.description || "Transaction")}
+   </div>
 
-  }).join("");
+   <div class="history-amount">
+    ${
+     item.transaction_type==="Money In"
+      ?"+"
+      :"−"
+    }${money(item.amount)}
+   </div>
 
+   <div class="meta">
+    ${esc(item.transaction_date || "")}
+    ${item.category ? " · "+esc(item.category) : ""}
+   </div>
+
+  </div>`;
+ }).join("");
 }
 
-/* VIEWERS */
+/* VIEWER ACCESS */
 
-$("addViewer").onclick=
-async()=>{
+$("addViewer").onclick=async()=>{
 
  if(isViewer)return;
 
- const email=
-  $("viewerEmail")
-   .value
-   .trim();
+ const email=$("viewerEmail").value.trim();
 
  $("viewerMsg").textContent="";
  $("viewerMsg").className="msg";
 
  if(!email){
 
-  $("viewerMsg").className=
-   "msg error";
-
-  $("viewerMsg").textContent=
-   "Enter the viewer's email.";
+  $("viewerMsg").className="msg error";
+  $("viewerMsg").textContent="Enter the viewer's email.";
 
   return;
-
  }
 
  $("addViewer").disabled=true;
  $("addViewer").textContent="Adding…";
 
- const r=
-  await sb.rpc(
-   "add_viewer_by_email",
-   {
-    viewer_email:email
-   }
-  );
+ const result=await sb.rpc(
+  "add_viewer_by_email",
+  {viewer_email:email}
+ );
 
  $("addViewer").disabled=false;
- $("addViewer").textContent=
-  "Add Viewer";
+ $("addViewer").textContent="Add Viewer";
 
- if(r.error){
+ if(result.error){
 
-  $("viewerMsg").className=
-   "msg error";
+  $("viewerMsg").className="msg error";
 
-  if(
-   r.error.message.includes(
-    "No account found"
-   )
-  ){
+  if(result.error.message.includes("No account found")){
 
    $("viewerMsg").textContent=
     "That email does not have a Savings Tracker login yet.";
 
   }else{
 
-   $("viewerMsg").textContent=
-    r.error.message;
-
+   $("viewerMsg").textContent=result.error.message;
   }
 
   return;
-
  }
 
  $("viewerEmail").value="";
 
- $("viewerMsg").className=
-  "msg success";
-
- $("viewerMsg").textContent=
-  "Viewer added ✓";
+ $("viewerMsg").className="msg success";
+ $("viewerMsg").textContent="Viewer added ✓";
 
  await loadViewers();
-
 };
 
 async function loadViewers(){
 
- if(!user||isViewer)return;
+ if(!user || isViewer)return;
 
- const r=
-  await sb
-   .from("ledger_access")
-   .select(
-    "id,viewer_user_id,role,created_at"
-   )
-   .eq(
-    "owner_user_id",
-    user.id
-   )
-   .order(
-    "created_at",
-    {ascending:false}
-   );
+ const result=await sb
+  .from("ledger_access")
+  .select("id,viewer_user_id,role,created_at")
+  .eq("owner_user_id",user.id)
+  .order("created_at",{ascending:false});
 
- if(r.error){
+ if(result.error){
 
   $("viewerList").innerHTML=
-   '<div class="empty">Could not load viewers.</div>';
+   `<div class="empty">Could not load viewers: ${esc(result.error.message)}</div>`;
 
   return;
-
  }
 
- const viewers=
-  r.data||[];
+ const viewers=result.data || [];
 
  if(!viewers.length){
 
@@ -2237,476 +2053,338 @@ async function loadViewers(){
    '<div class="empty">No viewers yet.</div>';
 
   return;
-
  }
 
- $("viewerList").innerHTML=
-  viewers.map(
-   (v,i)=>`
+ $("viewerList").innerHTML=viewers.map((viewer,index)=>`
+  <div class="viewer-row">
 
-   <div class="viewer-row">
-
-    <div>
-
-     <div class="viewer-email">
-      Viewer ${i+1}
-     </div>
-
-     <div class="viewer-role">
-      👁️ View only
-     </div>
-
-    </div>
-
-    <button
-     type="button"
-     onclick="removeViewer('${esc(v.id)}')"
-    >
-     Remove
-    </button>
-
+   <div>
+    <div class="viewer-email">Viewer ${index+1}</div>
+    <div class="viewer-role">👁️ View only</div>
    </div>
 
-   `
-  ).join("");
+   <button
+    type="button"
+    onclick="removeViewer('${esc(viewer.id)}')">
+    Remove
+   </button>
 
+  </div>
+ `).join("");
 }
 
-window.removeViewer=
-async function(id){
+window.removeViewer=async function(id){
 
  if(isViewer)return;
 
- if(
-  !confirm(
-   "Remove this viewer's access?"
-  )
- )return;
+ if(!confirm("Remove this viewer's access?"))return;
 
- const r=
-  await sb
-   .from("ledger_access")
-   .delete()
-   .eq("id",id)
-   .eq(
-    "owner_user_id",
-    user.id
-   );
+ const result=await sb
+  .from("ledger_access")
+  .delete()
+  .eq("id",id)
+  .eq("owner_user_id",user.id);
 
- if(r.error){
+ if(result.error){
 
   alert(
    "Viewer could not be removed: "+
-   r.error.message
+   result.error.message
   );
 
   return;
-
  }
 
  await loadViewers();
-
 };
 
 /* MONTHLY */
 
 function renderMonth(){
 
- $("ms").innerHTML=
-  summary(
-   totals(
-    T.filter(
-     x=>
-      x.transaction_date.startsWith(
-       $("mp").value
-      )
+ $("ms").innerHTML=summary(
+  totals(
+   T.filter(transaction=>
+    transaction.transaction_date.startsWith(
+     $("mp").value
     )
    )
-  );
-
+  )
+ );
 }
 
 /* YEARLY */
 
 function renderYear(){
 
- $("ys").innerHTML=
-  summary(
-   totals(
-    T.filter(
-     x=>
-      x.transaction_date.startsWith(
-       $("yp").value+"-"
-      )
+ $("ys").innerHTML=summary(
+  totals(
+   T.filter(transaction=>
+    transaction.transaction_date.startsWith(
+     $("yp").value+"-"
     )
    )
-  );
-
+  )
+ );
 }
 
-/* YEARS 2020 - 2040 */
+/* YEARS THROUGH 2040 */
 
 function populateYears(){
 
- const current=
-  new Date().getFullYear();
+ const current=new Date().getFullYear();
+ const previous=$("yp").value;
 
- const previous=
-  $("yp").value;
-
- const txYears=
-  T
-   .map(
-    x=>
-     Number(
-      String(
-       x.transaction_date
-      ).slice(0,4)
-     )
+ const transactionYears=T
+  .map(transaction=>
+   Number(
+    String(transaction.transaction_date).slice(0,4)
    )
-   .filter(Number.isFinite);
+  )
+  .filter(Number.isFinite);
 
- const oldest=
-  txYears.length
-   ?Math.min(...txYears,2020)
-   :2020;
+ const oldest=transactionYears.length
+  ?Math.min(...transactionYears,2020)
+  :2020;
 
  $("yp").innerHTML="";
 
- for(
-  let y=2040;
-  y>=oldest;
-  y--
- ){
+ for(let year=2040;year>=oldest;year--){
 
-  const o=
-   document.createElement(
-    "option"
-   );
+  const option=document.createElement("option");
 
-  o.value=String(y);
-  o.textContent=String(y);
+  option.value=String(year);
+  option.textContent=String(year);
 
-  $("yp").appendChild(o);
-
+  $("yp").appendChild(option);
  }
 
  if(
-  previous&&
-  [...$("yp").options]
-   .some(
-    o=>o.value===previous
-   )
+  previous &&
+  [...$("yp").options].some(option=>
+   option.value===previous
+  )
  ){
-
   $("yp").value=previous;
-
  }else{
-
-  $("yp").value=
-   String(current);
-
+  $("yp").value=String(current);
  }
-
 }
 
 function localDateString(){
 
- const d=
-  new Date();
+ const date=new Date();
 
- const y=
-  d.getFullYear();
+ const year=date.getFullYear();
 
- const m=
-  String(
-   d.getMonth()+1
-  ).padStart(2,"0");
+ const month=String(
+  date.getMonth()+1
+ ).padStart(2,"0");
 
- const day=
-  String(
-   d.getDate()
-  ).padStart(2,"0");
+ const day=String(
+  date.getDate()
+ ).padStart(2,"0");
 
- return `${y}-${m}-${day}`;
-
+ return `${year}-${month}-${day}`;
 }
 
-const d=new Date();
+const now=new Date();
 
-$("dat").value=
- localDateString();
+$("dat").value=localDateString();
 
 $("mp").value=
- d.getFullYear()+
+ now.getFullYear()+
  "-"+
- String(
-  d.getMonth()+1
- ).padStart(2,"0");
+ String(now.getMonth()+1).padStart(2,"0");
 
 populateYears();
 
-$("yp").value=
- String(
-  d.getFullYear()
- );
+$("yp").value=String(now.getFullYear());
 
-$("mp").onchange=
- renderMonth;
-
-$("yp").onchange=
- renderYear;
+$("mp").onchange=renderMonth;
+$("yp").onchange=renderYear;
 
 /* SIGN IN */
 
-$("signin").onclick=
-async()=>{
+$("signin").onclick=async()=>{
 
- const e=
-  $("email").value.trim();
+ const email=$("email").value.trim();
+ const password=$("password").value;
 
- const p=
-  $("password").value;
-
- $("loginMsg").className=
-  "msg error";
-
+ $("loginMsg").className="msg error";
  $("loginMsg").textContent="";
 
- if(!e||!p){
+ if(!email || !password){
 
   $("loginMsg").textContent=
    "Enter your email and password.";
 
   return;
-
  }
 
  $("signin").disabled=true;
+ $("signin").textContent="Signing in…";
 
- $("signin").textContent=
-  "Signing in…";
-
- const r=
-  await sb.auth
-   .signInWithPassword({
-    email:e,
-    password:p
-   });
+ const result=await sb.auth.signInWithPassword({
+  email,
+  password
+ });
 
  $("signin").disabled=false;
+ $("signin").textContent="Sign in";
 
- $("signin").textContent=
-  "Sign in";
-
- if(r.error){
+ if(result.error){
 
   $("loginMsg").textContent=
    "Incorrect email or password.";
 
   return;
-
  }
 
- user=r.data.user;
+ user=result.data.user;
+
+ removeOldTitleSettings();
 
  await determineAccess();
 
  showApp();
 
  await load();
-
 };
 
 /* FORGOT PASSWORD */
 
-$("forgot").onclick=
-async()=>{
+$("forgot").onclick=async()=>{
 
- const e=
-  $("email").value.trim();
+ const email=$("email").value.trim();
 
- $("loginMsg").className=
-  "msg error";
-
+ $("loginMsg").className="msg error";
  $("loginMsg").textContent="";
 
- if(!e){
+ if(!email){
 
   $("loginMsg").textContent=
    "Enter your email first.";
 
   return;
-
  }
 
  $("forgot").disabled=true;
+ $("forgot").textContent="Sending reset email…";
 
- $("forgot").textContent=
-  "Sending reset email…";
-
- const r=
-  await sb.auth
-   .resetPasswordForEmail(
-    e,
-    {
-     redirectTo:
-      RECOVERY_URL
-    }
-   );
+ const result=await sb.auth.resetPasswordForEmail(
+  email,
+  {redirectTo:RECOVERY_URL}
+ );
 
  $("forgot").disabled=false;
+ $("forgot").textContent="Forgot password?";
 
- $("forgot").textContent=
-  "Forgot password?";
-
- if(r.error){
+ if(result.error){
 
   $("loginMsg").textContent=
    "Could not send reset email: "+
-   r.error.message;
+   result.error.message;
 
   return;
-
  }
 
- $("loginMsg").className=
-  "msg success";
-
+ $("loginMsg").className="msg success";
  $("loginMsg").textContent=
   "Password reset email sent. Check your inbox.";
-
 };
 
 /* RESET PASSWORD */
 
-$("savePassword").onclick=
-async()=>{
+$("savePassword").onclick=async()=>{
 
- const p=
-  $("newPassword").value;
+ const password=$("newPassword").value;
+ const confirmation=$("confirmPassword").value;
 
- const c=
-  $("confirmPassword").value;
-
- $("resetMsg").className=
-  "msg error";
-
+ $("resetMsg").className="msg error";
  $("resetMsg").textContent="";
 
- if(p.length<6){
+ if(password.length<6){
 
   $("resetMsg").textContent=
    "Password must be at least 6 characters.";
 
   return;
-
  }
 
- if(p!==c){
+ if(password!==confirmation){
 
   $("resetMsg").textContent=
    "Passwords do not match.";
 
   return;
-
  }
 
  $("savePassword").disabled=true;
+ $("savePassword").textContent="Saving…";
 
- $("savePassword").textContent=
-  "Saving…";
-
- const sessionResult=
-  await sb.auth
-   .getSession();
+ const sessionResult=await sb.auth.getSession();
 
  if(
-  sessionResult.error||
+  sessionResult.error ||
   !sessionResult.data.session
  ){
 
   $("savePassword").disabled=false;
-
-  $("savePassword").textContent=
-   "Save new password";
+  $("savePassword").textContent="Save new password";
 
   $("resetMsg").textContent=
    "This reset link is invalid or expired. Please request a new password reset email.";
 
   return;
-
  }
 
- const r=
-  await sb.auth
-   .updateUser({
-    password:p
-   });
+ const result=await sb.auth.updateUser({
+  password
+ });
 
- if(r.error){
+ if(result.error){
 
   $("savePassword").disabled=false;
-
-  $("savePassword").textContent=
-   "Save new password";
+  $("savePassword").textContent="Save new password";
 
   $("resetMsg").textContent=
    "Could not change password: "+
-   r.error.message;
+   result.error.message;
 
   return;
-
  }
 
- $("resetMsg").className=
-  "msg success";
-
+ $("resetMsg").className="msg success";
  $("resetMsg").textContent=
   "Password changed successfully! Returning to sign in…";
 
- setTimeout(
-  async()=>{
+ setTimeout(async()=>{
 
-   await sb.auth.signOut();
+  await sb.auth.signOut();
 
-   window.location.replace(
-    SITE_URL
-   );
+  window.location.replace(SITE_URL);
 
-  },
-  1500
- );
-
+ },1500);
 };
 
 async function signOut(){
 
  await sb.auth.signOut();
 
- window.location.replace(
-  SITE_URL
- );
-
+ window.location.replace(SITE_URL);
 }
 
-$("settingsLogout").onclick=
- signOut;
+$("settingsLogout").onclick=signOut;
 
 /* NAVIGATION */
 
-window.openView=
-function(id){
+window.openView=function(id){
 
  document
-  .querySelectorAll(
-   "nav button,.view"
-  )
-  .forEach(
-   x=>
-    x.classList.remove(
-     "active"
-    )
+  .querySelectorAll("nav button,.view")
+  .forEach(element=>
+   element.classList.remove("active")
   );
 
  const view=$(id);
@@ -2718,16 +2396,15 @@ function(id){
  let navId=id;
 
  if(
-  id==="history"||
+  id==="history" ||
   id==="settings"
  ){
   navId="more";
  }
 
- const button=
-  document.querySelector(
-   `nav button[data-v="${navId}"]`
-  );
+ const button=document.querySelector(
+  `nav button[data-v="${navId}"]`
+ );
 
  if(button){
   button.classList.add("active");
@@ -2738,65 +2415,53 @@ function(id){
  }
 
  if(
-  id==="settings"&&
+  id==="settings" &&
   !isViewer
  ){
   loadViewers();
  }
 
- window.scrollTo(0,0);
+ lockAppTitle();
 
+ window.scrollTo(0,0);
 };
 
-document
- .querySelectorAll(
-  "nav button"
- )
- .forEach(
-  b=>{
+document.querySelectorAll("nav button").forEach(button=>{
 
-   b.onclick=()=>{
-    openView(
-     b.dataset.v
-    );
-   };
-
-  }
- );
+ button.onclick=()=>{
+  openView(button.dataset.v);
+ };
+});
 
 /* AUTH */
 
-sb.auth.onAuthStateChange(
- (event,session)=>{
+sb.auth.onAuthStateChange((event,session)=>{
 
-  if(
-   event==="PASSWORD_RECOVERY"
-  ){
+ if(event==="PASSWORD_RECOVERY"){
 
-   showReset();
-   return;
+  showReset();
 
-  }
-
-  if(
-   event==="SIGNED_OUT"&&
-   !recoveryMode
-  ){
-
-   user=null;
-   ownerId=null;
-   isViewer=false;
-
-   showLogin();
-
-  }
-
+  return;
  }
-);
+
+ if(
+  event==="SIGNED_OUT" &&
+  !recoveryMode
+ ){
+
+  user=null;
+  ownerId=null;
+  isViewer=false;
+
+  showLogin();
+ }
+});
 
 /* START */
 
 (async()=>{
+
+ lockAppTitle();
 
  updateTransactionOptions();
 
@@ -2807,34 +2472,31 @@ sb.auth.onAuthStateChange(
  if(recoveryMode){
 
   showReset();
-  return;
 
+  return;
  }
 
  showLogin();
 
- const s=
-  await sb.auth
-   .getSession();
+ const sessionResult=await sb.auth.getSession();
 
  if(
-  s.data&&
-  s.data.session
+  sessionResult.data &&
+  sessionResult.data.session
  ){
 
-  user=
-   s.data.session.user;
+  user=sessionResult.data.session.user;
+
+  removeOldTitleSettings();
 
   await determineAccess();
 
   showApp();
 
   await load();
-
  }
 
 })();
-
 </script>
 
 </body>
